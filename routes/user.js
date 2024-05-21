@@ -17,7 +17,8 @@ passport.use(
     {
       clientID: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
-      callbackURL: "/user/oauth2/redirect/google",
+      callbackURL:
+        "https://experience-pakistan.onrender.com/user/oauth2/redirect/google",
       scope: ["profile", "email"],
     },
     async function (accessToken, profile, cb) {
