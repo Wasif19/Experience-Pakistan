@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Events Detail</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/selectedRestaurant.css" />
+    <link rel="stylesheet" href="/css/adminNavbar.css" />
+    <link rel="stylesheet" href="/css/adminPanel.css" />
+    <link rel="stylesheet" href="/css/adminEvent.css" />
+
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <section class="flex container flexStart">
+      <%- include('../includes/admin-nav.ejs') %>
+
+      <main class="dashboards">
+        <section class="restaurants">
+          <section class="restaurants-section-head">
+            <div class="restaurants-name flex-left gap">
+              <h1><%=Event.name%></h1>
+            </div>
+
+            <div class="restaurant-address padd flex-set">
+              <div class="address flex-left gap-small">
+                <!-- icon -->
+                <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                <p class="light"><%=Event.address%></p>
+              </div>
+
+              <div class="phone flex-left gap-small border">
+                <i class="fa-solid fa-phone" aria-hidden="true"></i>
+                <p class="light"><%=number%></p>
+              </div>
+
+              <div class="website flex-left gap-small border">
+                <i class="fa-solid fa-person" aria-hidden="true"></i>
+                <p class="light"><%=Event.OrganizerId.organizationName%></p>
+              </div>
+
+              <div class="timming flex-left gap-small border">
+                <i class="fa-solid fa-clock" aria-hidden="true"></i>
+                <p class="light"><%=Event.eventTime%></p>
+              </div>
+
+              <div class="timming flex-left gap-small border">
+                <i class="fa-solid fa-clock" aria-hidden="true"></i>
+                <p class="light">
+                  <%=Event.startDate.getDate() %>
+                  <%=helper.getMonthAbbreviation(Event.startDate.getMonth()+1)
+                  %> - <%=Event.endDate.getDate() %>
+                  <%=helper.getMonthAbbreviation(Event.endDate.getMonth()+1) %>
+                </p>
+              </div>
+              <!-- <div class="timming flex-left gap-small border">
+                <i class="fa-solid fa-ticket"></i>
+                <p class="light">PKR 1200</p>
+              </div> -->
+            </div>
+          </section>
+
+          <section class="selected">
+            <div class="event-img">
+              <img src="/<%= Event.imageUrl %>" alt="" />
+            </div>
+
+            <div class="wrapper event-info">
+              <div class="detail wrapper">
+                <div class="flex detail-head"><h2>Details</h2></div>
+
+                <div class="detail-body">
+                  <p><%=Event.description %></p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="mobile-app"></section>
+        </section>
+      </main>
+    </section>
+  </body>
+</html>

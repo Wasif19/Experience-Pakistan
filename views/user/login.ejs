@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SignIn</title>
+
+    <link rel="stylesheet" href="/css/userSignup.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <section class="top-CTA">
+      <p>
+        <i class="fa-solid fa-crown"></i> <a href="">Subscribe</a> to our
+        Newsletter to get latest updates on things to do in Pakistan!
+      </p>
+    </section>
+    <!-- ----------------- Header ---------------------- -->
+    <header class="flex gap">
+      <div class="flex flex-center">
+        <a href="\">
+          <img
+            class="header-logo tablet-logo"
+            src="/images/newlogo.png"
+            alt=""
+            hidden
+        /></a>
+      </div>
+      <nav class="primary-nav flex gap menu" style="left: -1500px">
+        <a href="\">
+          <img
+            class="header-logo laptop-logo"
+            src="/images/newlogo.png"
+            alt="Experience Pakistan Logo"
+        /></a>
+      </nav>
+
+      <div class="actionButtons menu-2">
+        <a class="actionButtons-1" href="/faqs">Need Help ? </a>
+      </div>
+    </header>
+    <!-- ----------------- Main Section ---------------------- -->
+    <main class="container flex signupForm">
+      <section class="main-right centers">
+        <h1>Sign In</h1>
+        <form action="/user/login" method="post">
+          <label for="email">Email</label>
+          <br />
+          <input
+            class="width margin"
+            type="email"
+            name="email"
+            id=""
+            placeholder="Enter your Email"
+            value="<%=oldInput.email%>"
+          />
+          <br />
+
+          <label for="password">Password</label><br />
+          <input
+            class="width margin"
+            type="password"
+            name="password"
+            id=""
+            placeholder="Password"
+          /><br />
+
+          <input class="submit-btn" type="submit" placeholder="Submit" />
+        </form>
+        <% if(errorMessage) {%>
+        <h4 class="errorMessage">
+          <i class="fa-solid fa-triangle-exclamation"></i> <%=errorMessage%>
+        </h4>
+        <%}%> <% if (wrongPass) { %>
+        <p><a href="/user/resetPassword">Forgot Password?</a></p>
+        <% } %>
+
+        <p class="Continue">Or continue with:</p>
+        <a
+          class="flex flex-centers gap-small google-btn"
+          href="/user/login/federated/google"
+        >
+          <svg
+            class="me-3"
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g clip-path="url(#clip0_1136_26851)">
+              <path
+                d="M23.766 12.2763C23.766 11.4605 23.6999 10.6404 23.5588 9.83789H12.24V14.4589H18.7217C18.4528 15.9492 17.5885 17.2676 16.323 18.1054V21.1037H20.19C22.4608 19.0137 23.766 15.9272 23.766 12.2763Z"
+                fill="#4285F4"
+              ></path>
+              <path
+                d="M12.24 24.0013C15.4764 24.0013 18.2058 22.9387 20.1944 21.1044L16.3274 18.106C15.2516 18.838 13.8626 19.2525 12.2444 19.2525C9.11376 19.2525 6.45934 17.1404 5.50693 14.3008H1.51648V17.3917C3.55359 21.4439 7.70278 24.0013 12.24 24.0013Z"
+                fill="#34A853"
+              ></path>
+              <path
+                d="M5.50253 14.3007C4.99987 12.8103 4.99987 11.1965 5.50253 9.70618V6.61523H1.51649C-0.18551 10.006 -0.18551 14.0009 1.51649 17.3916L5.50253 14.3007Z"
+                fill="#FBBC04"
+              ></path>
+              <path
+                d="M12.24 4.74966C13.9508 4.7232 15.6043 5.36697 16.8433 6.54867L20.2694 3.12262C18.1 1.0855 15.2207 -0.034466 12.24 0.000808666C7.70277 0.000808666 3.55359 2.55822 1.51648 6.61481L5.50252 9.70575C6.45052 6.86173 9.10935 4.74966 12.24 4.74966Z"
+                fill="#EA4335"
+              ></path>
+            </g>
+            <defs>
+              <clipPath id="clip0_1136_26851">
+                <rect width="24" height="24" fill="white"></rect>
+              </clipPath>
+            </defs>
+          </svg>
+          <span>Sign in with Google</span>
+        </a>
+        <p>Don't have an account? <a href="/user/signup">Sign Up</a></p>
+      </section>
+    </main>
+
+    <!-- ----------------- Scripts ---------------------- -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+
+    <script src="../scripts/menu.js"></script>
+  </body>
+</html>

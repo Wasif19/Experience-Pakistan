@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%=pageTitle %></title>
+
+    <link rel="stylesheet" href="/css/headerFooter.css" />
+    <link rel="stylesheet" href="css/artists.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  </head>
+  <body>
+    <!-- ----------------- Header ---------------------- -->
+    <%- include('../includes/header.ejs') %>
+    <!-- ----------------- Main Section ---------------------- -->
+    <main>
+      <div class="container">
+        <section class="artist-head">
+          <h1><%= heading %></h1>
+        </section>
+
+        <section class="artists-data flex container-small gap">
+          <% if (Artists.length !== 0) { %> <% for (let artist of Artists) { %>
+          <a href="/artist-details/<%= artist._id %>" class="artist-data-box">
+            <img src="<%= artist.imageUrl %>" alt="" />
+            <p><%= artist.name %></p>
+          </a>
+          <% } %> <% } else { %>
+          <h1>No Artists Found!</h1>
+          <img src="/images/undraw.png" alt="Artist Vector" />
+
+          <% } %>
+        </section>
+      </div>
+    </main>
+
+    <!-- ----------------- Call to Action Section ---------------------- -->
+
+    <%- include('../includes/newsletter.ejs') %>
+
+    <!-- ----------------- Footer Section ---------------------- -->
+
+    <%- include('../includes/footer.ejs') %>
+  </body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FAQs | Experience Pakistan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="/css/headerFooter.css" />
+    <link rel="stylesheet" href="/css/aboutUS.css" />
+    <link rel="stylesheet" href="/css/homeheader.css" />
+
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  </head>
+  <body>
+    <!-- ----------------- Header ---------------------- -->
+    <%- include('../includes/header.ejs') %>
+    <!-- ----------------- Hero Section ---------------------- -->
+
+    <main class="faq container wrapper">
+      <h1>Frequently Asked Questions</h1>
+      <div class="faq-container wrapper">
+        <div class="faq-item">
+          <h3 class="faq-question flex">
+            How do I find events on Experience Pakistan?
+            <i class="fa-solid fa-chevron-down"></i>
+          </h3>
+          <div class="faq-answer">
+            <p>
+              Finding events is easy! Our user-friendly Navigation bar allows
+              you to easily go to the Events page of Karachi, Lahore or
+              Islamabad. You can also browse through featured events or explore
+              different event categories to discover exciting new experiences.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h3 class="faq-question flex">
+            How do I buy Ticket for an event?
+            <i class="fa-solid fa-chevron-down"></i>
+          </h3>
+          <div class="faq-answer">
+            <p>
+              The Ticket purchasing process is simple and secure. Once you find
+              an event you're interested in, click the "Book Tickets" button and
+              follow the on-screen instructions. You might need to create an
+              account on Experience Pakistan if you haven't already.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h3 class="faq-question flex">
+            What happens after I buy Ticket for an event?
+            <i class="fa-solid fa-chevron-down"></i>
+          </h3>
+          <div class="faq-answer">
+            <p>
+              You'll receive a confirmation email with all the event details and
+              any further instructions from the event organizer. You can also
+              access your registration details and manage them through your
+              Experience Pakistan account.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h3 class="faq-question flex">
+            What types of payment methods are accepted for event Ticket booking?
+            <i class="fa-solid fa-chevron-down"></i>
+          </h3>
+          <div class="faq-answer">
+            <p>
+              The payment method accepted for event booking is Credit Card or
+              Debit Card using Stripe.
+            </p>
+          </div>
+        </div>
+
+        <!-- End -->
+      </div>
+    </main>
+
+    <!-- ----------------- Call to Action Section ---------------------- -->
+
+    <%- include('../includes/newsletter.ejs') %>
+
+    <!-- ----------------- Footer Section ---------------------- -->
+
+    <%- include('../includes/footer.ejs') %>
+
+    <script>
+      const faqItems = document.querySelectorAll(".faq-item");
+      const icon = document.getElementById("changeIcon");
+      faqItems.forEach((item) => {
+        item.addEventListener("click", function () {
+          item.classList.toggle("active");
+          const answer = item.querySelector(".faq-answer");
+          answer.classList.toggle("show");
+        });
+      });
+    </script>
+  </body>
+</html>

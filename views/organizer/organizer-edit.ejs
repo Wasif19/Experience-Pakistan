@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Organizer Edit Info</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="/css/organizersDashboard.css" />
+    <link rel="stylesheet" href="/css/signup.css" />
+
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <!-- ----------------- Header ---------------------- -->
+    <%- include('../includes/organizer-header.ejs') %>
+    <!-- ----------------- Hero Section ---------------------- -->
+    <main>
+      <div class="container">
+        <section class="organizer">
+          <h1>Edit Detail</h1>
+        </section>
+
+        <p class="container wrapper info-note">
+          <strong>Note: </strong> To Change Profile Password
+          <a href="/organizer/password-change">Click Here</a>
+        </p>
+
+        <section class="container wrapper">
+          <form action="" method="post">
+            <div class="main-form">
+              <span class="width-small">
+                <label for="fname">First Name</label><br />
+                <input
+                  class="width-small"
+                  type="text"
+                  name="fname"
+                  id=""
+                  placeholder="First"
+                  value="<%=Organizer.firstname%>"
+                  required
+              /></span>
+
+              <span class="width-small">
+                <label for="lname">Last Name</label><br />
+                <input
+                  class="width-small"
+                  type="text"
+                  name="lname"
+                  id=""
+                  placeholder="Last"
+                  value="<%=Organizer.lastname%>"
+                  required
+              /></span>
+            </div>
+
+            <div class="main-form">
+              <span class="width-small">
+                <label for="organization">Organization Name</label>
+                <br />
+                <input
+                  class="width-small"
+                  type="text"
+                  name="organization"
+                  id="organization"
+                  placeholder="Organization Name"
+                  value="<%=Organizer.organizationName%>"
+                  required
+                />
+              </span>
+
+              <span class="width-small">
+                <label for="email">Email</label>
+                <br />
+                <input
+                  class="width-small"
+                  type="text"
+                  name="email"
+                  id=""
+                  placeholder="Email"
+                  value="<%=Organizer.email%>"
+                  disabled
+                />
+              </span>
+            </div>
+
+            <div class="main-form">
+              <span class="width-small">
+                <label for="logo">Organization Logo</label><br />
+                <input
+                  type="file"
+                  id="logo"
+                  class="width-small"
+                  name="logo"
+                  accept="image/*"
+                  required
+                />
+              </span>
+
+              <span class="width-small">
+                <label for="phone">Phone Number</label>
+                <br />
+                <input
+                  class="width-small"
+                  type="tel"
+                  name="phone"
+                  id=""
+                  placeholder="Phone Number"
+                  value="<%=Organizer.number%>"
+                  required
+                />
+              </span>
+            </div>
+
+            <label for="description">Organization Description</label>
+            <br />
+            <textarea
+              id="description"
+              class="width margin"
+              name="description"
+              rows="4"
+              cols="50"
+              placeholder="Organization Description in two sentances only."
+              required
+            >
+<%=Organizer.description%></textarea
+            >
+
+            <br />
+
+            <div class="main-form form-btn">
+              <input
+                class="submit-btn"
+                type="submit
+                "
+                placeholder="Submit"
+              />
+            </div>
+          </form>
+        </section>
+      </div>
+    </main>
+
+    <!-- ----------------- Call to Action Section ---------------------- -->
+
+    <%- include('../includes/newsletter.ejs') %>
+
+    <!-- ----------------- Footer Section ---------------------- -->
+
+    <%- include('../includes/footer.ejs') %>
+  </body>
+</html>

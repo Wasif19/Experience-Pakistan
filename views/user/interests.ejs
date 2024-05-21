@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Users Interest Form</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+    <!-- <link rel="stylesheet" href="../styles/organizersDashboard.css" /> -->
+
+    <link rel="stylesheet" type="text/css" href="/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="/slick/slick-theme.css" />
+    <link href="/css/star-rating.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/userDashboard.css" />
+    <link rel="stylesheet" href="/css/slider.css" />
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <!-- ----------------- Header ---------------------- -->
+    <%- include('../includes/user-header.ejs') %>
+
+    <main class="title container">
+      <h2>Your Interests</h2>
+
+      <section class="lists interest">
+        <form id="interestForm" action="/user/postInterest" method="post">
+          <h2>Select Your Interests</h2>
+
+          <p>
+            <strong>NOTE:</strong> Please select at least one interest below.
+            Your selections will help us provide personalized recommendations.
+          </p>
+
+          <div class="form-control">
+            <input type="checkbox" id="interest1" name="interest[]"
+            value="Reading" <% if (interests && interests.includes("Reading")) {
+            %> checked <% } %> />
+            <label for="interest1">Reading</label><br />
+          </div>
+
+          <div class="form-control">
+            <input type="checkbox" id="interest2" name="interest[]"
+            value="Traveling" <% if (interests &&
+            interests.includes("Traveling")) { %> checked <% } %> />
+            <label for="interest2">Traveling</label><br />
+          </div>
+
+          <div class="form-control">
+            <input type="checkbox" id="interest3" name="interest[]"
+            value="Cooking" <% if (interests && interests.includes("Cooking")) {
+            %> checked <% } %> />
+            <label for="interest3">Cooking</label><br />
+          </div>
+
+          <div class="form-control">
+            <input type="checkbox" id="interest4" name="interest[]"
+            value="Music" <% if (interests && interests.includes("Music")) { %>
+            checked <% } %> />
+            <label for="interest4">Music</label><br />
+          </div>
+          <div class="form-control">
+            <input type="checkbox" id="interest5" name="interest[]"
+            value="Photography" <% if (interests &&
+            interests.includes("Photography")) { %> checked <% } %> />
+            <label for="interest5">Photography</label><br />
+          </div>
+          <div class="form-control">
+            <input type="checkbox" id="interest6" name="interest[]"
+            value="Sports" <% if (interests && interests.includes("Sports")) {
+            %> checked <% } %> />
+            <label for="interest6">Sports</label><br />
+          </div>
+          <div class="form-control">
+            <input type="checkbox" id="interest6" name="interest[]"
+            value="Art&Culture" <% if (interests &&
+            interests.includes("Art&Culture")) { %> checked <% } %> />
+            <label for="interest6">Arts & Culture</label><br />
+          </div>
+          <div class="form-control">
+            <input type="checkbox" id="interest6" name="interest[]"
+            value="Technology" <% if (interests &&
+            interests.includes("Technology")) { %> checked <% } %> />
+            <label for="interest6">Technology</label><br />
+          </div>
+          <div class="form-control">
+            <input type="checkbox" id="interest6" name="interest[]"
+            value="Fashion&Lifestyle" <% if (interests &&
+            interests.includes("Fashion&Lifestyle")) { %> checked <% } %> />
+            <label for="interest6">Fashion & LifeStyle</label><br />
+          </div>
+          <div class="form-control">
+            <input type="checkbox" id="interest6" name="interest[]"
+            value="Fitness&Health" <% if (interests &&
+            interests.includes("Fitness&Health")) { %> checked <% } %> />
+            <label for="interest6">Fitness & Health</label><br />
+          </div>
+          <button class="event-btn">Add Interests</button>
+        </form>
+      </section>
+    </main>
+
+    <!-- ----------------- Scripts ---------------------- -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+
+    <script src="/scripts/menu.js"></script>
+  </body>
+</html>

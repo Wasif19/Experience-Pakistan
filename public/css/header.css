@@ -1,0 +1,231 @@
+:root {
+  --primary-color: #f47725; /* Set your desired color value */
+  --secondary-color: #ffb987; /* Set your desired color value */
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+li {
+  list-style: none;
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+}
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.contain {
+  max-width: 1266px;
+  margin: 0 auto;
+}
+
+.wrapper {
+  padding: 0 4%;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-center {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.flex-centers {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.gap {
+  gap: 1.4rem;
+}
+
+.hidden {
+  display: none;
+}
+
+.hidden-1 {
+  display: none;
+}
+
+.hidden-2 {
+  display: none;
+}
+
+.noRecord img {
+  width: 70%;
+}
+
+.noRecord h2 {
+  margin-top: 2rem;
+  font-size: 2rem;
+}
+
+.record-center {
+  text-align: center;
+}
+
+/* ******************** Header *********************** */
+
+header {
+  padding: 0.59rem 1.5rem;
+  position: sticky !important;
+  background: white;
+  top: 0;
+  left: 0;
+  border: 0;
+  z-index: 999;
+  box-shadow: 0px 2px 11px 0px rgba(0, 0, 0, 0.26);
+  -webkit-box-shadow: 0px 2px 11px 0px rgba(0, 0, 0, 0.26);
+  -moz-box-shadow: 0px 2px 11px 0px rgba(0, 0, 0, 0.26);
+}
+.bar {
+  display: none;
+}
+.header-logo {
+  width: 100px;
+}
+
+.primary-nav {
+  max-width: 670px;
+  width: 100%;
+}
+
+.primary-nav ul {
+  max-width: 510px;
+  width: 100%;
+}
+
+.primary-nav li {
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  position: relative;
+}
+.primary-nav li a {
+  color: #000;
+  transition: all 0.3s;
+}
+.primary-nav li a:visited {
+  color: #000;
+}
+
+.actionButtons {
+  max-width: 270px;
+  width: 100%;
+  /* margin-right: 2.5rem; */
+}
+
+.actionButtons a {
+  cursor: pointer;
+}
+
+.actionButtons-1 {
+  /* width: 200px;
+  height: 55px; */
+  padding: 1em;
+  font-size: 1.125rem;
+  color: #fff;
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 15px;
+  font-family: "Nanum Gothic", sans-serif;
+}
+.actionButtons-1 a {
+  color: #fff;
+}
+.actionButtons-1 a:visited {
+  color: #fff;
+}
+
+.actionButtons-2,
+.actionButtons-3 {
+  border: none;
+  font-size: 1.8rem !important;
+  background-color: #fff;
+}
+.actionButtons-2 a:visited,
+.actionButtons-3 a:visited {
+  color: #000;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  padding: 0.4em 0.2em 0.4em;
+  left: -30px;
+}
+
+.right {
+  right: 0 !important;
+  /* max-width: 100%; */
+  left: auto;
+}
+
+.bottom {
+  bottom: 0;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  line-height: 25px;
+  white-space: nowrap;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+  /* border-bottom: 1px solid var(--primary-color); */
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.drop-text {
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.dropbtn i {
+  color: #000;
+}

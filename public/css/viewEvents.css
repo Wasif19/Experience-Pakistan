@@ -1,0 +1,39 @@
+.viewEvents-head {
+  background-color: var(--primary-color);
+  text-align: center;
+  padding: 3.5em 0;
+  margin-bottom: 4rem;
+}
+
+.viewEvents-head h1 {
+  color: white;
+  text-transform: uppercase;
+  font-size: 2.813rem;
+  font-weight: bold;
+}
+
+.eventType-body {
+  flex-wrap: wrap;
+}
+
+.eventType-body > div {
+  width: 30% !important;
+}
+
+@media screen and (max-width: 880px) {
+  .eventType-body > div {
+    width: 40% !important;
+  }
+  .eventType-body {
+    justify-content: space-evenly !important;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .eventType-body > div {
+    width: 90% !important;
+  }
+  .eventType-body {
+    justify-content: space-evenly !important;
+  }
+}

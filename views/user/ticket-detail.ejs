@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ticket Details</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+    <!-- <link rel="stylesheet" href="../styles/organizersDashboard.css" /> -->
+
+    <link rel="stylesheet" type="text/css" href="/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="/slick/slick-theme.css" />
+
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/ticket.css" />
+    <link rel="stylesheet" href="/css/userDashboard.css" />
+    <link rel="stylesheet" href="/css/slider.css" />
+
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <!-- ----------------- Header ---------------------- -->
+    <%- include('../includes/user-header.ejs') %>
+
+    <main class="title">
+      <h2>Ticket Detail</h2>
+      <section class="eventDetail ticketEvent">
+        <h3><%=Ticket.eventId.name%></h3>
+        <div class="flex flex-start gap">
+          <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+          <p><%=Ticket.eventId.city%></p>
+        </div>
+
+        <div class="flex flex-start gap">
+          <i class="fa-regular fa-clock" aria-hidden="true"></i>
+          <p><%=Ticket.eventId.eventTime%> Onwards</p>
+        </div>
+
+        <div class="flex flex-start gap">
+          <i class="fa-regular fa-user" aria-hidden="true"></i>
+          <p>18+</p>
+        </div>
+
+        <div class="flex flex-start gap">
+          <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+          <p>26th May - 28th May</p>
+        </div>
+      </section>
+      <section class="lists">
+        <div class="ticketDetail-form">
+          <h3>Order Summary</h3>
+
+          <table>
+            <thead>
+              <tr class="table-head">
+                <th>Ticket</th>
+                <th>Qty</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="table-body">
+                <td>Standard</td>
+                <td>2</td>
+                <td>PKR 1500</td>
+              </tr>
+              <tr class="table-body">
+                <td>Standard</td>
+                <td>2</td>
+                <td>PKR 1500</td>
+              </tr>
+
+              <!-- Total Row -->
+              <tr class="table-body table-foot">
+                <td colspan="2">Total</td>
+
+                <td>PKR 3000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <!-- ----------------- Scripts ---------------------- -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+
+    <script src="../scripts/menu.js"></script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.4.1/jquery-migrate.min.js"
+      integrity="sha512-KgffulL3mxrOsDicgQWA11O6q6oKeWcV00VxgfJw4TcM8XRQT8Df9EsrYxDf7tpVpfl3qcYD96BpyPvA4d1FDQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script
+      src="../slick/slick.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+
+    <script>
+      $(document).ready(function () {
+        $(".slider-1").slick({
+          dots: true,
+          infinite: false,
+          speed: 300,
+          slidesToShow: 4,
+          slidesToScroll: 4,
+          responsive: [
+            {
+              breakpoint: 1024,
+              settings: {
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                infinite: true,
+                dots: true,
+              },
+            },
+            {
+              breakpoint: 600,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2,
+              },
+            },
+            {
+              breakpoint: 480,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+              },
+            },
+          ],
+        });
+      });
+    </script>
+  </body>
+</html>

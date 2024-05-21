@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book a Tickets</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="/css/headerFooter.css" />
+    <link rel="stylesheet" href="/css/sample.css" />
+    <link rel="stylesheet" href="/css/ticket.css" />
+
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  </head>
+  <body>
+    <!-- ----------------- Header ---------------------- -->
+    <%- include('../includes/header.ejs') %>
+
+    <!-- ----------------- Ticket Section ---------------------- -->
+
+    <main class="ticket flex container wrapper">
+      <section class="ticketDetail">
+        <div class="ticketDetail-head flex">
+          <span>1</span>
+          <h2>Ticket Details</h2>
+        </div>
+
+        <p class="ticketDetail-info">
+          We'll use this information to send you confirmation and updates about
+          your booking.
+        </p>
+
+        <div class="ticketDetail-form">
+          <h3><%=Event.name%></h3>
+          <form action="/ticket-contact/<%=Event._id%>" method="post">
+            <div>
+              <% for (let i = 0; i < Event.tickets.length; i++) { const Tickets
+              = Event.tickets[i]; %>
+              <section class="flex form-section">
+                <div class="ticket-info">
+                  <input
+                    type="text"
+                    id="ticket-name-<%= i + 1 %>"
+                    name="ticket-name-<%= i + 1 %>"
+                    class="ticket-name"
+                    value="<%= Tickets.Name %>"
+                  />
+                </div>
+                <input
+                  type="hidden"
+                  id="actual-ticket-price-<%= i + 1 %>"
+                  name="actual-ticket-price-<%= i + 1 %>"
+                  value="<%= Tickets.price %>"
+                />
+                <div>
+                  <label for="ticket-price-<%= i + 1 %>">PKR</label>
+                  <input
+                    type="text"
+                    id="ticket-price-<%= i + 1 %>"
+                    class="ticket-price"
+                    name="ticket-price-<%= i + 1 %>"
+                    value="<%= Tickets.price %>"
+                    placeholder="<%= Tickets.price %>"
+                  />
+                </div>
+                <div class="flex gap-small">
+                  <button
+                    type="button"
+                    onclick="minusTicket('<%= i + 1 %>')"
+                    class="minus-btn ticket-btn"
+                  >
+                    -
+                  </button>
+                  <input
+                    type="number"
+                    id="ticket-quantity-<%= i + 1 %>"
+                    name="ticket-quantity-<%= i + 1 %>"
+                    min="0"
+                    value="1"
+                    class="ticket-quantity"
+                  />
+                  <button
+                    type="button"
+                    onclick="plusTicket('<%= i + 1 %>')"
+                    class="plus-btn ticket-btn"
+                  >
+                    +
+                  </button>
+                </div>
+              </section>
+              <% } %>
+            </div>
+
+            <button
+              class="next-btn"
+              onclick="window.location.href = '/ticket-contact/<%=Event._id%>'"
+            >
+              Continue
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <section class="eventDetail">
+        <h3><%=Event.name%></h3>
+        <div class="flex flex-start gap">
+          <i class="fa-solid fa-location-dot"></i>
+          <p><%=Event.city%></p>
+        </div>
+
+        <div class="flex flex-start gap">
+          <i class="fa-regular fa-clock"></i>
+          <p><%=Event.eventTime%> Onwards</p>
+        </div>
+
+        <div class="flex flex-start gap">
+          <i class="fa-regular fa-user"></i>
+          <p>18+</p>
+        </div>
+
+        <div class="flex flex-start gap">
+          <i class="fa-regular fa-calendar"></i>
+          <p>
+            <%=Event.startDate.getDate() %> <%=
+            helper.getMonthAbbreviation(Event.startDate.getMonth()+1)%> -
+            <%=Event.endDate.getDate() %> <%=
+            helper.getMonthAbbreviation(Event.endDate.getMonth()+1)%>
+          </p>
+        </div>
+
+        <div>
+          <p class="detail-phone">For Assistance</p>
+          <div class="flex flex-start gap">
+            <i class="fa-solid fa-phone"></i>
+            <p><%=number %></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ----------------- Footer Section ---------------------- -->
+
+    <%- include('../includes/footer.ejs') %>
+
+    <script>
+      function plusTicket(row) {
+        let ticketQuantity = document.getElementById("ticket-quantity-" + row);
+        let ticketPrice = document.getElementById("ticket-price-" + row);
+        let newQuantity = parseInt(ticketQuantity.value);
+        let cost = parseInt(ticketPrice.placeholder);
+        ticketQuantity.value = newQuantity + 1;
+        ticketPrice.value = cost * ticketQuantity.value;
+      }
+
+      function minusTicket(row) {
+        let ticketQuantity = document.getElementById("ticket-quantity-" + row);
+        let ticketPrice = document.getElementById("ticket-price-" + row);
+        let newQuantity = parseInt(ticketQuantity.value);
+        let cost = parseInt(ticketPrice.placeholder);
+        if (newQuantity > 0) {
+          ticketQuantity.value = newQuantity - 1;
+          ticketPrice.value = cost * ticketQuantity.value;
+        } else {
+          ticketQuantity.value = 0;
+        }
+      }
+    </script>
+  </body>
+</html>

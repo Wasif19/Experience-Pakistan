@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Entertainment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="/css/headerFooter.css" />
+    <link rel="stylesheet" href="/css/restaurants.css" />
+    <link rel="stylesheet" href="/css/entertainment.css" />
+
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  </head>
+  <body>
+    <!-- ----------------- Header ---------------------- -->
+    <%- include('../includes/header.ejs') %>
+    <!-- ----------------- Restaurants Section ---------------------- -->
+
+    <main class="container food">
+      <section class="food-head ent-head">
+        <h1>See the Best Experiences in Pakistan</h1>
+      </section>
+
+      <section class="food-search-box">
+        <form
+          action="/things-to-do/searched-experiences"
+          class="search-form"
+          method="post"
+        >
+          <div class="flex search-box-main">
+            <div>
+              <label for="where">Where?</label>
+              <select name="where" id="where">
+                <option value="all">All Locations</option>
+                <option value="Islamabad">Islamabad</option>
+                <option value="Lahore">Lahore</option>
+                <option value="Karachi">Karachi</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="Category">Category?</label>
+              <select name="where" id="where">
+                <option value="all">All Categories</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Recreation">Recreation</option>
+                <option value="Heritage & Culture">Cultural & Heritage</option>
+                <option value="Sports">Gaming & Sports</option>
+                <option value="Others">Others</option>
+              </select>
+            </div>
+            <button class="searchBtn">
+              <i class="fa-solid fa-magnifying-glass"></i> Search
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- -_***************************___ Most Popular -___**************************____ -->
+      <div class="food-filter-mix">
+        <div class="food-right">
+          <section class="food-body wrapper">
+            <h2>Most Popular</h2>
+            <section>
+              <div id="carousel-container">
+                <div id="carousel-inner">
+                  <div class="carousel-item">
+                    <a href="/city?city=Karachi" class="">
+                      <img
+                        class="carousel-image"
+                        src="/images/karachi-tab.jpg"
+                        alt="Image 1"
+                      />
+                      <div class="carousel-details">
+                        <h2>Karachi</h2>
+                        <p>
+                          "Welcome to Karachi, the pulsating heart of Pakistan!
+                          As the country's largest and most populous city,
+                          Karachi is a bustling metropolis that never sleeps.
+                          Situated along the shores of the Arabian Sea, Karachi
+                          is a melting pot of cultures, offering a kaleidoscope
+                          of events and entertainment for residents and visitors
+                          alike."
+                        </p>
+                      </div>
+                    </a>
+                  </div>
+
+                  <div class="carousel-item">
+                    <a href="/city?city=Islamabad">
+                      <img
+                        class="carousel-image"
+                        src="/images/islamabad-cover.jpg"
+                        alt="Image 2"
+                      />
+                      <div class="carousel-details">
+                        <h2>Islamabad</h2>
+                        <p>
+                          "Welcome to Islamabad, the vibrant capital city of
+                          Pakistan! Nestled against the backdrop of the Margalla
+                          Hills, Islamabad is a modern metropolis renowned for
+                          its serene beauty, lush greenery, and well-planned
+                          infrastructure. As the political and cultural hub of
+                          the nation, Islamabad offers a rich tapestry of events
+                          and entertainment for locals and visitors alike."
+                        </p>
+                      </div></a
+                    >
+                  </div>
+
+                  <div class="carousel-item">
+                    <a href="/city?city=Lahore">
+                      <img
+                        class="carousel-image"
+                        src="/images/lahore-cover.jpg"
+                        alt="Image 3"
+                      />
+                      <div class="carousel-details">
+                        <h2>Lahore</h2>
+                        <p>
+                          "Welcome to Lahore, the cultural capital of Pakistan!
+                          Steeped in history and alive with energy, Lahore is a
+                          city that captivates visitors with its rich heritage,
+                          vibrant bazaars, and bustling streets. Known as the
+                          'City of Gardens' and the 'Heart of Pakistan,' Lahore
+                          is a melting pot of tradition and modernity, offering
+                          a dynamic tapestry of events and entertainment for all
+                          to enjoy."
+                        </p>
+                      </div></a
+                    >
+                  </div>
+
+                  <!-- Add more carousel items as needed -->
+                </div>
+                <div id="prev-btn">&lt;</div>
+                <div id="next-btn">&gt;</div>
+              </div>
+            </section>
+          </section>
+
+          <!-- -_***************************___ Shopping -___**************************____ -->
+
+          <section class="food-body wrapper">
+            <div class="flex food-body-head">
+              <h2>Shopping</h2>
+              <a href="/experiences/view-all?type=Shopping">View All</a>
+            </div>
+
+            <div class="food-browses flex gap">
+              <% if (Shopping.length == 0){%>
+              <div class="noRecord record-center">
+                <h2>No Shopping Place Avaiable !</h2>
+                <img
+                  style="width: 100px"
+                  src="/images/he_sitting_with_notebook.png"
+                  alt=""
+                />
+              </div>
+              <%} %> <% for (let shopping of Shopping) { %>
+              <a
+                href="/experiences/see-more/<%=shopping._id%>"
+                class="food-link"
+              >
+                <div class="food-browses-box">
+                  <% if (shopping?.imageUrl[0]?.includes("uploads")) { %>
+                  <img src="/<%= shopping.imageUrl[0] %>" alt="" />
+                  <% } else { %>
+                  <img src="<%= shopping.imageUrl[0] %>" alt="" />
+                  <% } %>
+                  <span class="heart">
+                    <i class="fa-solid fa-heart"></i>
+                  </span>
+                  <input
+                    type="hidden"
+                    name="restaurantId"
+                    value="<%=shopping._id%>"
+                  />
+                  <div class="browses-box-detail">
+                    <span><%=shopping.city%></span>
+                    <h3><%=shopping.name%></h3>
+                    <div class="review flex gap-small" id="margin-set">
+                      <% if (shopping?.ratingPicture) { %>
+                      <div class="rating flex" id="margin-set">
+                        <img src="<%= shopping.ratingPicture %>" />
+                      </div>
+                      <% } else { %>
+                      <div class="review flex gap-small" id="margin-set">
+                        <img
+                          src="https://www.tripadvisor.com/img/cdsi/img2/ratings/traveler/4.0-66827-5.svg"
+                        />
+                      </div>
+                      <% } %>
+                      <p class="light"><%=shopping.rating%></p>
+                    </div>
+
+                    <div class="tags flex browses-box-more">
+                      <p>See More</p>
+                      <button><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <% } %>
+            </div>
+          </section>
+
+          <!-- -_***************************___ Recreations  -___**************************____ -->
+
+          <section class="food-body wrapper">
+            <div class="flex food-body-head">
+              <h2>Recreations</h2>
+              <a href="/experiences/view-all?type=Recreation">View All</a>
+            </div>
+
+            <div class="food-browses flex gap">
+              <% if (recreation.length == 0){%>
+              <div class="noRecord record-center">
+                <h2>No Recreation Place Avaiable !</h2>
+                <img
+                  style="width: 100px"
+                  src="/images/he_sitting_with_notebook.png"
+                  alt=""
+                />
+              </div>
+              <%} %> <% for (let rec of recreation) { %>
+              <a href="/experiences/see-more/<%=rec._id%>" class="food-link">
+                <div class="food-browses-box">
+                  <% if (rec?.imageUrl[0]?.includes("uploads")) { %>
+                  <img src="/<%= rec.imageUrl[0] %>" alt="" />
+                  <% } else { %>
+                  <img src="<%= rec.imageUrl[0] %>" alt="" />
+                  <% } %>
+                  <span class="heart">
+                    <i class="fa-solid fa-heart"></i>
+                  </span>
+                  <input
+                    type="hidden"
+                    name="restaurantId"
+                    value="<%=rec._id%>"
+                  />
+                  <div class="browses-box-detail">
+                    <span><%=rec.city%></span>
+                    <h3><%=rec.name%></h3>
+                    <div class="review flex gap-small" id="margin-set">
+                      <% if (rec?.ratingPicture) { %>
+                      <div class="rating flex" id="margin-set">
+                        <img src="<%= rec.ratingPicture %>" />
+                      </div>
+                      <% } else { %>
+                      <div class="review flex gap-small" id="margin-set">
+                        <img
+                          src="https://www.tripadvisor.com/img/cdsi/img2/ratings/traveler/4.0-66827-5.svg"
+                        />
+                      </div>
+                      <% } %>
+                      <p class="light"><%=rec.rating%></p>
+                    </div>
+
+                    <div class="tags flex browses-box-more">
+                      <p>See More</p>
+                      <button><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <% } %>
+            </div>
+          </section>
+
+          <!-- -_***************************___ Heritage & Culture  -___**************************____ -->
+
+          <section class="food-body wrapper">
+            <div class="flex food-body-head">
+              <h2>Heritage & Culture</h2>
+              <a href="/experiences/view-all?type=Heritage & Culture"
+                >View All</a
+              >
+            </div>
+
+            <div class="food-browses flex gap">
+              <% if (heritageAndCulture.length == 0){%>
+              <div class="noRecord record-center">
+                <h2>No Heritage And Culture Place Avaiable !</h2>
+                <img
+                  style="width: 100px"
+                  src="/images/he_sitting_with_notebook.png"
+                  alt=""
+                />
+              </div>
+              <%} %> <% for (let her of heritageAndCulture) { %>
+              <a href="/experiences/see-more/<%=her._id%>" class="food-link">
+                <div class="food-browses-box">
+                  <% if (her?.imageUrl[0]?.includes("uploads")) { %>
+                  <img src="/<%= her.imageUrl[0] %>" alt="" />
+                  <% } else { %>
+                  <img src="<%= her.imageUrl[0] %>" alt="" />
+                  <% } %>
+                  <span class="heart">
+                    <i class="fa-solid fa-heart"></i>
+                  </span>
+                  <input
+                    type="hidden"
+                    name="restaurantId"
+                    value="<%=her._id%>"
+                  />
+                  <div class="browses-box-detail">
+                    <span><%=her.city%></span>
+                    <h3><%=her.name%></h3>
+                    <div class="review flex gap-small" id="margin-set">
+                      <% if (her?.ratingPicture) { %>
+                      <div class="rating flex" id="margin-set">
+                        <img src="<%= her.ratingPicture %>" />
+                      </div>
+                      <% } else { %>
+                      <div class="review flex gap-small" id="margin-set">
+                        <img
+                          src="https://www.tripadvisor.com/img/cdsi/img2/ratings/traveler/4.0-66827-5.svg"
+                        />
+                      </div>
+                      <% } %>
+                      <p class="light"><%=her.rating%></p>
+                    </div>
+
+                    <div class="tags flex browses-box-more">
+                      <p>See More</p>
+                      <button><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <% } %>
+            </div>
+          </section>
+          <!-- -_***************************___ Sports & Tournaments  -___**************************____ -->
+
+          <section class="food-body wrapper">
+            <div class="flex food-body-head">
+              <h2>Sports</h2>
+              <a href="/experiences/view-all?type=Sports">View All</a>
+            </div>
+
+            <div class="food-browses flex gap">
+              <% if (sports.length == 0){%>
+              <div class="noRecord record-center">
+                <h2>No Sports Place Avaiable !</h2>
+                <img
+                  style="width: 100px"
+                  src="/images/he_sitting_with_notebook.png"
+                  alt=""
+                />
+              </div>
+              <%} %> <% for (let spo of sports) { %>
+              <a href="/experiences/see-more/<%=spo._id%>" class="food-link">
+                <div class="food-browses-box">
+                  <% if (spo?.imageUrl[0]?.includes("uploads")) { %>
+                  <img src="/<%= spo.imageUrl[0] %>" alt="" />
+                  <% } else { %>
+                  <img src="<%= spo.imageUrl[0] %>" alt="" />
+                  <% } %>
+                  <span class="heart">
+                    <i class="fa-solid fa-heart"></i>
+                  </span>
+                  <input
+                    type="hidden"
+                    name="restaurantId"
+                    value="<%=spo._id%>"
+                  />
+                  <div class="browses-box-detail">
+                    <span><%=spo.city%></span>
+                    <h3><%=spo.name%></h3>
+                    <div class="review flex gap-small" id="margin-set">
+                      <% if (spo?.ratingPicture) { %>
+                      <div class="rating flex" id="margin-set">
+                        <img src="<%= spo.ratingPicture %>" />
+                      </div>
+                      <% } else { %>
+                      <div class="review flex gap-small" id="margin-set">
+                        <img
+                          src="https://www.tripadvisor.com/img/cdsi/img2/ratings/traveler/4.0-66827-5.svg"
+                        />
+                      </div>
+                      <% } %>
+                      <p class="light"><%=spo.rating%></p>
+                    </div>
+                    <div class="tags flex browses-box-more">
+                      <p>See More</p>
+                      <button><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <% } %>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <!-- ----------------- Call to Action Section ---------------------- -->
+
+    <%- include('../includes/newsletter.ejs') %>
+
+    <!-- ----------------- Footer Section ---------------------- -->
+
+    <%- include('../includes/footer.ejs') %>
+
+    <script>
+      const carousel = document.getElementById("carousel-inner");
+      const prevBtn = document.getElementById("prev-btn");
+      const nextBtn = document.getElementById("next-btn");
+
+      let currentIndex = 0;
+
+      function updateCarousel() {
+        const translateValue = -currentIndex * 100 + "%";
+        carousel.style.transform = "translateX(" + translateValue + ")";
+      }
+
+      function showPrevImage() {
+        currentIndex = (currentIndex - 1 + getTotalImages()) % getTotalImages();
+        updateCarousel();
+      }
+
+      function showNextImage() {
+        currentIndex = (currentIndex + 1) % getTotalImages();
+        updateCarousel();
+      }
+
+      function getTotalImages() {
+        return document.querySelectorAll(".carousel-item").length;
+      }
+
+      prevBtn.addEventListener("click", showPrevImage);
+      nextBtn.addEventListener("click", showNextImage);
+
+      setInterval(() => {
+        showNextImage();
+      }, 3500);
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const hearts = document.querySelectorAll(".heart");
+
+        hearts.forEach(function (heart) {
+          heart.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            const restaurantId = heart.parentElement.querySelector(
+              "input[name='restaurantId']"
+            ).value;
+
+            // Make AJAX request to backend API
+            fetch("/wishlist", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                eventId: restaurantId,
+                type: "Experience",
+              }),
+            })
+              .then(async (response) => {
+                const result = await response.json();
+                if (result.message === "failed") {
+                  window.location.href = "/user/login";
+                } else if (result.message === "delete") {
+                  heart.classList.remove("red");
+                } else if (response.ok) {
+                  heart.classList.add("red");
+                } else {
+                  console.error("Failed to add restaurant to wishlist");
+                }
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,102 @@
+<header class="">
+  <div class="container flex gap">
+    <div class="bar menu-toggle" onclick="toggleMenu()">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+
+    <div class="flex flex-center">
+      <a href="\"
+        ><img
+          class="header-logo tablet-logo"
+          src="/images/newlogo.png"
+          alt=""
+          hidden
+      /></a>
+    </div>
+
+    <nav class="primary-nav flex gap menu" style="left: -1500px">
+      <a href="\"
+        ><img
+          class="header-logo laptop-logo"
+          src="/images/newlogo.png"
+          alt="Experience Pakistan Logo"
+      /></a>
+
+      <ul class="flex gap menu-nav">
+        <li>
+          <a
+            href="/user/dashboard"
+            class="<%=path === '/dashboard' ? 'active' : ' ' %>"
+            >Profile</a
+          >
+        </li>
+
+        <li>
+          <a
+            href="/user/tickets"
+            class="<%=path === '/ticket'? 'active' : ' ' %>"
+            >Tickets</a
+          >
+        </li>
+
+        <li>
+          <a
+            href="/user/events"
+            class="<%=path === '/user-events' || path === '/your-events'? 'active' : ' ' %>"
+            >Events</a
+          >
+        </li>
+
+        <li>
+          <a
+            href="/user/reviews"
+            class="<%=path === '/review'? 'active' : ' ' %>"
+            >Reviews</a
+          >
+        </li>
+        <li>
+          <a
+            href="/user/wishlist"
+            class="<%=path === 'wishlist'? 'active' : ' ' %>"
+            >Wishlist</a
+          >
+        </li>
+
+        <li class="dropdown">
+          <a href="#" class="dropbtn">Things to Do</a>
+          <div class="dropdown-content">
+            <ul>
+              <li>
+                <a href="/things-to-do/food&drinks">Food & Drink</a>
+              </li>
+              <li>
+                <a href="/things-to-do/experiences">Experiences</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <span class="actionButtons hidden gap">
+          <li
+            class="actionButtons-2"
+            onclick="window.location.href='/user/settings'"
+          >
+            <i class="fa-solid fa-gear"></i>
+          </li>
+
+          <a class="actionButtons-1" href="/user/logout"> Logout</a>
+        </span>
+      </ul>
+    </nav>
+
+    <div class="actionButtons flex menu-2">
+      <button
+        class="actionButtons-2"
+        onclick="window.location.href='/user/settings'"
+      >
+        <i class="fa-solid fa-gear"></i>
+      </button>
+
+      <a class="actionButtons-1" href="/user/logout"> Logout</a>
+    </div>
+  </div>
+</header>

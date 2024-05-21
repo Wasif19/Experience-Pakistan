@@ -1,0 +1,448 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --primary-color: #f47725; /* Set your desired color value */
+  --secondary-color: #ffb987; /* Set your desired color value */
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+li {
+  list-style: none;
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+}
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.contain {
+  max-width: 1266px;
+  margin: 0 auto;
+}
+
+.wrapper {
+  padding: 0 4%;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-center {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.flex-centers {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.gap {
+  gap: 1.4rem;
+}
+
+.hidden {
+  display: none;
+}
+
+.hidden-1 {
+  display: none;
+}
+
+.hidden-2 {
+  display: none;
+}
+
+/* ******************** Main Section *********************** */
+
+.contact {
+  margin: 8rem 0;
+}
+
+.contact h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+.contact-desc {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.contact-desc a,
+.contact-desc a:visited {
+  color: var(--primary-color);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.contact-info {
+  width: 50%;
+  align-self: flex-start;
+}
+
+.contact-form {
+  width: 45%;
+  background-color: #fff;
+  border: 1px solid rgba(3, 33, 37, 0.1);
+  border-radius: 1rem;
+  padding: 2rem;
+  padding-right: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.submit-btn {
+  border: none;
+  font-size: 1.125rem;
+  margin-bottom: 0 !important;
+  border-radius: 5px;
+  padding: 0.75rem 0.95rem;
+}
+
+.more-btn {
+  padding: 1.125rem 2rem 1.125rem 2.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.more-btn i,
+.submit-btn i {
+  margin-left: 0.65rem;
+}
+
+/* ********************** Suggestion Page ************************** */
+.suggest-heading {
+  color: var(--primary-color);
+  /* text-decoration: underline; */
+}
+
+/* *********************** Sucess Message page *********************** */
+.email-response {
+  margin: 3rem 0;
+  margin-bottom: 5rem;
+}
+
+.email-response img {
+  width: 250px;
+}
+
+.email-response h2 {
+  margin-top: 2rem;
+}
+
+/* ******************** Call-to-Action Section *********************** */
+
+.CTA {
+  background-color: var(--secondary-color);
+  padding: 0 2.5rem;
+}
+
+.CTA h2 {
+  font-size: 2.813rem;
+  margin-bottom: 0.6rem;
+}
+
+.news {
+  /* width: 60%; */
+  text-align: center;
+  padding: 3.8em 0;
+}
+.news p {
+  font-size: 1.188rem;
+  font-family: "Nanum Gothic", sans-serif;
+  margin-bottom: 1.4rem;
+  color: black;
+  letter-spacing: 0.2px;
+  /* font-weight: 500; */
+}
+
+.news input {
+  width: 50%;
+  max-width: 395px;
+  font-size: 1.125rem;
+  padding: 0.625em 0.8em;
+  margin-right: 0.3rem;
+  border: none;
+  min-width: 250px;
+  margin-bottom: 1rem;
+}
+
+.news button {
+  width: 20%;
+  max-width: 162px;
+  height: 45px;
+  color: #fff;
+  background-color: var(--primary-color);
+  border: none;
+  font-size: 1.188rem;
+  font-family: "Nanum Gothic", sans-serif;
+  min-width: 120px;
+}
+
+.download {
+  text-align: center;
+  padding: 1.5em 0;
+}
+
+/* ******************** Footer *********************** */
+
+footer {
+  background-color: #000;
+}
+
+footer h2 {
+  font-size: 1.25rem;
+  color: #ea8324;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin: 3.5rem 0 0.8rem 0;
+}
+
+footer a,
+footer p,
+footer li {
+  color: #fff;
+  font-size: 1rem;
+  line-height: 150%;
+  letter-spacing: 0.2px;
+}
+
+.footer-main {
+  width: 88%;
+  max-width: 1440px;
+  justify-content: space-between;
+  align-items: start;
+  /* margin-left: 3.25rem;
+      align-items: flex-start;
+     */
+  margin-bottom: 3rem;
+}
+
+.about-us {
+  width: 28%;
+  min-width: 250px;
+}
+
+.eventsByCity,
+.useful-links {
+  width: 16%;
+  min-width: 150px;
+}
+.helpful-links {
+  width: 20%;
+  min-width: 180px;
+}
+
+footer li {
+  margin-bottom: 1.6rem;
+  /* margin-left: 0.375rem; */
+}
+
+footer img {
+  width: 20px;
+}
+
+.footer-secondary {
+  /* border-top: 1px solid #ea8324; */
+  padding: 1rem 0;
+  max-width: 1300px;
+  text-align: center;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.copyright p {
+  margin-left: 0.5rem;
+  font-size: 1.188rem;
+  font-family: "Nanum Gothic", sans-serif;
+}
+
+.copyright img {
+  margin-right: 0.5rem;
+}
+
+.external-link a {
+  margin-right: 1.8rem;
+  font-size: 1.188rem;
+  font-family: "Nanum Gothic", sans-serif;
+}
+
+.google {
+  width: 185px;
+  margin-top: 2.5rem;
+}
+
+/* ******************** Media Query  *********************** */
+
+@media screen and (max-width: 1023px) {
+  header {
+    gap: 0 !important;
+    z-index: 445 !important;
+  }
+  .hero-img {
+    display: none;
+  }
+
+  .menu-2 {
+    display: none !important;
+  }
+
+  .hidden {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+  }
+  .menu-nav {
+    margin-bottom: 10rem;
+    height: 62%;
+  }
+
+  .menu {
+    position: fixed;
+    top: 110px;
+    left: -1500px;
+    width: 100vw;
+    height: 100%;
+    background-color: #f5f5f5;
+    transition: left 0.3s ease;
+    z-index: 3;
+  }
+
+  .primary-nav ul,
+  .actionButtons {
+    flex-direction: column;
+    max-width: 100%;
+  }
+
+  .primary-nav {
+    max-width: 100%;
+  }
+  .laptop-logo {
+    display: none;
+  }
+  .tablet-logo {
+    display: block;
+    margin: 0.8rem;
+  }
+  .header-logo {
+    width: 100px;
+  }
+  .flex-center {
+    display: flex;
+  }
+  .bar {
+    display: block;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+  .bar i {
+    font-size: 30px;
+    cursor: pointer;
+  }
+
+  h1 {
+    font-size: 2.5rem !important;
+  }
+
+  .CTA h2 {
+    font-size: 2.2rem !important;
+  }
+  .footer-main {
+    /* gap: 4rem; */
+    flex-wrap: wrap;
+  }
+  .footer-secondary {
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .external-link a:last-child {
+    margin-right: 0 !important;
+  }
+
+  /*  --------------------------- Contact US page  ____________________ */
+  .contact {
+    margin-top: 4rem;
+  }
+
+  .contact-form,
+  .contact-info {
+    width: 90%;
+  }
+  .contact-info {
+    text-align: center;
+    margin: auto;
+    margin-bottom: 2rem;
+  }
+}
+
+@media screen and (max-width: 514px) {
+  header {
+    padding: 0 1.5rem;
+  }
+
+  .about-us {
+    width: 88%;
+    min-width: 250px;
+    margin: 0 auto;
+  }
+
+  .external-link {
+    flex-wrap: wrap;
+    /* align-items: center; */
+    justify-content: center;
+  }
+
+  .contact {
+    padding: 0;
+  }
+  .contact-form {
+    padding: 2rem 1rem;
+  }
+  .contact-desc {
+    font-size: 1.125rem;
+  }
+}
+
+.actionButtons-fix {
+  max-width: fit-content;
+}

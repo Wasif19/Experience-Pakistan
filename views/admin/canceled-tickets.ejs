@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ticket Order</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/adminNavbar.css" />
+    <link rel="stylesheet" href="/css/adminPanel.css" />
+    <link rel="stylesheet" href="/css/adminEvent.css" />
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <section class="flex container flexStart">
+      <%- include('../includes/admin-nav.ejs') %>
+
+      <main>
+        <div id="profileCard">
+          <div class="head-detail">
+            <img src="/images/admin.png" alt="" />
+            <p><%=admin.firstName + ' ' + admin.lastName %></p>
+            <form action="/admin/admin-logout" method="post">
+              <button type="submit">Logout</button>
+            </form>
+          </div>
+        </div>
+
+        <section class="dashboard-head flex">
+          <div class="dashboard-head-primary flex">
+            <i class="fa-solid fa-bars-staggered"></i>
+            <h1>Ticket Orders</h1>
+          </div>
+
+          <div class="dashboard-head-secondary flex gap">
+            <input class="searchBox" type="text" placeholder="Search" />
+            <div class="head-img">
+              <img
+                id="profileIcon"
+                onclick="toggleProfileCard()"
+                src="/images/admin.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </section>
+
+        <div id="profileCard">
+          <div class="head-detail">
+            <img src="../images/young-man.jpg" alt="" />
+            <p>Muhammad Hammad</p>
+            <button>Logout</button>
+          </div>
+        </div>
+
+        <section class="flex dashboard-info">
+          <div class="addBtn eventCount">Canceled Tickets</div>
+        </section>
+        <section class="dashboard">
+          <div class="userList">
+            <table>
+              <thead>
+                <tr>
+                  <th>Ticket ID</th>
+                  <th>Event Name</th>
+                  <th>Customer's Name</th>
+                  <th>Customer's Email</th>
+                  <th>Customer's Phone</th>
+                  <th>Ticket Quantity</th>
+
+                  <th>Total Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for (let ticket of Orders) { %>
+                <tr>
+                  <td>av23vc</td>
+                  <td><%=ticket.eventId.name%></td>
+                  <td><%=ticket.customerName%></td>
+                  <td><%=ticket.customerEmail%></td>
+                  <td><%=ticket.customerNumber%></td>
+                  <td>4</td>
+                  <td><%=ticket.customerTotalBill%></td>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </section>
+
+    <script src="../scripts/admin.js"></script>
+  </body>
+</html>

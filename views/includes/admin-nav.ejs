@@ -1,0 +1,154 @@
+<nav class="navbar">
+  <a href="/home" class="">
+    <img class="Logo flex" src="/images/newlogo.png" alt="" />
+  </a>
+  <div class="main-nav">
+    <ul>
+      <a
+        href="/admin/admin-dashboard"
+        class="<%=path === 'dashboard' ? 'active' : 'no' %> nav-link"
+        ><li><i class="fa-solid fa-desktop"></i>Dashboard</li></a
+      >
+      <a
+        href="/admin/admin-events"
+        class="nav-link <%= path === 'event' ? 'active' : '' %>"
+        ><li><i class="fa-solid fa-campground"></i>Events</li></a
+      >
+      <a
+        href="/admin/admin-organizers"
+        class="nav-link <%= path === 'organizer' ? 'active' : '' %>"
+      >
+        <li><i class="fa-solid fa-person fa-lg"></i>Organizers</li>
+      </a>
+      <a
+        href="/admin/admin-artists"
+        class="nav-link <%= path === 'artist' ? 'active' : '' %>"
+        ><li><i class="fa-solid fa-people-group"></i>Artists</li></a
+      >
+      <a
+        href="/admin/admin-restaurants"
+        class="nav-link <%= path === 'restaurant' ? 'active' : '' %>"
+        ><li><i class="fa-solid fa-utensils"></i>Restaurants</li>
+      </a>
+      <a
+        href="/admin/admin-experiences"
+        class="nav-link <%= path === 'experience' ? 'active' : '' %>"
+        ><li><i class="fa-solid fa-star"></i>Experiences</li>
+      </a>
+      <a
+        href="/admin/blogs"
+        class="nav-link <%= path === 'blog' ? 'active' : '' %>"
+        ><li><i class="fa-brands fa-blogger"></i>Blogs</li>
+      </a>
+      <a
+        href="/admin/orders"
+        class="nav-link <%= path === 'orders' ? 'active' : '' %>"
+        ><li><i class="fa-solid fa-ticket"></i>Ticket Orders</li></a
+      >
+
+      <a
+        href="/admin/feedbackhub"
+        class="nav-link <%= path === 'feedback' ? 'active' : '' %>"
+        ><li><i class="fa-solid fa-comment"></i>Feedback Hub</li></a
+      >
+
+      <% if (admin.adminType === 'Super-Admin') { %>
+      <a
+        href="/admin/add-admin"
+        class="nav-link <%= path === '/add-admin' ? 'active' : '' %>"
+        ><li><i class="fa-solid fa-gear"></i>Add Admin</li></a
+      >
+      <%}%>
+
+      <a
+        href="/admin/settings"
+        class="nav-link <%= path === 'setting' ? 'active' : '' %>"
+        ><li><i class="fa-solid fa-gear"></i>Settings</li></a
+      >
+    </ul>
+  </div>
+</nav>
+
+<!-- Mobile Navbar -->
+
+<nav class="mobile-navbar">
+  <i class="fa-solid fa-xmark"></i>
+  <div class="">
+    <!-- <i class="fa-solid fa-bars-staggered"></i> -->
+    <a href="/home" class="">
+      <img class="Logo flex" src="/images/newlogo.png" alt="" />
+    </a>
+    <!-- <div class="hamburger-menu">
+      <div class="hamburger-icon">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </div> -->
+  </div>
+  <div class="main-nav">
+    <ul>
+      <a
+        href="/admin/admin-dashboard"
+        class="<%=path === 'dashboard' ? 'active' : 'no' %> nav-link"
+        ><li><i class="fa-solid fa-desktop"></i>Dashboard</li></a
+      >
+      <a
+        href="/admin/admin-events"
+        class="nav-link <%= path === 'event' ? 'active' : '' %>"
+        ><li><i class="fa-solid fa-campground"></i>Events</li></a
+      >
+      <a
+        href="/admin/admin-organizers"
+        class="nav-link <%= path === 'organizer' ? 'active' : '' %>"
+      >
+        <li><i class="fa-solid fa-person fa-lg"></i>Organizers</li>
+      </a>
+      <a
+        href="/admin/admin-artists"
+        class="nav-link <%= path === 'artist' ? 'active' : '' %>"
+        ><li><i class="fa-solid fa-people-group"></i>Artists</li></a
+      >
+      <a
+        href="/admin/admin-restaurants"
+        class="nav-link <%= path === 'restaurant' ? 'active' : '' %>"
+        ><li><i class="fa-solid fa-utensils"></i>Restaurants</li>
+      </a>
+      <a
+        href="/admin/admin-experiences"
+        class="nav-link <%= path === 'experience' ? 'active' : '' %>"
+        ><li><i class="fa-solid fa-star"></i>Experiences</li>
+      </a>
+      <a
+        href="/admin/blogs"
+        class="nav-link <%= path === 'blog' ? 'active' : '' %>"
+        ><li><i class="fa-brands fa-blogger"></i>Blogs</li>
+      </a>
+      <a
+        href="/admin/orders"
+        class="nav-link <%= path === 'orders' ? 'active' : '' %>"
+        ><li><i class="fa-solid fa-ticket"></i>Ticket Orders</li></a
+      >
+
+      <a
+        href="/admin/feedbackhub"
+        class="nav-link <%= path === 'feedback' ? 'active' : '' %>"
+        ><li><i class="fa-solid fa-comment"></i>Feedback Hub</li></a
+      >
+
+      <% if (admin.adminType === 'Super-Admin') { %>
+      <a
+        href="/admin/add-admin"
+        class="nav-link <%= path === '/add-admin' ? 'active' : '' %>"
+        ><li><i class="fa-solid fa-gear"></i>Add Admin</li></a
+      >
+      <%}%>
+
+      <a
+        href="/admin/settings"
+        class="nav-link <%= path === 'setting' ? 'active' : '' %>"
+        ><li><i class="fa-solid fa-gear"></i>Settings</li></a
+      >
+    </ul>
+  </div>
+</nav>

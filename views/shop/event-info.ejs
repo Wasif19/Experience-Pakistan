@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%=Event.name%></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.2.0/mapbox-gl-directions.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.2.0/mapbox-gl-directions.css"
+      type="text/css"
+    />
+
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <link rel="stylesheet" href="/css/sample.css" />
+    <link rel="stylesheet" href="/css/headerFooter.css" />
+    <link rel="stylesheet" href="/css/eventinfo.css" />
+    <link rel="stylesheet" href="/css/selectedRestaurant.css" />
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  </head>
+  <body>
+    <!-- ----------------- Header ---------------------- -->
+    <%- include('../includes/header.ejs') %>
+    <!-- ----------------- Selected Event Section ---------------------- -->
+    <main class="restaurants container wrapper">
+      <section class="restaurants-section-head">
+        <div class="restaurants-name flex-left gap">
+          <h1><%=Event.name%></h1>
+        </div>
+
+        <div class="restaurants-mid padd">
+          <div>
+            <p>
+              <%=Event.startDate.getDate() %> <%=
+              helper.getMonthAbbreviation(Event.startDate.getMonth()+1)%> -
+              <%=Event.endDate.getDate() %> <%=
+              helper.getMonthAbbreviation(Event.endDate.getMonth()+1)%>
+            </p>
+          </div>
+        </div>
+
+        <div class="restaurant-address flex-left padd">
+          <div class="address flex-left gap-small">
+            <!-- icon -->
+            <i class="fa-solid fa-location-dot"></i>
+            <p class="light"><%=Event.address%></p>
+          </div>
+
+          <div class="phone flex-left gap-small border">
+            <i class="fa-solid fa-phone"></i>
+            <p class="light"><%=number%></p>
+          </div>
+
+          <div class="website flex-left gap-small border">
+            <i class="fa-solid fa-person"></i>
+            <p class="light">
+              <%=Event.OrganizerId.firstname + ' ' + Event.OrganizerId.lastname
+              %>
+            </p>
+          </div>
+
+          <div class="timming flex-left gap-small border">
+            <i class="fa-solid fa-clock"></i>
+            <p class="light"><%=Event.eventTime%></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="selected event">
+        <div class="event-img">
+          <img src="/<%= Event.imageUrl %>" alt="" />
+        </div>
+
+        <div class="wrapper flex event-info">
+          <div class="ticket flex flex-centers">
+            <% if(Event.ticketed) {%>
+            <a href="/ticket-detail/<%=Event._id%>" class="ticket-wrap">
+              <span>
+                <h2>Book Your Spot Now</h2>
+              </span>
+              <p>Price Starting From</p>
+              <h3><%=Event?.tickets[0].price%></h3>
+              <p>Per Person</p>
+            </a>
+            <%}else {%>
+            <div class="ticket-wrap">
+              <span>
+                <h2>THis Event is Free for Everyone.</h2>
+              </span>
+              <p>SO BE THERE ON TIME!</p>
+              <P>THANKS</P>
+            </div>
+            <%}%>
+          </div>
+
+          <div class="detail">
+            <div class="flex detail-head"><h2>Details</h2></div>
+
+            <div class="detail-body">
+              <p><%=Event.description%></p>
+            </div>
+          </div>
+        </div>
+        <div
+          id="map"
+          style="
+            width: 90vw;
+            height: 500px;
+            margin: auto;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            margin-top: 2.5rem;
+          "
+        ></div>
+      </section>
+    </main>
+
+    <!-- ----------------- Call to Action Section ---------------------- -->
+
+    <%- include('../includes/newsletter.ejs') %>
+
+    <!-- ----------------- Footer Section ---------------------- -->
+
+    <%- include('../includes/footer.ejs') %>
+    <script>
+      // Embedding the restaurant address
+      var restaurantAddress = "<%= Event.address %>";
+      var mapboxToken = "<%=mapboxToken%>";
+    </script>
+    <script src="/scripts/mapbox.js"></script>
+  </body>
+</html>

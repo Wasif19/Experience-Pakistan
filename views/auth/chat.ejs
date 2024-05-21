@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat</title>
+  </head>
+  <style>
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.chat-popup {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+  border: 1px solid #ffb987;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  display: none;
+}
+
+.chat-header {
+  background-color: #f47725;
+  color: #fff;
+  padding: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky; /* Make header sticky */
+  top: 0; /* Stick to the top of the chat container */
+  z-index: 1; /* Ensure header is above chat messages */
+}
+
+.close-btn {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.chat-container {
+  max-height: 300px;
+  padding: 10px;
+/* Specify color of the scrollbar */
+  position: relative; /* Set position to relative */
+  display: flex; /* Set display to flex */
+  flex-direction: column;
+  overflow-y: scroll;
+
+}
+.chat-container button {
+  display: block;
+  
+  padding: 10px 20px;
+  margin-bottom: 10px; /* Added margin to separate buttons vertically */
+  border: none;
+  background-color: #ffdaa3; /* Changed button color */
+  color: #1a1a1a;
+  border-radius: 5px; /* Added border radius */
+  cursor: pointer;
+  scrollbar-width: thin; /* Specify width of the scrollbar */
+  scrollbar-color: #f47725; 
+}
+
+.chat-container button:hover {
+  background-color: #ff951b; /* Added hover effect */
+}
+.chat-container::-webkit-scrollbar {
+  width: 8px; /* Set width of the scrollbar */
+}
+
+/* Style for the scrollbar thumb */
+.chat-container::-webkit-scrollbar-thumb {
+  background-color: #f47725; /* Set color of the scrollbar thumb */
+  border-radius: 4px; /* Set border radius of the scrollbar thumb */
+}
+
+/* Style for the scrollbar thumb on hover */
+.chat-container::-webkit-scrollbar-thumb:hover {
+  background-color: #f6a874; /* Set color of the scrollbar thumb on hover */
+}
+.chat-message {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 70%; /* Limit message width */
+  word-wrap: break-word; /* Wrap long words */
+  display: inline-block;
+}
+
+
+.input-container {
+  display: flex;
+  padding: 10px;
+  gap: 8px
+}
+
+.input-container input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ffb987;
+  border-radius: 5px 0 0 5px;
+}
+
+.input-container button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #f47725; /* Changed button color */
+  color: #fff;
+  border-radius: 5px; /* Added border radius */
+  cursor: pointer;
+  margin-top: 10px; /* Added margin to separate buttons vertically */
+}
+
+.open-btn {
+  position: fixed;
+  bottom: 20px; /* Adjusted position from top to bottom */
+  right: 20px; /* Adjusted position from left to right */
+  background-color: #f47725; /* Changed button color */
+  color: #f0f0f0;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px; /* Added border radius */
+  cursor: pointer;
+  margin-left: 3px;
+}
+
+/* Changed chat message color */
+.sent {
+  background-color: #f47; /* Changed message color */
+  color: #fff;
+  align-self: flex-end;
+  margin-left: auto;
+}
+
+.received {
+  background-color: #f0f0f0;
+  align-self: flex-start;
+}
+  </style>
+  <body>
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Chat</title>
+      <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+      <div id="chat-popup" class="chat-popup">
+        <div class="chat-header">
+          Chatbot
+          <button class="close-btn" onclick="closeChat()">X</button>
+        </div>
+        
+          <div class="chat-container" id="chat-container">
+            <!-- Pre-fed questions as buttons -->
+            <button onclick="askQuestion('How are you?')">How are you?</button>
+            <button onclick="askQuestion('What is your name?')">What is your name?</button>
+          </div>
+          
+        <div class="input-container">
+          <input type="text" id="input-message" placeholder="Type your message...">
+          <button onclick="sendMessage()">Send</button>
+        </div>
+      </div>
+      <button class="open-btn" onclick="openChat()">Open Chat</button>
+
+    <script>
+document.getElementById('input-message').addEventListener('keypress', function(event) {
+  if (event.key === 'Enter') {
+    sendMessage();
+  }
+});
+
+function openChat() {
+  document.getElementById('chat-popup').style.display = 'block';
+  document.querySelector('.open-btn').style.display = 'none';
+}
+
+function closeChat() {
+  document.getElementById('chat-popup').style.display = 'none';
+  document.querySelector('.open-btn').style.display = 'block';
+}
+function askQuestion(question) {
+  addMessage('sent', question);
+
+  // Send pre-fed question to server
+  fetch('/question', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ question})
+  })
+  .then(response => response.json())
+  .then(data => {
+    // Display server response
+    addMessage('received', data.response);
+    const chatContainer = document.getElementById('chat-container');
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+    
+  })
+  .catch(error => console.error('Error:', error));
+}
+
+function sendMessage() {
+  let eventId = '<%=id%>';
+  console.log(eventId)
+  const message = document.getElementById('input-message').value;
+  addMessage('sent', message);
+
+
+  // Send user message to server
+  fetch('/question', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ question: message })
+  })
+  .then(response => response.json())
+  .then(data => {
+    // Display server response
+    addMessage('received', data.response);
+    const chatContainer = document.getElementById('chat-container');
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+
+  })
+  .catch(error => console.error('Error:', error));
+
+  document.getElementById('input-message').value = ''; // Clear input field
+}
+
+function addMessage(type, text) {
+  const chatContainer = document.getElementById('chat-container');
+  const chatMessage = document.createElement('div');
+  chatMessage.classList.add('chat-message', type);
+  chatMessage.textContent = text;
+  chatContainer.appendChild(chatMessage);
+}
+    </script>
+  </body>
+</html>

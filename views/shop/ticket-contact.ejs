@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book a Tickets</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="/css/headerFooter.css" />
+    <link rel="stylesheet" href="/css/sample.css" />
+    <link rel="stylesheet" href="/css/ticket.css" />
+
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  </head>
+  <body>
+    <!-- ----------------- Header ---------------------- -->
+
+    <%- include('../includes/header.ejs') %>
+
+    <!-- ----------------- Summary Detal Section ---------------------- -->
+
+    <main class="ticket flex container wrapper">
+      <section class="ticketDetail summaryDetail">
+        <div class="ticketDetail-head flex">
+          <span>2</span>
+          <h2>Contact Details</h2>
+        </div>
+
+        <p class="ticketDetail-info">
+          We'll use this information to send you confirmation and updates about
+          your booking.
+        </p>
+
+        <div class="ticketDetail-form">
+          <h3 class="contactDetail-heading">SoulFest 2024</h3>
+          <form
+            action="/ticket-payment/<%=EventId%>"
+            class="contactForm"
+            method="post"
+          >
+            <section class="flex contactDetail gap">
+              <div class="form-control">
+                <label for="fname">First Name</label>
+                <input
+                  type="text"
+                  name="fname"
+                  id="fname"
+                  value="<%=User.name.split(' ')[0]%>"
+                />
+              </div>
+              <div class="form-control">
+                <label for="lname">Last Name</label>
+                <input
+                  type="text"
+                  name="lname"
+                  id="lname"
+                  value="<%=User.name.split(' ')[1]%>"
+                />
+              </div>
+            </section>
+
+            <section class="flex contactDetail gap">
+              <div class="form-control">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="Email"
+                  value="<%=User.email%>"
+                />
+              </div>
+
+              <div class="form-control">
+                <label for="phone">Phone Number</label>
+                <input
+                  type="text"
+                  name="phone"
+                  id="phone"
+                  placeholder="123456"
+                  value="<%=User.number%>"
+                  required
+                />
+              </div>
+            </section>
+
+            <button class="next-btn">Continue</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- ----------------- Footer Section ---------------------- -->
+
+    <%- include('../includes/footer.ejs') %>
+  </body>
+</html>

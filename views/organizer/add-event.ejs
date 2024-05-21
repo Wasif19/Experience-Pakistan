@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add an Event | Organizer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="/css/organizerhead-foot.css" />
+    <link rel="stylesheet" href="/css/organizeEvent.css" />
+
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <!-- ----------------- Header ---------------------- -->
+    <%- include('../includes/organizer-header.ejs') %>
+    <!-- ----------------- Hero Section ---------------------- -->
+    <main class="addEvent">
+      <div class="container">
+        <section class="addEvent-head">
+          <h1>Organize An Event</h1>
+        </section>
+
+        <section class="addEvent-body wrapper">
+          <h2>
+            Please fill the below form to generate a request to Add an Event.
+          </h2>
+
+          <form
+            class="product-form flex-col"
+            action="/organizer/add-event"
+            method="POST"
+            id="eventForm"
+            enctype="multipart/form-data"
+          >
+            <div class="flex-centers">
+              <div class="form-control">
+                <label for="name">Event Name:</label> <br />
+                <input class="width" type="text" name="name" id="name" />
+              </div>
+
+              <div class="form-control">
+                <label for="imageURL">Event's Banner Image:</label><br />
+                <input
+                  class="width"
+                  type="file"
+                  accept="image/*"
+                  name="imageURL[]"
+                  id="ImageURL"
+                  multiple
+                  required
+                />
+              </div>
+            </div>
+            <div class="flex-centers">
+              <div class="form-control">
+                <label for="category">Category:</label> <br />
+                <select class="width" name="category" id="category">
+                  <option>Select Category</option>
+                  <option value="Education">Education</option>
+                  <option value="Arts & Culture">Arts & Culture</option>
+                  <option value="Sports">Sports</option>
+                  <option value="Food">Food</option>
+                  <option value="Concert">Concet</option>
+                  <option value="Technology">Technology</option>
+                  <option value="Exhibition & Workshops">
+                    Exhibition & Workshops
+                  </option>
+                  <option value="Seminars,Conferences & Community">
+                    Seminars,Conferences & Community"
+                  </option>
+                  <option value="Fashion & LifeStyle">
+                    Fashion & LifeStyle
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-control">
+                <label for="city">City:</label><br />
+                <select class="width" name="city" id="city">
+                  <option>Select Category</option>
+                  <option value="Lahore">Lahore</option>
+                  <option value="Karachi">Karachi</option>
+                  <option value="Islamabad">Islamabad</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- <div class="flex-centers"></div> -->
+
+            <div class="flex-centers">
+              <div class="form-control">
+                <label for="Starttime">Start Time:</label><br />
+                <input
+                  class="width-small"
+                  type="time"
+                  name="sTime"
+                  id="sTime"
+                />
+              </div>
+
+              <div class="form-control">
+                <label for="Endtime">End Time:</label><br />
+                <input
+                  class="width-small"
+                  type="time"
+                  name="eTime"
+                  id="eTime"
+                />
+              </div>
+            </div>
+
+            <div class="flex-centers">
+              <div class="form-control">
+                <label for="StartDate">Start Date:</label><br />
+                <input
+                  class="width-small"
+                  type="date"
+                  name="sdate"
+                  id="sdate"
+                />
+              </div>
+              <div class="form-control">
+                <label for="date">End Date:</label><br />
+                <input
+                  class="width-small"
+                  type="date"
+                  name="edate"
+                  id="edate"
+                />
+              </div>
+            </div>
+
+            <div class="form-control desc wrapper">
+              <label for="address">Address:</label><br />
+              <input
+                class="width-large"
+                type="text"
+                name="address"
+                id="address"
+              />
+            </div>
+            <div class="form-control desc wrapper">
+              <label for="description">Description:</label><br />
+              <textarea
+                name="description"
+                id="description"
+                rows="5"
+                cols="50"
+                class="desc-area"
+              ></textarea>
+            </div>
+
+            <div class="flex-centers">
+              <div class="form-control">
+                <label for="ticketedEvent">Is your Event Ticketed?</label>
+                <select
+                  id="ticketedEvent"
+                  name="ticketedEvent"
+                  class="width-small"
+                  onchange="toggleTicketFields()"
+                >
+                  <option value="no">No</option>
+                  <option value="yes">Yes</option>
+                </select>
+                <br />
+              </div>
+
+              <div class="form-control">
+                <div id="ticketFields" class="ticket-fields">
+                  <label for="numOfTickets"
+                    >How many types of Tickets are you offering?</label
+                  >
+                  <br />
+                  <input
+                    type="number"
+                    id="numOfTickets"
+                    class="width"
+                    name="numOfTickets"
+                    placeholder="Enter the number of ticket types"
+                    min="1"
+                    onchange="updateTicketDetails()"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div id="ticketDetails"></div>
+
+            <div class="cover wrapper">
+              <button class="btn" type="submit">Submit</button>
+            </div>
+          </form>
+
+          <!-- **********************************************************  -->
+        </section>
+      </div>
+    </main>
+    <!-- ----------------- Call to Action Section ---------------------- -->
+
+    <%- include('../includes/newsletter.ejs') %>
+
+    <!-- ----------------- Footer Section ---------------------- -->
+
+    <%- include('../includes/footer.ejs') %>
+
+    <!-- ----------------- Scripts ---------------------- -->
+
+    <script src="./scripts/menu.js"></script>
+
+    <script>
+      function toggleTicketFields() {
+        var ticketedEvent = document.getElementById("ticketedEvent");
+        var ticketFields = document.getElementById("ticketFields");
+
+        if (ticketedEvent.value === "yes") {
+          ticketFields.style.display = "block";
+        } else {
+          ticketFields.style.display = "none";
+          document.getElementById("ticketDetails").innerHTML = ""; // Clear previous fields
+        }
+      }
+
+      function updateTicketDetails() {
+        var numOfTickets = document.getElementById("numOfTickets");
+        var ticketDetails = document.getElementById("ticketDetails");
+
+        var value = parseInt(numOfTickets.value); // Convert to integer
+
+        // Validate input (optional)
+        if (isNaN(value) || value < 1) {
+          ticketDetails.innerHTML =
+            "Please enter a valid number of ticket types (minimum 1)";
+          return; // Exit if invalid
+        }
+
+        ticketDetails.innerHTML = ""; // Clear previous fields
+
+        // Create input fields dynamically
+        for (var i = 1; i <= value; i++) {
+          // Create wrapper div with class "flex-centers"
+          var flexCentersWrapper = document.createElement("div");
+          flexCentersWrapper.classList.add("flex-centers");
+
+          // Ticket Type Name
+          var ticketTypeWrapper = document.createElement("div");
+          ticketTypeWrapper.classList.add("form-control");
+
+          var ticketTypeLabel = document.createElement("label");
+          ticketTypeLabel.for = "ticketType" + i;
+          ticketTypeLabel.innerHTML = "Enter Ticket Type " + i + " Name:";
+          ticketTypeWrapper.appendChild(ticketTypeLabel);
+
+          var ticketTypeInput = document.createElement("input");
+          ticketTypeInput.type = "text";
+          ticketTypeInput.id = "ticketType" + i;
+          ticketTypeInput.classList.add("width");
+          ticketTypeInput.name = "ticketType" + i;
+          ticketTypeInput.placeholder = "e.g., Platinum, Gold, etc.";
+          ticketTypeWrapper.appendChild(ticketTypeInput);
+
+          flexCentersWrapper.appendChild(ticketTypeWrapper);
+
+          // Ticket Price
+          var ticketPriceWrapper = document.createElement("div");
+          ticketPriceWrapper.classList.add("form-control");
+
+          var ticketPriceLabel = document.createElement("label");
+          ticketPriceLabel.for = "ticketPrice" + i;
+          ticketPriceLabel.innerHTML = "Enter Ticket Price " + i + ":";
+          ticketPriceWrapper.appendChild(ticketPriceLabel);
+
+          var ticketPriceInput = document.createElement("input");
+          ticketPriceInput.type = "number";
+          ticketPriceInput.id = "ticketPrice" + i;
+          ticketPriceInput.classList.add("width");
+          ticketPriceInput.name = "ticketPrice" + i;
+          ticketPriceInput.placeholder = "Enter Ticket Price";
+          ticketPriceWrapper.appendChild(ticketPriceInput);
+
+          flexCentersWrapper.appendChild(ticketPriceWrapper);
+
+          // Add some space between each set of fields
+          // flexCentersWrapper.appendChild(document.createElement("br"));
+
+          // Append the flex-centers wrapper to the main ticketDetails div
+          ticketDetails.appendChild(flexCentersWrapper);
+        }
+      }
+    </script>
+  </body>
+</html>

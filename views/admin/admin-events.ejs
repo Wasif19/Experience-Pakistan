@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Events</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/adminNavbar.css" />
+    <link rel="stylesheet" href="/css/adminPanel.css" />
+    <link rel="stylesheet" href="/css/adminEvent.css" />
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <section class="flex container flexStart">
+      <%- include('../includes/admin-nav.ejs') %>
+      <main>
+        <section class="dashboard-head flex">
+          <div class="dashboard-head-primary flex">
+            <i class="fa-solid fa-bars-staggered"></i>
+            <h1>Events</h1>
+          </div>
+
+          <div class="dashboard-head-secondary flex gap">
+            <form action="/admin/event" method="post">
+              <input
+                class="searchBox"
+                type="text"
+                placeholder="Search"
+                name="searchText"
+              />
+            </form>
+            <div class="head-img">
+              <img
+                id="profileIcon"
+                onclick="toggleProfileCard()"
+                src="/images/admin.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </section>
+
+        <div id="profileCard">
+          <div class="head-detail">
+            <img src="/images/admin.png" alt="" />
+            <p><%=admin.firstName + ' ' + admin.lastName %></p>
+            <form action="/admin/admin-logout" method="post">
+              <button type="submit">Logout</button>
+            </form>
+          </div>
+        </div>
+
+        <section class="flex dashboard-info">
+          <a class="addBtn" href="/admin/add-event">
+            Add an Event <i class="fa-solid fa-plus"></i>
+          </a>
+
+          <div class="flex gap message-btn">
+            <a class="addBtn approve-btn" href="/admin/approve-event">
+              Approve Events <i class="fa-solid fa-check"></i>
+            </a>
+            <% if (isArt !== 'null') { %> <% if (isArt === 'true') { %>
+            <div class="success-card green" id="successCard">
+              <span class="close-icon" onclick="closeCard()">&times;</span>
+              <p>Successfully added Event!</p>
+            </div>
+
+            <% } else { %>
+            <div class="success-card red" id="successCard">
+              <span class="close-icon" onclick="closeCard()">&times;</span>
+              <p>There was an Error!</p>
+            </div>
+          </div>
+          <% } %> <% } %> <% if (isEdited) { %>
+          <div class="success-card green" id="successCard">
+            <span class="close-icon" onclick="closeCard()">&times;</span>
+            <p>Successfully Edited Event!</p>
+          </div>
+          <% } %>
+        </section>
+
+        <section class="dashboard">
+          <% if(Events.length > 0) { %>
+          <div class="event">
+            <% for (let Event of Events) { %>
+
+            <div class="event-1">
+              <div class="flex gap eventMain">
+                <div class="artistDetail">
+                  <h2><%=Event.name%></h2>
+                  <div class="eventDetail flex flex-center">
+                    <p><%=Event.OrganizerId.organizationName%></p>
+                    <p><%=Event.city%></p>
+                    <p><%=Event.eventType%></p>
+
+                    <p class="eventDT">
+                      <span
+                        ><%=
+                        helper.getMonthAbbreviation(Event.startDate.getMonth()+1)%>
+                        <%=Event.startDate.getDate() %>, <%=
+                        Event.startDate.getFullYear() %></span
+                      >
+                      <span><%=Event.eventTime%></span>
+                    </p>
+                  </div>
+                </div>
+                <div class="newBtns">
+                  <button class="deleteBtn">
+                    <a href="/admin/event/delete-event/<%=Event._id%>"
+                      >Delete</a
+                    >
+                  </button>
+                  <button class="editBtn">
+                    <a href="/admin/event/edit-event/<%=Event._id%>">Edit</a>
+                  </button>
+                </div>
+
+                <div class="newBtns">
+                  <button
+                    class="seeMoreBtn"
+                    onclick="window.location.href = '/admin/EventSeeMore/<%=Event._id%>'"
+                  >
+                    See More
+                  </button>
+                  <button
+                    class="ticketBtn"
+                    onclick="window.location.href = '/admin/event/ticket-details/<%=Event._id%>'"
+                  >
+                    Tickets Details
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <% } %>
+          </div>
+          <%} else {%>
+          <div class="noRecord record-center">
+            <h2>No Event Found</h2>
+            <img src="/images/NoRecord.png" alt="" />
+          </div>
+          <%} %>
+        </section>
+      </main>
+    </section>
+
+    <script src="/scripts/admin.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const navLinks = document.querySelectorAll(".nav-link");
+
+        navLinks.forEach(function (navLink) {
+          navLink.addEventListener("click", function (event) {
+            // Remove active class from all nav links
+            navLinks.forEach(function (link) {
+              link.classList.remove("active");
+            });
+
+            // Add active class to the clicked nav link
+            this.classList.add("active");
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

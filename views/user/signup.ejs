@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SignUp</title>
+
+    <link rel="stylesheet" href="/css/userSignup.css" />
+
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <section class="top-CTA">
+      <p>
+        <i class="fa-solid fa-crown"></i> <a href="">Subscribe</a> to our
+        Newsletter to get latest updates on things to do in Pakistan!
+      </p>
+    </section>
+    <!-- ----------------- Header ---------------------- -->
+    <header class="flex gap">
+      <div class="flex flex-center">
+        <img
+          class="header-logo tablet-logo"
+          src="/images/newlogo.png"
+          alt=""
+          hidden
+        />
+      </div>
+      <nav class="primary-nav flex gap menu" style="left: -1500px">
+        <a href="../index.html">
+          <img
+            class="header-logo laptop-logo"
+            src="../images/newlogo.png"
+            alt="Experience Pakistan Logo"
+        /></a>
+      </nav>
+
+      <div class="actionButtons menu-2">
+        <a class="actionButtons-1" href="/user/signup">Need Help ? </a>
+      </div>
+    </header>
+    <!-- ----------------- Main Section ---------------------- -->
+    <main class="container flex signupForm">
+      <section class="main-right centers">
+        <h1>Create Account</h1>
+        <form action="/user/signup" method="post">
+          <label for="Name"> Name</label>
+          <br />
+          <input
+            class="width margin"
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Enter your Name"
+            value="<%=oldInput.name%>"
+            required
+          />
+          <br />
+
+          <label for="email">Email</label>
+          <br />
+          <input
+            class="width margin"
+            type="text"
+            name="email"
+            id=""
+            placeholder="Enter your Email"
+            value="<%=oldInput.email%>"
+            required
+          />
+          <br />
+
+          <label for="phone">Phone Number</label>
+          <br />
+          <input
+            class="width margin"
+            type="tel"
+            id="phone"
+            name="phone"
+            placeholder="03XXXXXXXXX"
+            pattern="03[0-5][0-9]{2}[0-9]{6}"
+            value="<%=oldInput.phone%>"
+            required
+          />
+          <br />
+          <small>Format: 03456787878</small><br /><br />
+
+          <div class="form-control">
+            <label for="city">City:</label><br />
+            <select class="width" name="city" id="city">
+              <option>Select Category</option>
+              <option value="Lahore">Lahore</option>
+              <option value="Karachi">Karachi</option>
+              <option value="Islamabad">Islamabad</option>
+            </select>
+          </div>
+
+          <label for="password">Password</label><br />
+          <input
+            class="width margin"
+            type="password"
+            name="password"
+            id=""
+            placeholder="Password"
+            value="<%=oldInput.password%>"
+            required
+          /><br />
+
+          <label for="cpassword">Confirm Password</label><br />
+
+          <input
+            class="width margin"
+            type="password"
+            name="cpassword"
+            id="cpassword"
+            placeholder="Confirm Password"
+            value="<%=oldInput.cpassword%>"
+            required
+          />
+
+          <input class="submit-btn" type="submit" placeholder="Submit" />
+        </form>
+        <% if(errorMessage) {%>
+        <h4 class="errorMessage">
+          <i class="fa-solid fa-triangle-exclamation"></i> <%=errorMessage%>
+        </h4>
+        <%}%>
+        <p>Already have an account? <a href="/user/login">Log in</a></p>
+      </section>
+    </main>
+
+    <!-- ----------------- Scripts ---------------------- -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+
+    <script src="../scripts/menu.js"></script>
+  </body>
+</html>

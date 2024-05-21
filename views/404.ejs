@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 Page Not Found</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="/css/homeheader.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/headerFooter.css" />
+
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <!-- ----------------- Header ---------------------- -->
+    <%- include('./includes/header.ejs') %>
+
+    <!-- ----------------- 404 Page Section ---------------------- -->
+    <section class="container error404 flex flex-centers">
+      <img src="/images/she_with_phone.png" alt="" />
+
+      <div>
+        <h2>404</h2>
+        <h3>Page Not Found</h3>
+        <p class="error404-first">Looks like this page went on vacation.</p>
+        <a href="\" class="error404-second">Back to Home</a>
+      </div>
+    </section>
+
+    <!-- ----------------- Footer Section ---------------------- -->
+
+    <%- include('./includes/footer.ejs') %>
+  </body>
+</html>

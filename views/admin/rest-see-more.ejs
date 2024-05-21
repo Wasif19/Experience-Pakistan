@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%=Rest.name%></title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/adminNavbar.css" />
+    <link rel="stylesheet" href="/css/adminPanel.css" />
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <section class="flex container flexStart">
+      <%- include('../includes/admin-nav.ejs') %>
+      <main class="dashboard">
+        <section class="restaurantDetail">
+          <main class="RestaurantMain">
+            <!-- <img src="../images/fine.png" alt="" /> -->
+            <h1><%=Rest.name%></h1>
+          </main>
+
+          <div>
+            <h3>Rating:</h3>
+            <p><%=Rest.rating%></p>
+          </div>
+
+          <div>
+            <h3>Address:</h3>
+            <p><%=Rest.address%></p>
+          </div>
+          <div>
+            <h3>Phone Number:</h3>
+            <p><%=Rest.PhoneNumber%></p>
+          </div>
+          <div>
+            <h3>City:</h3>
+            <p><%=Rest.city%></p>
+          </div>
+          <div>
+            <h3>Category:</h3>
+            <p><%=Rest.restaurantType%></p>
+          </div>
+          <div>
+            <h3>Food Types:</h3>
+            <p><%=Rest.cuisine%></p>
+          </div>
+          <br />
+          <div class="extra">
+            <h3>Description:</h3>
+            <p><%=Rest.description%></p>
+          </div>
+
+          <div class="restaurantImages">
+            <% for (let i = 0; i < Rest.imageUrl.length; i++) { %> <% if
+            (Rest?.imageUrl[i]?.includes("uploads")) { %>
+            <img src="/<%= Rest.imageUrl[i] %>" alt="" />
+            <% } else { %>
+            <img src="<%= Rest.imageUrl[i] %>" alt="" />
+            <% } %> <% } %>
+          </div>
+        </section>
+      </main>
+    </section>
+  </body>
+</html>

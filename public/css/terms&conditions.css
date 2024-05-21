@@ -1,0 +1,55 @@
+.terms {
+  max-width: 1000px;
+  text-align: justify;
+  margin: 6rem auto;
+}
+
+.terms h1 {
+  font-weight: 900;
+  line-height: 1.2;
+  font-size: 2.75rem;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  color: var(--primary-color);
+}
+
+.terms h2 {
+  font-size: 1.625rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 0.5em;
+}
+
+.terms p,
+.terms li {
+  margin: 0 0 1em;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.terms li {
+  list-style-type: disc;
+}
+
+.terms ol {
+  padding-left: 1em;
+  /* padding-right: 1em; */
+}
+
+.terms section {
+  margin: 2.5rem 0;
+}
+
+.terms a,
+.terms a:visited {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+@media screen and (max-width: 1023px) {
+  .terms {
+    padding-left: 8%;
+    padding-right: 8%;
+    margin-top: 4rem;
+  }
+}
