@@ -92,3 +92,16 @@
     text-align: justify;
   }
 }
+
+.explore-box-end ul,
+.explore-box-end ol {
+  padding-left: 2.5em;
+}
+
+.explore-box-end ol li {
+  list-style-type: lower-alpha;
+}
+
+.explore-box-end ul li {
+  list-style-type: disc;
+}

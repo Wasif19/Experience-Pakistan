@@ -161,6 +161,7 @@
       class="actionButtons flex menu-2 <%= isUserAuthenticated == true ? 'actionButtons-fix' : ' ' %>"
     >
       <% if (isUserAuthenticated) { %>
+
       <ul>
         <li class="actionButtons-3 dropdown">
           <a href="#" class="dropbtn">
@@ -198,6 +199,7 @@
       <%}%>
       <ul>
         <% if (!isUserAuthenticated) { %>
+
         <li class="actionButtons-3 dropdown">
           <a href="#" class="dropbtn">
             <i class="fa-sharp fa-solid fa-user"></i

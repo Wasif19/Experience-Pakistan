@@ -52,7 +52,7 @@ exports.OrganizerSignup = (req, res, next) => {
       phone: "",
     },
     errorMessage: null,
-    isUserAuthenticated: req.session.UserisLoggedIn,
+    isUserAuthenticated: req.session.UserisLoggedin,
     //errorMessage: message,
   });
 };
@@ -77,6 +77,7 @@ exports.postSignup = async (req, res, next) => {
         description: req.body.description,
         phone: req.body.phone,
       },
+      isUserAuthenticated: req.session.UserisLoggedin,
       validationErrors: errors.array(),
     });
   }
@@ -94,7 +95,8 @@ exports.postSignup = async (req, res, next) => {
         fname: req.body.fname,
         organization: req.body.organization,
         description: req.body.description,
-        phone: req.body.phone,
+        phone: "sajdsjakdjk",
+        isUserAuthenticated: false,
       },
       validationErrors: "Enter a Valid Number!",
     });
