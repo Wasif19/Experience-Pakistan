@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Organizer Ticket Info</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="/css/organizerhead-foot.css" />
+    <link rel="stylesheet" href="/css/organizersDashboard.css" />
+
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  </head>
+  <body>
+    <!-- ----------------- Header ---------------------- -->
+    <%- include('../includes/organizer-header.ejs') %>
+    <!-- ----------------- Hero Section ---------------------- -->
+    <main>
+      <div class="container">
+        <section class="organizer">
+          <h1>Ticket Detail</h1>
+        </section>
+        <%if(Tickets.length == 0) {%>
+
+        <div class="noRecord record-center">
+          <h2>No Ticket Found</h2>
+          <img src="/images/NoRecord.png" alt="" />
+        </div>
+        <%} else {%>
+        <section class="ticket-list">
+          <table>
+            <thead>
+              <tr>
+                <th>Ticket #</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone #</th>
+                <th>Ticket Type</th>
+                <th>Total Tickets</th>
+                <th>Total Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% Tickets.forEach(function(ticket) {%>
+              <tr>
+                <td><%= ticket.ticketNumber%></td>
+                <td><%=ticket.customerName %></td>
+                <td><%=ticket.customerEmail %></td>
+                <td><%= ticket.customerNumber %></td>
+                <td><%= ticket.customerCart.ticketName.join(', ') %></td>
+                <td>
+                  <%= ticket.customerCart.ticketQuantity.reduce((acc, qty) =>
+                  acc + qty, 0) %>
+                </td>
+                <td><%=ticket.customerTotalBill %></td>
+              </tr>
+              <%})%>
+            </tbody>
+          </table>
+          <% }%>
+        </section>
+      </div>
+    </main>
+    <!-- ----------------- Call to Action Section ---------------------- -->
+
+    <%- include('../includes/newsletter.ejs') %>
+
+    <!-- ----------------- Footer Section ---------------------- -->
+
+    <%- include('../includes/footer.ejs') %>
+
+    <!-- ----------------- Scripts ---------------------- -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+
+    <script src="/scripts/menu.js"></script>
+  </body>
+</html>

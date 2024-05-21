@@ -1,0 +1,93 @@
+.restaurants-mid p {
+  color: rgba(0, 0, 0, 0.55);
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 109.2%;
+}
+
+.event-img,
+.event-img img {
+  border-radius: 7.4rem 0rem 0rem 0rem;
+  text-align: center;
+}
+.event-img {
+  margin-bottom: 3rem;
+}
+
+.detail-head h2,
+.ticket h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 109.2%;
+  padding-bottom: 0.5em;
+}
+
+.ticket {
+  width: 30%;
+}
+
+.ticket a {
+  color: var(--primary-color);
+  transition: transform 0.3s ease;
+}
+
+.ticket a:visited {
+  color: var(--primary-color);
+}
+
+.ticket a:hover {
+  transform: translateY(-15px) !important;
+}
+
+.detail,
+.ticket-wrap {
+  width: 65%;
+}
+.ticket-wrap {
+  width: 90%;
+}
+
+.ticket h2 {
+  text-align: center;
+}
+
+.ticket p {
+  color: rgba(0, 0, 0, 0.69);
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 159.2%;
+  margin-bottom: 1px;
+}
+
+.ticket-wrap {
+  /* border: 1px solid #00000057; */
+  border: 1px solid var(--primary-color);
+  padding: 1.2em;
+  border-radius: 12px;
+  min-width: 250px;
+
+  box-shadow: 10px 10px 29px -15px rgba(141, 141, 141, 0.75);
+  -webkit-box-shadow: 10px 10px 29px -15px rgba(141, 141, 141, 0.75);
+  -moz-box-shadow: 10px 10px 29px -15px rgba(141, 141, 141, 0.75);
+}
+
+.ticket h3 {
+  font-weight: bold;
+  font-size: 1.45rem;
+}
+
+@media screen and (max-width: 1000px) {
+  .event-info {
+    flex-direction: column-reverse;
+    gap: 2.5rem;
+    justify-content: center;
+  }
+  .detail {
+    width: 95%;
+  }
+  .ticket {
+    width: 65%;
+  }
+}

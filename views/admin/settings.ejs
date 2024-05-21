@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update Details</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/adminNavbar.css" />
+    <link rel="stylesheet" href="/css/adminPanel.css" />
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <section class="flex container flexStart">
+      <%- include('../includes/admin-nav.ejs') %>
+      <main>
+        <section class="dashboard-head flex">
+          <div class="dashboard-head-primary flex">
+            <i class="fa-solid fa-bars-staggered"></i>
+            <h1>Account Details</h1>
+          </div>
+
+          <div class="dashboard-head-secondary">
+            <div class="head-img">
+              <img id="profileIcon" src="/images/admin.png" alt="" />
+            </div>
+          </div>
+        </section>
+
+        <div id="profileCard">
+          <div class="head-detail">
+            <img src="/images/admin.png" alt="" />
+            <%=admin.firstName + ' ' + admin.lastName %>
+            <form action="/admin/admin-logout" method="post">
+              <button type="submit">Logout</button>
+            </form>
+          </div>
+        </div>
+
+        <section class="flex dashboard-info flex-end">
+          <% if (isArt !== 'null') { %> <% if (isArt === 'true') { %>
+          <div class="success-card green" id="successCard">
+            <span class="close-icon" onclick="closeCard()">&times;</span>
+            <p>Successfully Updated!</p>
+          </div>
+          <% } else { %>
+          <div class="success-card red" id="successCard">
+            <span class="close-icon" onclick="closeCard()">&times;</span>
+            <p>There was an Error!</p>
+          </div>
+          <% } %> <% } %> <% if (isDel) { %>
+          <div class="success-card red" id="successCard">
+            <span class="close-icon" onclick="closeCard()">&times;</span>
+            <p>Wrong Password!</p>
+          </div>
+          <% } %>
+        </section>
+
+        <section class="dashboard list" style="padding-top: 0px">
+          <form class="product-form" action="/admin/settings" method="POST">
+            <div class="form-control form-set">
+              <label for="image">Profile Image</label>
+              <div class="profile-image">
+                <img
+                  id="user-image"
+                  src="/images/admin.png"
+                  alt="User Profile Image"
+                />
+              </div>
+            </div>
+
+            <div class="form-control">
+              <label for="fname">First Name</label>
+              <input
+                class="width-small"
+                type="text"
+                name="fname"
+                id=""
+                value="<%=admin.firstName%>"
+                required
+              />
+            </div>
+            <div class="form-control">
+              <label for="lname">Last Name</label>
+              <input
+                class="width-small"
+                type="text"
+                name="lname"
+                id=""
+                value="<%=admin.lastName%>"
+                required
+              />
+            </div>
+
+            <div class="form-control">
+              <label for="email">Email</label>
+
+              <input
+                class="width margin"
+                type="text"
+                name="email"
+                id=""
+                value="<%=admin.email%>"
+                required
+              />
+            </div>
+
+            <div class="form-control">
+              <label for="password">Current Password</label>
+              <input
+                class="width margin-less"
+                type="password"
+                name="password"
+                id=""
+                placeholder="Enter your current Password"
+                required
+              />
+            </div>
+            <div class="form-control">
+              <label for="password">New Password</label>
+              <input
+                class="width"
+                type="password"
+                name="cpassword"
+                id=""
+                placeholder="Enter your New Password"
+                required
+              />
+            </div>
+
+            <div class="confirmBtn">
+              <button class="addBtn" id="confirm" type="submit">Update</button>
+            </div>
+          </form>
+        </section>
+      </main>
+    </section>
+    <script src="/scripts/admin.js"></script>
+  </body>
+</html>

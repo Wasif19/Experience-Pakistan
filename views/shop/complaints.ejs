@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Give a Suggestion | Experience Pakistan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="/css/headerFooter.css" />
+    <link rel="stylesheet" href="/css/signup.css" />
+    <link rel="stylesheet" href="/css/contactUs.css" />
+    <link rel="stylesheet" href="/css/homeheader.css" />
+
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  </head>
+  <body>
+    <!-- ----------------- Header ---------------------- -->
+    <%- include('../includes/header.ejs') %>
+    <!-- ----------------- Hero Section ---------------------- -->
+
+    <main class="contact container wrapper flex">
+      <section class="contact-info wrapper">
+        <h1 class="suggest-heading">Complaints?</h1>
+        <p class="contact-desc">Where did we go wrong?</p>
+        <p class="contact-desc">
+          Please tell us what it is, and we'll address the issue.
+        </p>
+        <img src="./images/undraw_Contact_us_re_4qqt.png" alt="" />
+        <!-- <p class="contact-desc">Want to know more about our platform?</p>
+        <button class="more-btn">
+          About US Page <i class="fa-solid fa-arrow-right"></i>
+        </button> -->
+      </section>
+      <section class="contact-form">
+        <form action="/complaints" method="post">
+          <div class="main-form">
+            <span class="width-small">
+              <label for="fname">First Name</label><br />
+              <input
+                class="width-small"
+                type="text"
+                name="fname"
+                id=""
+                placeholder="First"
+                required=""
+            /></span>
+
+            <span class="width-small">
+              <label for="lname">Last Name</label><br />
+              <input
+                class="width-small"
+                type="text"
+                name="lname"
+                id=""
+                placeholder="Last"
+                required=""
+            /></span>
+          </div>
+
+          <div class="main-form">
+            <span class="width-small">
+              <label for="email">Email</label>
+              <br />
+              <input
+                class="width-small"
+                type="text"
+                name="email"
+                id=""
+                placeholder="Email"
+                required=""
+              />
+            </span>
+
+            <span class="width-small">
+              <label for="phone">Phone Number</label>
+              <br />
+              <input
+                class="width-small"
+                type="tel"
+                name="phone"
+                id=""
+                placeholder="Phone Number"
+                required=""
+              />
+            </span>
+          </div>
+
+          <label for="topic">What is it related to?</label>
+          <br />
+          <select name="topic" id="" class="width margin" required="">
+            <option value="">------</option>
+            <option value="ticket">Ticket</option>
+            <option value="organizer">Organizer</option>
+            <option value="event">Event</option>
+            <option value="user profile">User Profile</option>
+            <option value="customer service">Customer Service</option>
+          </select>
+
+          <label for="description">Tell us about the issue?</label>
+          <br />
+          <textarea
+            id="description"
+            class="width margin"
+            name="description"
+            rows="4"
+            cols="50"
+            placeholder="Type your message..."
+            required=""
+          ></textarea>
+
+          <br />
+
+          <button class="submit-btn">
+            Submit <i class="fa-regular fa-paper-plane"></i>
+          </button>
+        </form>
+      </section>
+    </main>
+
+    <!-- ----------------- Call to Action Section ---------------------- -->
+
+    <%- include('../includes/newsletter.ejs') %>
+
+    <!-- ----------------- Footer Section ---------------------- -->
+
+    <%- include('../includes/footer.ejs') %>
+
+    <script>
+      const faqItems = document.querySelectorAll(".faq-item");
+      const icon = document.getElementById("changeIcon");
+      faqItems.forEach((item) => {
+        item.addEventListener("click", function () {
+          item.classList.toggle("active");
+          const answer = item.querySelector(".faq-answer");
+          answer.classList.toggle("show");
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LogIn</title>
+    <link rel="stylesheet" href="/css/headerFooter.css" />
+    <link rel="stylesheet" href="/css/signup.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <!-- ----------------- Header ---------------------- -->
+    <%- include('../includes/header.ejs') %>
+    <!-- ----------------- Main Section ---------------------- -->
+    <main class="container flex">
+      <div class="main-left">
+        <img src="/images/form.svg" alt="" />
+      </div>
+      <div class="main-right">
+        <section class="center">
+          <h1>LogIn</h1>
+          <p>Don't have an account? <a href="/organizer-signup">Sign UP</a></p>
+          <form action="/organizer-login" method="post">
+            <label for="email">Email</label>
+            <br />
+            <input
+              class="width margin"
+              type="email"
+              name="email"
+              id=""
+              placeholder="Email"
+              value="<%=oldInput.email%>"
+            />
+            <br />
+            <label for="password">Password</label><br />
+            <input
+              class="width margin-less"
+              type="password"
+              name="password"
+              id=""
+              placeholder="Password"
+              value="<%=oldInput.password%>"
+            /><br />
+
+            <button class="submit-btn" type="submit">Submit</button>
+          </form>
+          <h4><%=errorMessage%></h4>
+          <%}%> <% if (wrongPass) { %>
+          <p><a href="/user/resetPassword">Forgot Password?</a></p>
+          <% } %>
+        </section>
+      </div>
+    </main>
+
+    <!-- ----------------- Call to Action Section ---------------------- -->
+
+    <section class="CTA">
+      <div class="news">
+        <h2>NEWSLETTER SIGN UP</h2>
+        <p>Get latest updates on things to do in Pakistan</p>
+        <input type="text" placeholder="Your E-Mail Address" />
+        <button>Subscribe</button>
+      </div>
+    </section>
+
+    <!-- ----------------- Footer Section ---------------------- -->
+
+    <footer>
+      <div class="container">
+        <div class="footer-main flex container gap">
+          <div class="about-us">
+            <ul>
+              <h2>About US</h2>
+              <li>
+                Experience Pakistan is a Platform for all type of events and
+                entertainment
+              </li>
+              <li>
+                <a href="">
+                  <img class="google" src="/images/google.png" alt="" />
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="helpful-links">
+            <ul>
+              <h2>Helpful Links</h2>
+              <li><a href="">Experience Pakistan</a></li>
+              <li><a href="">Search By City</a></li>
+              <li><a href="">About Us</a></li>
+              <li><a href="">Contact Us</a></li>
+              <li><a href="">Articles</a></li>
+              <li><a href="">Frequently Asked Questions</a></li>
+            </ul>
+          </div>
+
+          <div class="eventsByCity">
+            <ul>
+              <h2>Events By City</h2>
+              <li><a href="">Lahore</a></li>
+              <li><a href="">Karachi</a></li>
+              <li><a href="">Islamabad</a></li>
+            </ul>
+          </div>
+
+          <div class="useful-links">
+            <ul>
+              <h2>Useful Links</h2>
+              <li><a href="">Submit a Complaint</a></li>
+              <li><a href="">Give a Suggestion</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="container footer-secondary flex gap">
+          <div class="copyright">
+            <p class="">
+              <img src="/images/Copyright.png" alt="" />2023 Experience
+              Pakistan. All Rights Reserved
+            </p>
+          </div>
+
+          <div class="external-link flex wrapper">
+            <a href="">Terms & Conditions</a>
+            <a href="">Privacy Policy</a>
+            <a href="">Cookie Policy</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ----------------- Scripts ---------------------- -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+
+    <script src="./scripts/menu.js"></script>
+  </body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Experience</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/css/headerFooter.css" />
+    <link rel="stylesheet" href="/css/sample.css" />
+    <link rel="stylesheet" href="/css/selectedRestaurant.css" />
+    <link rel="stylesheet" href="/css/homeheader.css" />
+    <link rel="stylesheet" href="/css/image-grid.css" />
+
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <!-- ----------------- Header ---------------------- -->
+    <%- include('../includes/header.ejs') %>
+
+    <!-- ----------------- Main Section ---------------------- -->
+
+    <main class="restaurants container">
+      <section class="wrapper restaurants-section-head">
+        <div class="restaurants-name flex-left gap">
+          <h1><%=experience.name%></h1>
+        </div>
+
+        <div class="restaurants-mid flex-left padd rest-fix">
+          <% if (experience?.ratingPicture && experience?.rating) { %>
+          <div class="review flex-left gap-small">
+            <div class="rating flex">
+              <img src="<%=experience.ratingPicture%>" />
+            </div>
+            <p class="light"><%=experience.rating%></p>
+          </div>
+          <% } else {%>
+
+          <div class="review flex-left gap-small">
+            <div class="rating flex">
+              <img
+                src="https://www.tripadvisor.com/img/cdsi/img2/ratings/traveler/4.0-66827-5.svg"
+              />
+            </div>
+            <p class="light">22 Reviews</p>
+          </div>
+          <% } %>
+
+          <div class="restaurant-city border gap-fix">
+            <p class="light">Experience in <%=experience.city%></p>
+          </div>
+        </div>
+
+        <div class="restaurant-address flex-left padd rest-add-fix">
+          <div class="address flex-left gap-small add-fix">
+            <i class="fa-solid fa-location-dot"></i>
+            <p class="light"><%=experience.address%></p>
+          </div>
+
+          <div class="phone flex-left gap-small border">
+            <i class="fa-solid fa-phone"></i>
+            <p class="light"><%=experience.number%></p>
+          </div>
+
+          <div class="timming flex-left gap-small border">
+            <i class="fa-solid fa-clock"></i>
+            <p class="light">12 pm - 10 pm</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ----------------- Images Section ------------------- -->
+
+      <!-- <section class="restaurant-gallery flex gap wrapper">
+        <div class="rest-img">
+          <img src="/<%=experience.imageUrl[0]%>" alt="" />
+        </div>
+      </section> -->
+
+      <section class="restaurant-gallery wrapper">
+        <div class="image-grid">
+          <% experience.imageUrl.forEach(function(imageUrl) { %>
+          <div class="image-container">
+            <% if (imageUrl?.includes("uploads")) { %>
+            <img src="/<%= imageUrl %>" alt="" />
+            <% } else { %>
+            <img src="<%= imageUrl %>" alt="" />
+            <% } %>
+          </div>
+          <% }); %>
+        </div>
+      </section>
+      <!-- ------------------------- Detail Section --------------- -->
+
+      <section class="restaurant-detail wrapper">
+        <div class="flex detail-head"><h2>Details</h2></div>
+        <div class="detail-body flex gap-small">
+          <div class="detail-row row1" style="width: 100% !important">
+            <h3>About</h3>
+            <p><%=experience.description%></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <%- include('../includes/newsletter.ejs') %>
+
+    <!-- ----------------- Footer Section ---------------------- -->
+
+    <%- include('../includes/footer.ejs') %>
+  </body>
+</html>

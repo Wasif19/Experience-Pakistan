@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Restaurant</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/adminNavbar.css" />
+    <link rel="stylesheet" href="/css/adminPanel.css" />
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <section class="flex container flexStart">
+      <%- include('../includes/admin-nav.ejs') %>
+
+      <main>
+        <section class="dashboard-head flex">
+          <div class="dashboard-head-primary flex">
+            <i class="fa-solid fa-bars-staggered"></i>
+            <h1>Edit a Restaurant</h1>
+          </div>
+         
+
+          <div class="dashboard-head-secondary flex gap">
+            <div class="head-img">
+              <img
+                id="profileIcon"
+                onclick="toggleProfileCard()"
+                src="/images/admin.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </section>
+
+        <div id="profileCard">
+          <div class="head-detail">
+            <img src="/images/admin.png" alt="" />
+            <p><%=admin.firstName + ' ' + admin.lastName %></p>
+            <form action="/admin/admin-logout" method="post">
+              <button type="submit">Logout</button>
+            </form>
+          </div>
+        </div>
+
+        <section class="dashboard list">
+          <form
+          class="product-form"
+          action="/admin/postEdit-restaurant"
+          method="POST"
+          enctype="multipart/form-data"
+        >
+          <div class="form-control">
+            <label for="name">Restaurant Name</label>
+            <input type="text" name="name" id="name" value="<%=Rest.name%>" />
+          </div>
+
+          <div class="form-control">
+            <label for="address">Restaurant Address</label>
+            <input type="text" name="address" id="address" value="<%=Rest.address%>"  />
+          </div>
+
+          <div class="form-control">
+            <label for="PhoneNumber">Phone Number</label>
+            <input type="tel" name="number" id="number" value="<%=Rest.PhoneNumber%>"  />
+          </div>
+
+          <div class="form-control">
+            <label for="rating">Restaurant Rating</label>
+            <input type="number" name="rating" id="rating" value="<%=Rest.rating%>"  />
+          </div>
+
+          <div class="form-control">
+            <label for="city">Restaurant City:</label>
+            <select name="city" id="city">
+              <option>Select City</option>
+              <option value="Lahore" <%= Rest.city == 'Lahore' ? selected='selected' : ' ' %>>Lahore</option>
+              <option value="Karachi" <%= Rest.city == 'Karachi' ? selected='selected' : ' ' %>>Karachi</option>
+              <option value="Islamabad" <%= Rest.city == 'Islamabad' ? selected='selected' : ' ' %>>Islamabad</option>
+            </select>
+          </div>
+
+          <div class="form-control">
+            <label for="category">Restaurant Category:</label>
+            <select name="category" id="category">
+              <option>Select Category</option>
+              <option value="Fine Dining" <%= Rest.restaurantType == 'Fine Dining' ? selected='selected' : ' ' %>>Fine Dining</option>
+              <option value="Economical" <%= Rest.restaurantType == 'Economical' ? selected='selected' : ' ' %>>Economical</option>
+              <option value="Casual Dining" <%= Rest.restaurantType == 'Casual Dining' ? selected='selected' : ' ' %>>Casual Dining</option>
+            </select>
+          </div>
+
+          <div class="form-control">
+            <label for="imageURL">Restaurant ImageURL:</label>
+
+            <input
+              type="file"
+              name="imageURL[]"
+              id="ImageURL"
+              accept="image/*"
+              multiple
+            />
+          </div>
+
+          <div class="form-control desc">
+            <label for="description">Restaurant Description:</label>
+            <textarea
+              name="description"
+              id="Description"
+              rows="5"
+              placeholder="Description Here!"
+            ><%=Rest.description%></textarea>
+          </div>
+
+          <div class="form-control foodType" id="foodTypeLabels">
+            <label for="type">Food Type:</label>
+            <div>
+              <label>
+                <input type="checkbox" name="CuisineOptions" value="Desi" <%= Rest.cuisine.includes('Desi') ? checked='checked' : ' ' %> />
+                Desi
+              </label>
+
+              <label>
+                <input
+                  type="checkbox"
+                  name="CuisineOptions"
+                  value="Chinese"
+                  <%= Rest.cuisine.includes('Chinese') ? checked='checked' : ' ' %>
+                />
+                Chinese
+              </label>
+              <br />
+              <label>
+                <input
+                  type="checkbox"
+                  name="CuisineOptions"
+                  value="FastFood"
+                  <%= Rest.cuisine.includes('FastFood') ? checked='checked' : ' ' %>
+                />
+                FastFood
+              </label>
+
+              <label>
+                <input
+                  type="checkbox"
+                  name="CuisineOptions"
+                  value="Italian"
+                  <%= Rest.cuisine.includes('Italian') ? checked='checked' : ' ' %>
+                />
+                Italian
+              </label>
+              <br />
+              <label>
+                <input
+                  type="checkbox"
+                  name="CuisineOptions"
+                  value="Continental"
+                  <%= Rest.cuisine.includes('Continental') ? checked='checked' : ' ' %>
+                />
+                Continental
+              </label>
+
+              <label>
+                <input
+                  type="checkbox"
+                  name="CuisineOptions"
+                  value="Breakfast"
+                  <%= Rest.cuisine.includes('Breakfast') ? checked='checked' : ' ' %>
+                />
+                Breakfast
+              </label>
+              <br />
+
+              <label>
+                <input
+                  type="checkbox"
+                  name="CuisineOptions"
+                  value="Dessert"
+                  <%= Rest.cuisine.includes('Dessert') ? checked='checked' : ' ' %>
+                />
+                Dessert
+              </label>
+            </div>
+          </div>
+
+          <div class="confirmBtn">
+            <button class="addBtn" id="confirm" type="submit">
+              Confirm
+            </button>
+          </div>
+          <input type="hidden" value="<%= Rest._id %>" name="RestId" />
+        </form>
+        </section>
+      </main>
+    </section>
+    <script src="/scripts/admin.js"></script>
+  </body>
+</html>

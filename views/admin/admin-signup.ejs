@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SignUp</title>
+    <link rel="stylesheet" href="/css/signup.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <!-- ----------------- Header ---------------------- -->
+    <%- include('../includes/header.ejs') %>
+    <!-- ----------------- Main Section ---------------------- -->
+    <main class="container flex">
+      <div class="main-left">
+        <img src="/images/form.svg" alt="" />
+      </div>
+      <div class="main-right">
+        <section class="center">
+          <h1>Sign UP</h1>
+          <p>
+            Already have an account? <a href="/admin/admin-login">Log in</a>
+          </p>
+          <form action="/admin/admin-dashboard" method="post">
+            <div class="main-form">
+              <span class="width-small">
+                <label for="fname">First Name</label><br />
+                <input
+                  class="width-small"
+                  type="text"
+                  name="fname"
+                  id=""
+                  placeholder="First"
+                  value="<%=oldInput.fname%>"
+                  required
+              /></span>
+
+              <span class="width-small">
+                <label for="lname">Last Name</label><br />
+                <input
+                  class="width-small"
+                  type="text"
+                  name="lname"
+                  id=""
+                  placeholder="Last"
+                  value="<%=oldInput.lname%>"
+                  required
+              /></span>
+            </div>
+
+            <label for="email">Email</label>
+            <br />
+            <input
+              class="width margin"
+              type="text"
+              name="email"
+              id=""
+              placeholder="Email"
+              value="<%=oldInput.email%>"
+              required
+            />
+            <br />
+
+            <label for="password">Password</label><br />
+            <input
+              class="width margin-less"
+              type="text"
+              name="password"
+              id=""
+              placeholder="Password"
+              value="<%=oldInput.password%>"
+              required
+            /><br />
+            <input
+              class="width"
+              type="text"
+              name="cpassword"
+              id=""
+              placeholder="Confirm Password"
+              value="<%=oldInput.cpassword%>"
+              required
+            />
+            <button class="submit-btn" type="submit">Submit</button>
+          </form>
+          <% if(errorMessage) {%>
+          <h4 class="errorMessage">
+            <i class="fa-solid fa-triangle-exclamation"></i> * <%=errorMessage%>
+          </h4>
+          <%}%>
+        </section>
+      </div>
+    </main>
+
+    <!-- ----------------- Call to Action Section ---------------------- -->
+
+    <section class="CTA">
+      <div class="news">
+        <h2>NEWSLETTER SIGN UP</h2>
+        <p>Get latest updates on things to do in Pakistan</p>
+        <input type="text" placeholder="Your E-Mail Address" />
+        <button>Subscribe</button>
+      </div>
+    </section>
+
+    <!-- ----------------- Footer Section ---------------------- -->
+
+    <%- include('../includes/footer.ejs') %>
+
+    <!-- ----------------- Scripts ---------------------- -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+
+    <script src="./scripts/menu.js"></script>
+  </body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About US | Experience Pakistan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/css/headerFooter.css" />
+    <link rel="stylesheet" href="/css/aboutUS.css" />
+    <link rel="stylesheet" href="/css/homeheader.css" />
+
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  </head>
+  <body>
+    <!-- ----------------- Header ---------------------- -->
+    <%- include('../includes/header.ejs') %>
+    <!-- ----------------- Hero Section ---------------------- -->
+
+    <main class="about container wrapper">
+      <h1>About US</h1>
+      <section class="about-sections flex gap wrapper">
+        <div>
+          <h2>Experience Pakistan</h2>
+          <p>
+            Experience Pakistan is a web application designed to bridge the gap
+            between event organizers and attendees in Pakistan. We are
+            passionate about fostering a vibrant event scene that caters to
+            diverse interests and communities.
+          </p>
+        </div>
+        <div>
+          <img src="/images/about us.jpg" alt="" />
+        </div>
+      </section>
+
+      <section class="about-sections reverse flex gap wrapper">
+        <div>
+          <img src="/images/mission.jpg" alt="" />
+        </div>
+        <div>
+          <h2>Our Mission</h2>
+          <p>
+            Our mission is to empower event organizers with a user-friendly
+            platform to manage and promote their events, while simultaneously
+            connecting attendees with exciting experiences that align with their
+            preferences.
+          </p>
+        </div>
+      </section>
+
+      <section class="about-sections flex gap wrapper">
+        <div>
+          <h2>Our Vision</h2>
+          <div>
+            <p>
+              We envision Experience Pakistan as the leading online platform for
+              event discovery, registration, and management in Pakistan. We aim
+              to:
+            </p>
+            <br />
+            <ul>
+              <li>
+                <strong>Simplify event organization:</strong> Provide event
+                organizers with a streamlined and efficient platform for event
+                creation, registration management, and marketing.
+              </li>
+              <br />
+              <li>
+                <strong>Enhance Event Discovery:</strong> Offer a user-friendly
+                search and filtering system for attendees to discover events
+                based on their interests, location, and other preferences.
+              </li>
+              <br />
+              <li>
+                <strong>Build a Thriving Community:</strong> Foster a community
+                of event enthusiasts in Pakistan by connecting attendees with
+                events and each other.
+              </li>
+              <br />
+              <li>
+                <strong>Promote Diverse Experiences: </strong> Support a wide
+                range of events across various categories, ensuring there's
+                something for everyone.
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <img src="/images/vision.jpg" alt="" />
+        </div>
+      </section>
+    </main>
+    <!-- ----------------- Call to Action Section ---------------------- -->
+
+    <%- include('../includes/newsletter.ejs') %>
+
+    <!-- ----------------- Footer Section ---------------------- -->
+
+    <%- include('../includes/footer.ejs') %>
+  </body>
+</html>

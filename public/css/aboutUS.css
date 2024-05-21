@@ -1,0 +1,307 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --primary-color: #f47725; /* Set your desired color value */
+  --secondary-color: #ffb987; /* Set your desired color value */
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+li {
+  list-style: none;
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+}
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.contain {
+  max-width: 1266px;
+  margin: 0 auto;
+}
+
+.wrapper {
+  padding: 0 4%;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-center {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.flex-centers {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.gap {
+  gap: 1.4rem;
+}
+
+/* ******************** Main Section *********************** */
+
+.about h1 {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 4rem;
+  font-weight: 900;
+  color: var(--primary-color);
+  margin-top: 5rem;
+  margin-bottom: 9rem;
+}
+
+.about h2 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-bottom: 2rem;
+}
+
+.about section > div {
+  width: 45%;
+}
+
+.about p,
+.about li {
+  line-height: 159%;
+  text-align: justify;
+  list-style-type: disc;
+}
+
+.about section {
+  margin-bottom: 8rem;
+}
+
+/* **************************  FAQ ********************************* */
+
+.faq h1 {
+  color: var(--primary-color);
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.25;
+  margin-top: 5rem;
+  text-align: center;
+}
+
+.faq-container {
+  /* border: 1px solid #ddd; */
+  padding: 1rem;
+  max-width: 900px;
+  margin: auto;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.faq-item {
+  margin-bottom: 1rem;
+}
+
+.faq-question {
+  /* cursor: pointer;
+  padding: 1rem;
+  border-bottom: 1px solid #ddd; */
+  border-radius: 20px;
+  cursor: pointer;
+  margin-bottom: 5px;
+  padding: 25px 30px;
+  -webkit-transition: all 0.15s ease;
+  transition: all 0.15s ease;
+}
+
+.faq-answer {
+  padding: 0px 25px 30px 25px;
+  display: none;
+}
+
+.faq-item.active .faq-answer {
+  display: block;
+  color: #333;
+  cursor: text;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: left;
+  transition: max-height 0.15s ease;
+}
+
+.faq-item.active {
+  background: #f6f6f6;
+  border-radius: 20px;
+}
+.faq i {
+  transition: all 0.3s ease;
+  color: var(--primary-color);
+  font-size: 1.25rem;
+  font-weight: bolder;
+  margin-left: 1.125rem;
+}
+
+.faq-item.active i {
+  transform: rotate(180deg);
+}
+
+.download {
+  text-align: center;
+  padding: 1.5em 0;
+}
+
+.about-us {
+  width: 28%;
+  min-width: 250px;
+}
+
+.eventsByCity,
+.useful-links {
+  width: 16%;
+  min-width: 150px;
+}
+.helpful-links {
+  width: 20%;
+  min-width: 180px;
+}
+
+footer li {
+  margin-bottom: 1.6rem;
+  /* margin-left: 0.375rem; */
+}
+
+footer img {
+  width: 20px;
+}
+
+.footer-secondary {
+  /* border-top: 1px solid #ea8324; */
+  padding: 1rem 0;
+  max-width: 1300px;
+  text-align: center;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.copyright p {
+  margin-left: 0.5rem;
+  font-size: 1.188rem;
+  font-family: "Nanum Gothic", sans-serif;
+}
+
+.copyright img {
+  margin-right: 0.5rem;
+}
+
+.external-link a {
+  margin-right: 1.8rem;
+  font-size: 1.188rem;
+  font-family: "Nanum Gothic", sans-serif;
+}
+
+.google {
+  width: 185px;
+  margin-top: 2.5rem;
+}
+
+.home-faq {
+  color: #000 !important;
+}
+
+/* ******************** Media Query  *********************** */
+
+@media screen and (max-width: 1023px) {
+  h1 {
+    font-size: 2.5rem !important;
+  }
+
+  .CTA h2 {
+    font-size: 2.2rem !important;
+  }
+}
+
+@media screen and (max-width: 514px) {
+  .about-us {
+    width: 88%;
+    min-width: 250px;
+    margin: 0 auto;
+  }
+
+  /*  ---- About US Page ----- */
+
+  .about {
+    padding: 0;
+  }
+  .about-sections {
+    flex-direction: column;
+    margin-bottom: 4rem !important;
+  }
+
+  .about-sections > div {
+    width: 90% !important;
+  }
+  .reverse {
+    flex-direction: column-reverse;
+  }
+
+  .about h1 {
+    margin: 5rem auto;
+  }
+  .about h2 {
+    font-size: 2rem;
+    margin-bottom: 1.25rem !important;
+  }
+
+  /*  ---- FAQs Page ----- */
+  .faq {
+    padding: 0;
+  }
+  .faq h1 {
+    font-size: 2rem;
+    padding: 0 2%;
+  }
+  .faq-question,
+  .faq-answer {
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 1.125rem;
+  }
+}
+
+.actionButtons-fix {
+  max-width: fit-content;
+}
+
+.footer-main {
+  width: 88%;
+  max-width: 1440px;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 3rem;
+}

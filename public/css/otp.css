@@ -1,0 +1,116 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+:root {
+  --primary-color: #f47725; /* Set your desired color value */
+  --secondary-color: #ffb987; /* Set your desired color value */
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #e6f0ff;
+}
+
+.container {
+  display: flex;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.vector-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.vector-image {
+  max-width: 100%;
+  height: auto;
+}
+
+.otp-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.otp-section h2 {
+  margin-bottom: 10px;
+}
+
+.otp-section p {
+  margin-bottom: 20px;
+}
+
+.otp-section span {
+  font-weight: bold;
+}
+
+.otp-inputs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.otp-inputs input {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.otp-section a {
+  color: #007bff;
+  text-decoration: none;
+  margin-bottom: 20px;
+}
+
+.otp-section button {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.otp-section button:hover {
+  background-color: var(--primary-color);
+}
+
+form {
+  text-align: center;
+}
+
+@media screen and (max-width: 500px) {
+  .container {
+    flex-direction: column;
+  }
+}
+
+.errorMessage h4 {
+  color: rgba(255, 0, 0, 0.816);
+  padding: 0.5em 0;
+}
+
+.errorMessage h4 > i {
+  color: rgba(255, 0, 0, 0.816);
+  font-size: 1.125rem;
+  margin-right: 0.65rem;
+}

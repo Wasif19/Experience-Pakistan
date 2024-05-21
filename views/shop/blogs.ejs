@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blogs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/css/headerFooter.css" />
+    <link rel="stylesheet" href="/css/restaurants.css" />
+    <link rel="stylesheet" href="/css/blogs.css" />
+
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  </head>
+  <body>
+    <!-- ----------------- Header ---------------------- -->
+    <%- include('../includes/header.ejs') %>
+
+    <!-- ----------------- Keep Exloring Section ---------------------- -->
+
+    <section class="explore container">
+      <div class="explore-head">
+        <h2>
+          Exploring Pakistan: <span>Unveiling Experiences Across Cities</span>
+        </h2>
+        <p>Your Guide to Unforgettable Experiences</p>
+      </div>
+
+      <div class="explore-body wrapper">
+        <% if (Blogs.length == 0){%>
+        <div class="noRecord record-center">
+          <h2>No Blogs Avaiable</h2>
+          <img
+            style="width: 250px"
+            src="/images/he_sitting_with_notebook.png"
+            alt=""
+          />
+        </div>
+        <%} %> <% for (let Blog of Blogs) { %>
+        <div class="explore-box">
+          <div class="explore-box-image">
+            <img src="<%=Blog.imageUrl%>" alt="" />
+          </div>
+          <div class="explore-box-desc">
+            <h3><%=Blog.title%></h3>
+            <p><%=Blog.briefDescription%></p>
+            <div class="flex">
+              <button onclick="window.location.href='/blogs/<%=Blog._id%>'">
+                Read more
+              </button>
+            </div>
+          </div>
+        </div>
+        <% } %>
+      </div>
+    </section>
+
+    <!-- ----------------- Call to Action Section ---------------------- -->
+
+    <%- include('../includes/newsletter.ejs') %>
+
+    <!-- ----------------- Footer Section ---------------------- -->
+
+    <%- include('../includes/footer.ejs') %>
+  </body>
+</html>

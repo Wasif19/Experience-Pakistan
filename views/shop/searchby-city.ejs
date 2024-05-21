@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search by City | Experience Pakistan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/css/headerFooter.css" />
+    <link rel="stylesheet" href="/css/partners.css" />
+    <link rel="stylesheet" href="/css/artists.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  </head>
+  <body>
+    <!-- ----------------- Header ---------------------- -->
+    <%- include('../includes/header.ejs') %>
+    <!-- ----------------- Our Partners Section ---------------------- -->
+    <section class="container Cities">
+      <div class="Citybysearch">
+        <h1>Search By City</h1>
+        <div class="city flex wrapper">
+          <div class="city-1">
+            <a href="/city?city=Karachi">
+              <img src="images/karachi.png" alt="Karachi" />
+              <div class="city-detail">
+                <h2 class="city-1-name">Karachi</h2>
+                <div class="city-desc flex">
+                  <p>Learn More</p>
+                  <i class="fa-solid fa-arrow-right"></i>
+                </div></div
+            ></a>
+          </div>
+
+          <div class="city-2">
+            <a href="/city?city=Lahore">
+              <img src="images/lahore.png" alt="Lahore" />
+              <div class="city-detail">
+                <h2 class="city-1-name">Lahore</h2>
+
+                <div class="city-desc flex">
+                  <p>Learn More</p>
+                  <i class="fa-solid fa-arrow-right"></i>
+                </div></div
+            ></a>
+          </div>
+
+          <div class="city-3">
+            <a href="/city?city=Islamabad">
+              <img src="images/islamabad.png" alt="Islamabad" />
+              <div class="city-detail">
+                <h2 class="city-1-name">Islamabad</h2>
+
+                <div class="city-desc flex">
+                  <p>Learn More</p>
+                  <i class="fa-solid fa-arrow-right"></i>
+                </div></div
+            ></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------- Call to Action Section ---------------------- -->
+
+    <%- include('../includes/newsletter.ejs') %>
+
+    <!-- ----------------- Footer Section ---------------------- -->
+
+    <%- include('../includes/footer.ejs') %>
+  </body>
+</html>

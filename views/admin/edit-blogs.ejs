@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blogs</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/adminNavbar.css" />
+    <link rel="stylesheet" href="/css/adminPanel.css" />
+    <link rel="stylesheet" href="/css/adminEvent.css" />
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://unpkg.com/trix@2.0.8/dist/trix.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm//trix/dist/trix.min.css"
+      crossorigin="anonymous"
+    />
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"
+    ></script>
+  </head>
+  <body>
+    <section class="flex container flexStart">
+      <%- include('../includes/admin-nav.ejs') %>
+
+      <main>
+        <section class="dashboard-head flex">
+          <div class="dashboard-head-primary flex">
+            <i class="fa-solid fa-bars-staggered"></i>
+            <h1>Edit Blog</h1>
+          </div>
+
+          <div class="dashboard-head-secondary flex gap">
+            <input class="searchBox" type="text" placeholder="Search" />
+            <div class="head-img">
+              <img
+                id="profileIcon"
+                onclick="toggleProfileCard()"
+                src="/images/admin.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </section>
+
+        <div id="profileCard">
+          <div class="head-detail">
+            <img src="../images/young-man.jpg" alt="" />
+            <p><%=admin.firstName + ' ' + admin.lastName %></p>
+            <form action="/admin/admin-logout" method="post">
+              <button type="submit">Logout</button>
+            </form>
+          </div>
+        </div>
+
+        <section class="dashboard list">
+          <form
+            class="product-form"
+            action="/admin/blogs/edit-blog"
+            method="POST"
+            enctype="multipart/form-data"
+            id="eventForm"
+          >
+            <div class="form-control">
+              <label for="name">Blog Title:</label>
+              <input
+                class="width"
+                type="text"
+                name="title"
+                id="name"
+                value="<%=Blogs.title%>"
+              />
+            </div>
+
+            <div class="form-control">
+              <label for="imageURL">Blog's Banner Image:</label>
+              <input
+                class="width"
+                type="file"
+                accept="image/*"
+                required=""
+                name="imageURL[]"
+                id="imageURL"
+                multiple
+              />
+            </div>
+
+            <div class="form-control">
+              <label for="address">Author Name:</label>
+              <input
+                class="width"
+                type="text"
+                name="author"
+                id="address"
+                value="<%=Blogs.Author%>"
+              />
+            </div>
+
+            <div class="form-control">
+              <label for="description">Brief Description:</label>
+              <textarea name="briefDescription" id="Description" rows="5">
+              <%=Blogs.briefDescription%>
+              </textarea>
+            </div>
+
+            <div class="form-control desc">
+              <label for="description">Description:</label>
+              <div class="desc-box">
+                <input
+                  id="content"
+                  type="hidden"
+                  name="description"
+                  value="<%=Blogs.description%>"
+                />
+                <trix-editor input="content" class="trix-content"></trix-editor>
+              </div>
+            </div>
+
+            <input type="hidden" value="<%= Blogs._id %>" name="blogId" />
+
+            <div class="confirmBtn">
+              <button class="addBtn" id="confirm" type="submit">Submit</button>
+            </div>
+          </form>
+        </section>
+      </main>
+    </section>
+    <script src="../scripts/admin.js"></script>
+  </body>
+</html>

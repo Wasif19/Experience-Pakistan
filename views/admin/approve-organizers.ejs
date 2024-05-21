@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Organizers</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/adminNavbar.css" />
+    <link rel="stylesheet" href="/css/adminPanel.css" />
+    <link rel="stylesheet" href="/css/adminEvent.css" />
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <section class="flex container flexStart">
+      <%- include('../includes/admin-nav.ejs') %>
+      <main>
+        <section class="dashboard-head flex">
+          <div class="dashboard-head-primary flex">
+            <i class="fa-solid fa-bars-staggered"></i>
+            <h1>Event Organizers</h1>
+          </div>
+
+          <div class="dashboard-head-secondary flex gap">
+            <form action="/admin/organizer" method="post">
+              <input
+                class="searchBox"
+                type="text"
+                placeholder="Search"
+                name="searchText"
+              />
+            </form>
+            <div class="head-img">
+              <img
+                id="profileIcon"
+                onclick="toggleProfileCard()"
+                src="/images/admin.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </section>
+
+        <div id="profileCard">
+          <div class="head-detail">
+            <img src="/images/admin.png" alt="" />
+            <p><%=admin.firstName + ' ' + admin.lastName %></p>
+            <form action="/admin/admin-logout" method="post">
+              <button type="submit">Logout</button>
+            </form>
+          </div>
+        </div>
+
+        <section class="flex dashboard-info">
+          <div class="addBtn eventCount">
+            <span> <%=total%> </span>
+
+            Pending Organizers
+          </div>
+
+          <div class="flex gap message-btn">
+            <% if (isApproved) { %>
+            <div class="success-card green" id="successCard">
+              <span class="close-icon" onclick="closeCard()">&times;</span>
+              <p>Successfully Approved Organizer!</p>
+            </div>
+
+            <% } if (isRejected) { %>
+            <div class="success-card red" id="successCard">
+              <span class="close-icon" onclick="closeCard()">&times;</span>
+              <p>Successfully Rejected Organizer!</p>
+            </div>
+          </div>
+          <% } %>
+        </section>
+
+        <section class="dashboard">
+          <% if (Organizers.length == 0) { %>
+          <div class="noRecord record-center">
+            <h2>No Organizer Found</h2>
+            <img src="/images/NoRecord.png" alt="" />
+          </div>
+          <% } %>
+
+          <div class="userList-more userList">
+            <% for (let organizer of Organizers) { %>
+            <div class="artist flex gap">
+              <img src="/<%=organizer.logo%>" alt="" />
+              <div class="artistDetail">
+                <h2><%=organizer.organizationName%></h2>
+                <p class="margin-bottom">
+                  <strong>Name:</strong>
+                  <%=organizer.firstname +' '+ organizer.lastname%>
+                </p>
+                <p class="margin-bottom">
+                  <strong>Email:</strong> <%=organizer.email %>
+                </p>
+                <p class="margin-bottom">
+                  <strong>Number:</strong> <%=organizer.number %>
+                </p>
+                <span>
+                  <p><%= organizer.description%></p>
+                </span>
+              </div>
+              <div class="actionBtns">
+                <button
+                  class="deleteBtn"
+                  onclick="window.location.href = `/admin/check-organizer?type=delete&id=<%=organizer._id%>`"
+                >
+                  Reject
+                </button>
+                <button
+                  class="editBtn"
+                  onclick="window.location.href = `/admin/check-organizer?type=approve&id=<%=organizer._id%>`"
+                >
+                  Approve
+                </button>
+              </div>
+            </div>
+            <% } %>
+          </div>
+        </section>
+      </main>
+    </section>
+
+    <script src="/scripts/admin.js"></script>
+  </body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Experiences</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/css/headerFooter.css" />
+    <link rel="stylesheet" href="/css/restaurantDetail.css" />
+    <link rel="stylesheet" href="/css/entertainment.css" />
+    <link rel="stylesheet" href="/css/homeheader.css" />
+
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <!-- ----------------- Header ---------------------- -->
+    <%- include('../includes/header.ejs') %>
+    <!-- ----------------- Experiences Detail Section ---------------------- -->
+
+    <main class="container hotels">
+      <section class="hotels-head">
+        <h1>All Experiences</h1>
+      </section>
+
+      <div class="flex food-filter-mix">
+        <div class="food-right">
+          <!-- -_***************************___All Experiences -___**************************____ -->
+          <section class="food-body wrapper">
+            <% if (experiences.length == 0){%>
+            <div class="noRecord record-center">
+              <h2>No Experiences Available !</h2>
+              <img
+                style="width: 150px"
+                src="/images/he_sitting_with_notebook.png"
+                alt=""
+              />
+            </div>
+            <%} %>
+            <div class="food-browses flex gap flex-wrap">
+              <% for (let experience of experiences) { %>
+              <a
+                href="/experiences/see-more/<%=experience._id%>"
+                class="food-link"
+              >
+                <div class="food-browses-box">
+                  <% if (experience?.imageUrl[0]?.includes("uploads")) { %>
+                  <img src="/<%= experience.imageUrl[0] %>" alt="" />
+                  <% } else { %>
+                  <img src="<%= experience.imageUrl[0] %>" alt="" />
+                  <% } %>
+                  <div class="browses-box-detail">
+                    <span><%=experience.city%></span>
+                    <h3><%=experience.name%></h3>
+                    <div class="review flex gap-small" id="margin-set">
+                      <% if (experience?.ratingPicture) { %>
+                      <div class="rating flex" id="margin-set">
+                        <img src="<%= experience.ratingPicture %>" />
+                      </div>
+                      <% } else { %>
+                      <div class="review flex gap-small" id="margin-set">
+                        <img
+                          src="https://www.tripadvisor.com/img/cdsi/img2/ratings/traveler/4.0-66827-5.svg"
+                        />
+                      </div>
+                      <% } %>
+                      <p class="light"><%=experience.rating%></p>
+                    </div>
+
+                    <div class="tags flex browses-box-more">
+                      <p>See More</p>
+                      <button>
+                        <i
+                          class="fa-solid fa-chevron-right"
+                          aria-hidden="true"
+                        ></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <%}%>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <%- include('../includes/newsletter.ejs') %>
+
+    <!-- ----------------- Footer Section ---------------------- -->
+
+    <%- include('../includes/footer.ejs') %>
+  </body>
+</html>

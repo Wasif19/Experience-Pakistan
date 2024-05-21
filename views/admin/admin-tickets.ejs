@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tickets</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/adminNavbar.css" />
+    <link rel="stylesheet" href="/css/adminPanel.css" />
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <section class="flex container flexStart">
+      <%- include('../includes/admin-nav.ejs') %>
+      <main>
+        <section class="dashboard-head flex">
+          <div class="dashboard-head-primary flex">
+            <i class="fa-solid fa-bars-staggered"></i>
+            <h1>Tickets</h1>
+          </div>
+
+          <div class="dashboard-head-secondary flex gap">
+            <input class="searchBox" type="text" placeholder="Search" />
+            <div class="head-img">
+              <img
+                id="profileIcon"
+                onclick="toggleProfileCard()"
+                src="/images/admin.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </section>
+
+        <div id="profileCard">
+          <div class="head-detail">
+            <img src="/images/admin.png" alt="" />
+            <p><%=admin.firstName + ' ' + admin.lastName %></p>
+            <form action="/admin/admin-logout" method="post">
+              <button type="submit">Logout</button>
+            </form>
+          </div>
+        </div>
+
+        <section class="dashboard">
+          <div class="userList">
+            <table>
+              <thead>
+                <tr>
+                  <th>Ticket #</th>
+                  <th>Ticket Type</th>
+                  <th>Organizer</th>
+                  <th>Organizer Phone #</th>
+                  <th>Event Time</th>
+                  <th>Total Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% Event.tickets.forEach((tick, index) => { %>
+                <tr>
+                  <td><%= index + 1 %></td>
+                  <td><%= tick.Name %></td>
+                  <td><%=Event.OrganizerId.organizationName%></td>
+                  <td><%=number%></td>
+                  <td><%=Event.eventTime%></td>
+                  <td><%= tick.price %></td>
+                </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <% if (Event.tickets.length === 0) { %>
+
+        <div class="noRecord record-center">
+          <h2>No Ticket Available</h2>
+          <img src="/images/NoRecord.png" alt="" />
+        </div>
+
+        <% } %>
+      </main>
+    </section>
+    <script src="/scripts/admin.js"></script>
+  </body>
+</html>

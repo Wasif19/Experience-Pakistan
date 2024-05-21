@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blogs</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/adminNavbar.css" />
+    <link rel="stylesheet" href="/css/adminPanel.css" />
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <section class="flex container flexStart">
+      <%- include('../includes/admin-nav.ejs') %>
+      <main>
+        <section class="dashboard-head flex">
+          <div class="dashboard-head-primary flex">
+            <i class="fa-solid fa-bars-staggered"></i>
+            <h1>Blogs</h1>
+          </div>
+
+          <div class="dashboard-head-secondary flex gap">
+            <input class="searchBox" type="text" placeholder="Search" />
+            <div class="head-img">
+              <img
+                id="profileIcon"
+                onclick="toggleProfileCard()"
+                src="/images/admin.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </section>
+
+        <div id="profileCard">
+          <div class="head-detail">
+            <img src="/images/admin.png" alt="" />
+            <p><%=admin.firstName + ' ' + admin.lastName %></p>
+            <form action="/admin/admin-logout" method="post">
+              <button type="submit">Logout</button>
+            </form>
+          </div>
+        </div>
+
+        <section class="flex dashboard-info">
+          <a class="addBtn" href="/admin/blogs/add-blog">
+            Add a Blog <i class="fa-solid fa-plus"></i>
+          </a>
+          <% if (isArt !== 'null') { %> <% if (isArt === 'true') { %>
+          <div class="success-card green" id="successCard">
+            <span class="close-icon" onclick="closeCard()">&times;</span>
+            <p>Successfully added Blog!</p>
+          </div>
+          <% } else { %>
+          <div class="success-card red" id="successCard">
+            <span class="close-icon" onclick="closeCard()">&times;</span>
+            <p>There was an Error!</p>
+          </div>
+          <% } %> <% } %> <% if (isDel) { %>
+          <div class="success-card green" id="successCard">
+            <span class="close-icon" onclick="closeCard()">&times;</span>
+            <p>Successfully Deleted Blog!</p>
+          </div>
+          <% } %> <% if (isEdited) { %>
+          <div class="success-card green" id="successCard">
+            <span class="close-icon" onclick="closeCard()">&times;</span>
+            <p>Successfully Edited Blog!</p>
+          </div>
+          <% } %>
+        </section>
+
+        <section class="dashboard">
+          <% if(Blogs.length > 0) { %>
+          <div class="userList">
+            <table>
+              <thead>
+                <tr>
+                  <th>Blog Image</th>
+                  <th>Blog Title</th>
+                  <th>Author Name</th>
+
+                  <th>More Info</th>
+                  <th>Delete</th>
+                  <th>Edit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for (let Blog of Blogs) { %>
+                <tr>
+                  <td>
+                    <img
+                      class="organizer-img"
+                      src="/<%=Blog.imageUrl%>"
+                      alt="coke studio"
+                    />
+                  </td>
+                  <td><%=Blog.title%></td>
+                  <td><%=Blog.Author%></td>
+
+                  <td class="actionBtns">
+                    <button
+                      class="viewBtn"
+                      onclick="window.location.href = '/admin/view-blog/<%=Blog._id%>'"
+                    >
+                      See All
+                    </button>
+                  </td>
+                  <td class="actionBtns">
+                    <button
+                      class="deleteBtns"
+                      onclick="window.location.href = '/admin/blogs/delete-blog/<%=Blog._id%>'"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                  <td class="actionBtns">
+                    <button
+                      class="editBtn widthFull"
+                      onclick="window.location.href = '/admin/blogs/edit-blog/<%=Blog._id%>'"
+                    >
+                      Edit
+                    </button>
+                  </td>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+
+          <%} else {%>
+          <div class="noRecord record-center">
+            <h2>No Blog Found</h2>
+            <img src="/images/NoRecord.png" alt="" />
+          </div>
+          <%} %>
+        </section>
+      </main>
+    </section>
+    <script src="../scripts/admin.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const navLinks = document.querySelectorAll(".nav-link");
+
+        navLinks.forEach(function (navLink) {
+          navLink.addEventListener("click", function (event) {
+            // Remove active class from all nav links
+            navLinks.forEach(function (link) {
+              link.classList.remove("active");
+            });
+
+            // Add active class to the clicked nav link
+            this.classList.add("active");
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

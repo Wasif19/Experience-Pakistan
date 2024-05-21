@@ -1,0 +1,17 @@
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const navLinks = document.querySelectorAll(".nav-link");
+
+    navLinks.forEach(function (navLink) {
+      navLink.addEventListener("click", function (event) {
+        // Remove active class from all nav links
+        navLinks.forEach(function (link) {
+          link.classList.remove("active");
+        });
+
+        // Add active class to the clicked nav link
+        this.classList.add("active");
+      });
+    });
+  });
+</script>

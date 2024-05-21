@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eit Ticket Detail</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/adminNavbar.css" />
+    <link rel="stylesheet" href="/css/adminPanel.css" />
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <section class="flex container flexStart">
+      <%- include('../includes/admin-nav.ejs') %>
+
+      <main>
+        <section class="dashboard-head flex">
+          <div class="dashboard-head-primary flex">
+            <i class="fa-solid fa-bars-staggered"></i>
+            <h1>Edit Ticket Details</h1>
+          </div>
+
+          <div class="dashboard-head-secondary">
+            <div class="head-img">
+              <img
+                id="profileIcon"
+                onclick="toggleProfileCard()"
+                src="/images/admin.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </section>
+
+        <div id="profileCard">
+          <div class="head-detail">
+            <img src="/images/admin.png" alt="" />
+            <p><%=admin.firstName + ' ' + admin.lastName %></p>
+            <form action="/admin/admin-logout" method="post">
+              <button type="submit">Logout</button>
+            </form>
+          </div>
+        </div>
+
+        <section class="dashboard list">
+          <form class="product-form" action="" method="POST">
+            <div class="form-control">
+              <label for="ticketID">Ticket ID:</label>
+              <input type="text" name="ticketID" id="ticketID" />
+            </div>
+
+            <div class="form-control">
+              <label for="event">Event Name:</label>
+              <input type="text" name="event" id="event" />
+            </div>
+
+            <div class="form-control">
+              <label for="name">Customer Name:</label>
+              <input type="text" name="name" id="name" />
+            </div>
+
+            <div class="form-control">
+              <label for="email">Customer Email:</label>
+              <input type="email" name="email" id="name" />
+            </div>
+
+            <div class="form-control">
+              <label for="number">Customer Number:</label>
+              <input type="number" name="number" id="number" />
+            </div>
+
+            <div class="confirmBtn">
+              <button class="addBtn" id="confirm" type="submit">Confirm</button>
+            </div>
+          </form>
+        </section>
+      </main>
+    </section>
+
+    <script src="/scripts/admin.js"></script>
+  </body>
+</html>

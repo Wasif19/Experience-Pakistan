@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feedback Hub</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/adminNavbar.css" />
+    <link rel="stylesheet" href="/css/adminPanel.css" />
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <section class="flex container flexStart">
+      <%- include('../includes/admin-nav.ejs') %>
+
+      <main>
+        <section class="dashboard-head flex">
+          <div class="dashboard-head-primary flex">
+            <i class="fa-solid fa-bars-staggered"></i>
+            <h1>Feedback Hub</h1>
+          </div>
+
+          <div class="dashboard-head-secondary flex gap">
+            <form
+              id="searchForm"
+              action="/admin/searchedRestaurant"
+              method="post"
+            >
+              <input
+                class="searchBox"
+                type="text"
+                id="searchInput"
+                name="searchText"
+                placeholder="Search"
+                onkeydown="handleKeyPress(event)"
+              />
+            </form>
+            <div class="head-img">
+              <img
+                id="profileIcon"
+                onclick="toggleProfileCard()"
+                src="/images/admin.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </section>
+
+        <div id="profileCard">
+          <div class="head-detail">
+            <img src="/images/admin.png" alt="" />
+            <p><%=admin.firstName + ' ' + admin.lastName %></p>
+            <form action="/admin/admin-logout" method="post">
+              <button type="submit">Logout</button>
+            </form>
+          </div>
+        </div>
+
+        <section class="flex dashboard-info flex-start gap">
+          <a
+            class="addBtn <%= type === 'Contacts' ? '' : 'approve-btn' %>"
+            href="/admin/feedbackhub"
+          >
+            Contact US <i class="fa-solid fa-square-phone"></i>
+          </a>
+          <a
+            class="addBtn <%= type === 'Suggestions' ? '' : 'approve-btn'%>"
+            href="/admin/feedback-hub/suggestions"
+          >
+            Suggestions <i class="fa-solid fa-file-lines"></i>
+          </a>
+          <a
+            class="addBtn <%= type === 'Complaints' ? '' : 'approve-btn'%>"
+            href="/admin/feedback-hub/complaints"
+          >
+            Complaints <i class="fa-solid fa-file-signature"></i>
+          </a>
+        </section>
+
+        <section class="dashboard">
+          <div class="userList">
+            <table>
+              <thead>
+                <tr>
+                  <th>name</th>
+                  <th>email</th>
+                  <th>phoneNumber</th>
+                  <th>Related To</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for (let query of Query) { %>
+                <tr>
+                  <td><%=query.name%></td>
+                  <td><%=query.email%></td>
+                  <td><%=query.phoneNumber%></td>
+                  <td><%=query.messageType%></td>
+                  <td class="desc-width"><%=query.message%></td>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+          <% if (Query.length == 0){%>
+          <div class="noRecord record-center">
+            <h2>No <%=type%> Found</h2>
+            <img src="/images/NoRecord.png" alt="" />
+          </div>
+          <%} %>
+        </section>
+      </main>
+    </section>
+    <script src="/scripts/admin.js"></script>
+  </body>
+</html>

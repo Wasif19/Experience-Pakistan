@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/adminNavbar.css" />
+    <link rel="stylesheet" href="/css/adminPanel.css" />
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <section class="flex container flexStart">
+      <%- include('../includes/admin-nav.ejs') %>
+
+      <main>
+        <section class="dashboard-head flex">
+          <div class="dashboard-head-primary flex">
+            <i class="fa-solid fa-bars-staggered"></i>
+            <h1>Dashboard</h1>
+          </div>
+
+          <div class="dashboard-head-secondary">
+            <div class="head-img">
+              <img
+                id="profileIcon"
+                onclick="toggleProfileCard()"
+                src="/images/admin.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </section>
+
+        <div id="profileCard">
+          <div class="head-detail">
+            <img src="/images/admin.png" alt="" />
+            <p><%=admin.firstName + ' ' + admin.lastName %></p>
+            <form action="/admin/admin-logout" method="post">
+              <button type="submit">Logout</button>
+            </form>
+          </div>
+        </div>
+
+        <section class="dashboard dashboard-stats">
+          <div class="flex gap">
+            <div class="stat-box flex gap">
+              <i class="fa-solid fa-chart-simple"></i>
+
+              <div class="box-detail">
+                <h2>User Count</h2>
+                <p><%=UserCount%></p>
+              </div>
+            </div>
+
+            <div class="stat-box flex gap">
+              <i class="fa-solid fa-tree-city"></i>
+              <div class="box-detail">
+                <h2>Events</h2>
+
+                <p><%=EventCount%></p>
+              </div>
+            </div>
+
+            <div class="stat-box flex gap">
+              <i class="fa-solid fa-tree-city"></i>
+              <div class="box-detail">
+                <h2>Newsletters</h2>
+
+                <p><%=newsletterCount%></p>
+              </div>
+            </div>
+
+            <div class="stat-box flex gap">
+              <i class="fa-solid fa-money-bill"></i>
+              <div class="box-detail">
+                <h2>Tickets</h2>
+                <p><%=ticketCount%></p>
+              </div>
+            </div>
+
+            <div class="stat-box flex gap">
+              <i class="fa-solid fa-guitar"></i>
+              <div class="box-detail">
+                <h2>Artists</h2>
+                <p><%=ArtistCount%></p>
+              </div>
+            </div>
+
+            <div class="stat-box flex gap">
+              <i class="fa-solid fa-money-bill-1-wave"></i>
+              <div class="box-detail">
+                <h2>Revenue</h2>
+                <p><%=revenue%></p>
+              </div>
+            </div>
+
+            <div class="stat-box flex gap">
+              <i class="fa-solid fa-children"></i>
+              <div class="box-detail">
+                <h2>Partners</h2>
+                <p><%=OrganizerCount%></p>
+              </div>
+            </div>
+
+            <div class="stat-box flex gap">
+              <i class="fa-solid fa-martini-glass-citrus"></i>
+              <div class="box-detail">
+                <h2>Restaurants</h2>
+                <p><%=restaurantCount %></p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="chart">
+          <div class="chart-container-1">
+            <canvas id="myChart"></canvas>
+          </div>
+          <div class="chart-container-2">
+            <canvas id="myChart2"></canvas>
+          </div>
+        </section>
+      </main>
+    </section>
+    <script src="/scripts/admin.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const navLinks = document.querySelectorAll(".nav-link");
+
+        navLinks.forEach(function (navLink) {
+          navLink.addEventListener("click", function (event) {
+            // Remove active class from all nav links
+            navLinks.forEach(function (link) {
+              link.classList.remove("active");
+            });
+
+            // Add active class to the clicked nav link
+            this.classList.add("active");
+          });
+        });
+      });
+    </script>
+
+    <script>
+      var ctx = document.getElementById("myChart").getContext("2d");
+      var ctx2 = document.getElementById("myChart2").getContext("2d");
+
+      let eventCount = "<%=EventCount%>";
+      let ArtistCount = "<%=ArtistCount%>";
+      let organizerCount = "<%=OrganizerCount%>";
+      let restaurantCount = "<%=restaurantCount%>";
+      let ticketCount = "<%=ticketCount%>";
+      var myChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: ["Organizers", "Ticket", "Events"],
+          datasets: [
+            {
+              label: "Experience Pakistan",
+              data: [organizerCount, ticketCount, eventCount],
+              backgroundColor: [
+                "rgba(255, 96, 28, 0.8)",
+                "rgba(255, 185, 135, 0.8)",
+                "rgba(246, 173, 85, 0.8)",
+              ],
+              borderColor: [
+                "rgba(255, 96, 28, 3)",
+                "rgba(255, 185, 135, 3)",
+                "rgba(246, 173, 85, 3)",
+              ],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true,
+                },
+              },
+            ],
+          },
+        },
+      });
+
+      var myChart2 = new Chart(ctx2, {
+        type: "doughnut",
+        data: {
+          labels: ["Organizers", "Restaurants", "Artists"],
+          datasets: [
+            {
+              label: "Experience Pakistan",
+              data: [organizerCount, restaurantCount, ArtistCount],
+              backgroundColor: [
+                "rgba(255, 96, 28, 0.8)",
+                "rgba(255, 185, 135, 0.8)",
+                "rgba(246, 173, 85, 0.8)",
+              ],
+              borderColor: [
+                "rgba(255, 96, 28, 1)",
+                "rgba(255, 185, 135, 1)",
+                "rgba(246, 173, 85, 1)",
+              ],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true,
+                },
+              },
+            ],
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Organizer Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/css/organizersDashboard.css" />
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <!-- ----------------- Header ---------------------- -->
+    <%- include('../includes/organizer-header.ejs') %>
+    <!-- ----------------- Hero Section ---------------------- -->
+    <main>
+      <div class="container">
+        <section class="organizer">
+          <h1>Organizer's Dashboard</h1>
+        </section>
+
+        <section class="organizer-details flex wrapper gap-large">
+          <div class="organizer-image">
+            <img src="/<%=Organizer.logo%>" alt="" />
+          </div>
+
+          <div class="organizer-info flex">
+            <div class="organizer-info-head flex">
+              <h2><%=Organizer.organizationName%></h2>
+              <button
+                class="editBtn"
+                onclick="window.location.href = '/organizer/edit-info/<%=Organizer._id%>'"
+              >
+                Edit info <i class="fa-solid fa-pencil"></i>
+              </button>
+            </div>
+
+            <div class="organizer-contact flex gap">
+              <h3><%=Organizer.firstname + " " + Organizer.lastname%></h3>
+              <span class="decor-line"></span>
+              <h3><%=Organizer.number%></h3>
+              <span class="decor-line"></span>
+              <h3><%=Organizer.email%></h3>
+            </div>
+            <p><%=Organizer.description%></p>
+          </div>
+        </section>
+      </div>
+    </main>
+    <!-- ----------------- Call to Action Section ---------------------- -->
+
+    <%- include('../includes/newsletter.ejs') %>
+
+    <!-- ----------------- Footer Section ---------------------- -->
+
+    <%- include('../includes/footer.ejs') %>
+
+    <!-- ----------------- Scripts ---------------------- -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+
+    <script src="./scripts/menu.js"></script>
+  </body>
+</html>

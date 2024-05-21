@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Email Sent | Experience Pakistan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="/css/userSignup.css" />
+    <link rel="stylesheet" href="/css/headerFooter.css" />
+    <link rel="stylesheet" href="/css/userSignup.css" />
+    <link rel="stylesheet" href="/css/contactUs.css" />
+    <link rel="stylesheet" href="/css/homeheader.css" />
+
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  </head>
+  <body>
+    <!-- ----------------- Header ---------------------- -->
+    <header class="flex gap">
+      <div class="bar menu-toggle" onclick="toggleMenu()">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+
+      <div class="flex flex-center">
+        <a href="\">
+          <img
+            class="header-logo tablet-logo"
+            src="/images/newlogo.png"
+            alt=""
+            hidden
+        /></a>
+      </div>
+      <nav class="primary-nav flex gap menu" style="left: -1500px">
+        <a href="\">
+          <img
+            class="header-logo laptop-logo"
+            src="/images/newlogo.png"
+            alt="Experience Pakistan Logo"
+        /></a>
+      </nav>
+
+      <div class="actionButtons menu-2">
+        <a class="actionButtons-1" href="/faqs">Need Help ? </a>
+      </div>
+    </header>
+    <!-- ----------------- Hero Section ---------------------- -->
+
+    <main class="container email-response">
+      <div>
+        <img src="./images/undraw_Mail_sent_re_0ofv.png" alt="" />
+      </div>
+
+      <h2>Password Reset Email is Sent!</h2>
+      <p>Check your email to reset the password.</p>
+      <button class="ok-btn">
+        Okay <i class="fa-regular fa-circle-check"></i>
+      </button>
+    </main>
+
+    <!-- ----------------- Call to Action Section ---------------------- -->
+
+    <%- include('../includes/newsletter.ejs') %>
+
+    <!-- ----------------- Footer Section ---------------------- -->
+
+    <%- include('../includes/footer.ejs') %>
+  </body>
+</html>

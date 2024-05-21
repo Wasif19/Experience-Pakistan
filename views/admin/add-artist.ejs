@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add an Artist</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="/css/adminNavbar.css" />
+    <link rel="stylesheet" href="/css/adminPanel.css" />
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <section class="flex container flexStart">
+      <%- include('../includes/admin-nav.ejs') %>
+
+      <main>
+        <section class="dashboard-head flex">
+          <div class="dashboard-head-primary flex">
+            <i class="fa-solid fa-bars-staggered"></i>
+            <h1>New Artist</h1>
+          </div>
+
+          <div class="dashboard-head-secondary flex gap">
+            <div class="head-img">
+              <img
+                id="profileIcon"
+                onclick="toggleProfileCard()"
+                src="/images/admin.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </section>
+
+        <div id="profileCard">
+          <div class="head-detail">
+            <img src="/images/admin.png" alt="" />
+            <p><%=admin.firstName + ' ' + admin.lastName %></p>
+            <form action="/admin/admin-logout" method="post">
+              <button type="submit">Logout</button>
+            </form>
+          </div>
+        </div>
+
+        <section class="dashboard list">
+          <form
+            class="product-form"
+            action="/admin/postAddArtist"
+            method="POST"
+            enctype="multipart/form-data"
+          >
+            <div class="form-control">
+              <label for="name">Artist Name:</label>
+              <input type="text" name="name" id="name" />
+            </div>
+            <div class="form-control">
+              <label for="category">Artist Category:</label>
+              <select name="category" id="category">
+                <option>Select Category</option>
+                <option value="Singer">Singer</option>
+                <option value="Sketch Artist">Sketch Artist</option>
+                <option value="Musician">Musician</option>
+                <option value="Graphic Art">Graphic Art</option>
+                <option value="Photographer">Photographer</option>
+                <option value="Dancer">Dancer</option>
+                <option value="Influencer">Influencer</option>
+              </select>
+            </div>
+
+            <div class="form-control">
+              <label for="imageURL">Artist ImageURL:</label>
+
+              <input
+                type="file"
+                name="imageURL[]"
+                id="ImageURL"
+                accept="image/*"
+                multiple
+              />
+            </div>
+
+            <div class="form-control desc">
+              <label for="description">Artist Description:</label>
+              <textarea name="description" id="Description" rows="5">
+              </textarea>
+            </div>
+            <div class="confirmBtn">
+              <button class="addBtn" id="confirm" type="submit">Confirm</button>
+            </div>
+          </form>
+        </section>
+      </main>
+    </section>
+
+    <script src="/scripts/admin.js"></script>
+  </body>
+</html>

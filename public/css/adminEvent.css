@@ -1,0 +1,167 @@
+a {
+  color: inherit;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.event {
+  border: 1px solid var(--primary-color);
+  padding: 1em;
+  border-radius: 10px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.event-1 {
+  border: 1px solid var(--primary-color);
+  padding: 1em 1.2em 1em 0.5em;
+  border-radius: 27px;
+  margin-bottom: 1em;
+}
+.event > :last-child {
+  margin-bottom: 0;
+}
+
+.eventDetail {
+  padding: 0.6em;
+  width: 100%;
+}
+
+.eventDetail > p {
+  text-align: center;
+  padding: 0.4em 1em 0 1em;
+  border-right: 1px solid var(--primary-color);
+}
+
+.eventDetail > :first-child {
+  padding-left: 0.5em;
+}
+
+.eventDT > :first-child {
+  margin-bottom: 0.4rem;
+}
+
+.eventDetail > p > span {
+  display: block;
+}
+
+.event h2 {
+  padding-left: 0.8em;
+}
+
+.newBtns button {
+  padding: 0.6em 0.8em;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  border-radius: 10px;
+  font-weight: 500;
+}
+.event-img {
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+.event-img img {
+  width: 450px;
+}
+.newBtns {
+  display: flex;
+  flex-direction: column;
+}
+
+.ticketBtn {
+  background-color: #faae69;
+  color: black !important;
+}
+.ticketBtn:hover {
+  background-color: #bb7e46;
+}
+
+.seeMoreBtn {
+  background-color: #f6ad55;
+  margin-bottom: 1.25rem;
+  color: black !important;
+}
+
+.seeMoreBtn:hover {
+  background-color: #fca336;
+}
+
+.dashboards {
+  padding: 0em 3em;
+  text-align: center;
+}
+
+.dashboards h1 {
+  text-align: center !important;
+  margin: 0 auto;
+  background-color: var(--primary-color);
+  width: 100%;
+  padding: 0.5em;
+  color: #fff !important;
+  border-radius: 10px;
+}
+
+.flex-set {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+  row-gap: 1rem;
+}
+
+.event-info {
+  margin-top: 3rem;
+}
+
+.detail-head h2 {
+  padding-bottom: 0.4em;
+}
+
+.detail-body {
+  margin-top: 1rem !important;
+}
+
+.artistDetail h2 {
+  margin-bottom: 0.5rem;
+}
+
+/* Custom scrollbar styling */
+.event::-webkit-scrollbar,
+.event-1::-webkit-scrollbar {
+  width: 10px;
+}
+
+.event::-webkit-scrollbar-thumb,
+.event-1::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color); /* Color of the scrollbar thumb */
+  border-radius: 10px;
+}
+
+.event::-webkit-scrollbar-track,
+.event-1::-webkit-scrollbar-track {
+  background-color: #ddd; /* Color of the scrollbar track */
+  border-radius: 10px;
+}
+
+.ticket-fields {
+  display: none;
+}
+
+.margin-right {
+  margin-right: 15px;
+}
+
+@media screen and (max-width: 1100px) {
+  .event-1 {
+    overflow: scroll;
+  }
+}

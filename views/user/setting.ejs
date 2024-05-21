@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Users Review Form</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- <link rel="stylesheet" href="../styles/organizersDashboard.css" /> -->
+
+    <link rel="stylesheet" type="text/css" href="../slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="../slick/slick-theme.css" />
+    <link href="../styles/star-rating.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/userDashboard.css" />
+    <link rel="stylesheet" href="/css/slider.css" />
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+  </head>
+  <body>
+    <!-- ----------------- Header ---------------------- -->
+    <%- include('../includes/user-header.ejs') %>
+
+    <main class="title container">
+      <h2>Settings</h2>
+
+      <% if(isUpdated) { %>
+      <div
+        style="margin-left: auto"
+        class="success-card green"
+        id="successCard"
+      >
+        <span class="close-icon" onclick="closeCard()">&times;</span>
+        <p>Updated SuccessFully!</p>
+      </div>
+
+      <%} %> <% if(passwordError) { %>
+      <div style="margin-left: auto" class="success-card red" id="successCard">
+        <span class="close-icon" onclick="closeCard()">&times;</span>
+        <p>Error in Updating!</p>
+      </div>
+      <%} %>
+
+      <section class="lists setting">
+        <form
+          id="profileForm"
+          class="list"
+          action="/user/settings"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <h2>Profile Information</h2>
+
+          <p>
+            <strong>NOTE:</strong>
+            You can change your profile information by updating the fields
+            below.
+          </p>
+
+          <div class="form-control">
+            <label for="imageURL">Profile Image</label>
+            <input
+              class="width-small"
+              type="file"
+              accept="image/*"
+              name="imageURL[]"
+              id="imageURL"
+              multiple
+              required
+            />
+          </div>
+
+          <div class="form-control">
+            <label for="name">Full Name</label>
+            <input
+              class="width-small"
+              type="text"
+              name="name"
+              id=""
+              value="<%=User.name%>"
+              required
+            />
+          </div>
+
+          <div class="form-control">
+            <label for="email">Email Address</label>
+
+            <input
+              class="width margin"
+              type="text"
+              name="email"
+              id=""
+              placeholder="Email"
+              value="<%=User.email%>"
+              required
+            />
+          </div>
+
+          <div class="form-control">
+            <label for="phone">Phone Number</label>
+            <input
+              class="width margin"
+              type="tel"
+              name="number"
+              id=""
+              placeholder="Phone Number"
+              value="<%=User.number%>"
+              required
+            />
+          </div>
+
+          <br />
+          <button class="event-btn">Update Information</button>
+        </form>
+      </section>
+
+      <section class="lists setting">
+        <form
+          id="passwordForm"
+          class="list"
+          action="/user/password-settings"
+          method="post"
+        >
+          <h2>Change Password</h2>
+
+          <div class="form-control">
+            <label for="password">Current Password</label>
+            <input
+              class="width margin-less"
+              type="password"
+              name="password"
+              id=""
+              placeholder="Enter your current Password"
+              required
+            />
+          </div>
+          <div class="form-control">
+            <label for="password">New Password</label>
+            <input
+              class="width"
+              type="password"
+              name="cpassword"
+              id=""
+              placeholder="Enter your New Password"
+              required
+            />
+          </div>
+          <br />
+          <button class="event-btn">Update Password</button>
+        </form>
+      </section>
+    </main>
+
+    <!-- ----------------- Scripts ---------------------- -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+    <script src="/scripts/admin.js"></script>
+
+    <script src="../scripts/menu.js"></script>
+  </body>
+</html>

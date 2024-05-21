@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Restaurant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.2.0/mapbox-gl-directions.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.2.0/mapbox-gl-directions.css"
+      type="text/css"
+    />
+
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="/css/sample.css" />
+    <link rel="stylesheet" href="/css/headerFooter.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/selectedRestaurant.css" />
+    <link rel="stylesheet" href="/css/image-grid.css" />
+
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  </head>
+  <body>
+    <!-- ----------------- Header ---------------------- -->
+    <%- include('../includes/header.ejs') %>
+    <!-- ----------------- Main Section ---------------------- -->
+
+    <main class="restaurants container">
+      <section class="wrapper restaurants-section-head">
+        <div class="restaurants-name flex-left gap">
+          <h1><%=rest.name %></h1>
+          <span class="flex gap-small">
+            <img src="/images/badge.png" alt="Verified Badge" />
+            <p>Verified</p>
+          </span>
+        </div>
+
+        <div class="restaurants-mid flex-left padd rest-fix">
+          <% if (Ld) { %>
+          <div class="review flex-left gap-small">
+            <div class="rating flex"><img src="<%=Ld.imageUrl%>" /></div>
+            <p class="light"><%=Ld.numReviews%></p>
+          </div>
+          <% } else {%>
+
+          <div class="review flex-left gap-small">
+            <div class="rating flex">
+              <img
+                src="https://www.tripadvisor.com/img/cdsi/img2/ratings/traveler/4.0-66827-5.svg"
+              />
+            </div>
+            <p class="light">22 Reviews</p>
+          </div>
+          <% } %>
+
+          <div class="restaurant-city border gap-fix">
+            <p class="light">Restaurant in <%= rest.city %></p>
+          </div>
+
+          <div class="restaurant-type border gap-fix flex gap-small">
+            <% for (let i = 0; i < rest.cuisine.length; i++) { %>
+            <p class="light">
+              <%= rest.cuisine[i] %><%= i === rest.cuisine.length - 1 ? '' : ','
+              %>
+            </p>
+            <% } %>
+          </div>
+        </div>
+
+        <div class="restaurant-address flex-left padd rest-add-fix">
+          <div class="address flex-left gap-small add-fix">
+            <!-- icon -->
+            <i class="fa-solid fa-location-dot"></i>
+            <p class="light"><%= rest.address %></p>
+          </div>
+
+          <div class="phone flex-left gap-small border">
+            <i class="fa-solid fa-phone"></i>
+            <p class="light"><%=rest.PhoneNumber %></p>
+          </div>
+
+          <div class="timming flex-left gap-small border">
+            <i class="fa-solid fa-clock"></i>
+            <p class="light">12 pm - 10 pm</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ----------------- Images Section ------------------- -->
+
+      <section class="restaurant-gallery wrapper">
+        <div class="image-grid">
+          <% rest.imageUrl.forEach(function(imageUrl) { %>
+          <div class="image-container">
+            <% if (imageUrl?.includes("uploads")) { %>
+            <img src="/<%=imageUrl%>" alt="" />
+            <% } else { %>
+            <img src="<%= imageUrl %>" alt="" />
+            <% } %>
+          </div>
+          <% }); %>
+        </div>
+      </section>
+      <!-- ------------------------- Detail Section --------------- -->
+
+      <section class="restaurant-detail wrapper">
+        <div class="flex detail-head"><h2>Details</h2></div>
+        <div class="detail-body flex gap-small">
+          <div class="detail-row row1">
+            <h3>About</h3>
+            <p><%= rest.description %></p>
+          </div>
+          <div class="detail-row border row2">
+            <div class="column">
+              <h3>Price Range</h3>
+              <p>800 - 2500 Per Head</p>
+            </div>
+            <div class="column">
+              <h3>Meals</h3>
+              <p>Breakfast, Lunch & Dinner</p>
+            </div>
+          </div>
+          <div class="detail-row border row3">
+            <div class="column">
+              <h3>Cuisine</h3>
+              <% for (let i = 0; i < rest.cuisine.length; i++) { %>
+              <p>
+                <%= rest.cuisine[i] %><%= i === rest.cuisine.length - 1 ? '' :
+                ',' %>
+              </p>
+              <% } %>
+            </div>
+            <div class="column">
+              <h3>Features</h3>
+              <p>
+                Valet Parking, Wheelchair Accessible, Reservation, Table Service
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div
+      id="map"
+      style="
+        width: 90vw;
+        height: 500px;
+        margin: auto;
+        text-align: center;
+        margin-bottom: 2.5rem;
+      "
+    ></div>
+
+    <!-- ----------------- Call to Action Section ---------------------- -->
+
+    <%- include('../includes/newsletter.ejs') %>
+
+    <!-- ----------------- Footer Section ---------------------- -->
+
+    <%- include('../includes/footer.ejs') %>
+  </body>
+  <script>
+    // Embedding the restaurant address
+    var restaurantAddress = "<%= rest.address %>";
+    var mapboxToken = "<%=mapboxToken%>";
+  </script>
+  <script>
+    const accessToken = mapboxToken;
+
+    function getCoordinates(address) {
+      const encodedAddress = encodeURIComponent(address);
+      const apiUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodedAddress}.json?access_token=${accessToken}`;
+
+      return fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.features && data.features.length > 0) {
+            const coordinates = data.features[0].geometry.coordinates;
+            const latitude = coordinates[1];
+            const longitude = coordinates[0];
+
+            return { latitude, longitude };
+          } else {
+            throw new Error(
+              "Unable to retrieve coordinates. Please check the address."
+            );
+          }
+        })
+        .catch((error) => {
+          throw new Error(`Error: ${error.message}`);
+        });
+    }
+
+    // Example usage
+    const addressToSearch = restaurantAddress;
+    console.log(addressToSearch);
+
+    getCoordinates(addressToSearch)
+      .then((coordinates) => {
+        console.log(
+          `Latitude: ${coordinates.latitude}, Longitude: ${coordinates.longitude}`
+        );
+
+        // Use the coordinates as needed, e.g., add a marker to the map
+        mapboxgl.accessToken = mapboxToken;
+        navigator.geolocation.getCurrentPosition(
+          successFunction,
+          errorFunction,
+          {
+            enableHighAccuracy: true,
+          }
+        );
+        function successFunction(poistion) {
+          console.log(poistion);
+          let pos = [poistion.coords.longitude, poistion.coords.latitude];
+          setupMap(pos);
+        }
+
+        function setupMap(pos) {
+          const map = new mapboxgl.Map({
+            container: "map",
+            style: "mapbox://styles/mapbox/streets-v12",
+            center: pos,
+            zoom: 15,
+          });
+          const marker1 = new mapboxgl.Marker().setLngLat(pos).addTo(map);
+          const nav = new mapboxgl.NavigationControl();
+          map.addControl(nav);
+
+          var directions = new MapboxDirections({
+            accessToken: mapboxgl.accessToken,
+          });
+
+          map.addControl(directions, "top-left");
+          directions.setOrigin([pos[0], pos[1]]);
+          directions.setDestination([
+            coordinates.longitude,
+            coordinates.latitude,
+          ]);
+        }
+        function errorFunction() {}
+      })
+      .catch((error) => {
+        console.error(error.message);
+      });
+  </script>
+</html>
