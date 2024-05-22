@@ -610,3 +610,40 @@ th {
   text-align: center !important;
   border-top: 1px solid #dee2e6;
 }
+
+.green {
+  background-color: #4caf50;
+}
+.success-card {
+  position: relative;
+  max-width: 300px;
+  padding: 20px;
+  padding-right: 25px;
+  color: white;
+  font-weight: 500;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.close-icon {
+  position: absolute;
+  top: 3px;
+  right: 7px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+}
+
+.org-message {
+  margin-bottom: 2rem;
+}
+
+.org-message > * {
+  margin: 1rem;
+  margin-left: auto;
+}
+
+footer a:hover {
+  color: var(--primary-color);
+}

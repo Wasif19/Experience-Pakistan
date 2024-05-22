@@ -42,8 +42,9 @@
         <% for (let Event of Events) { %>
 
         <div class="event1">
-          <img src="<%= Event.imageUrl %>" alt="" />
-
+          <div class="event-img">
+            <img src="<%= Event.imageUrl %>" alt="" />
+          </div>
           <div class="event1-body flex">
             <div class="event-left">
               <span class="date">
@@ -74,7 +75,7 @@
               </p>
 
               <% if (new Date(Event.startDate) > Date.now()) { %>
-              <a href="./eventinfo.html">View Details</a>
+              <a href="/event-info/<%=Event._id%>">View Details</a>
               <% } %>
             </div>
           </div>

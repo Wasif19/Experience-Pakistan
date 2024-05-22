@@ -87,6 +87,11 @@
             <span class="close-icon" onclick="closeCard()">&times;</span>
             <p>Successfully Edited Event!</p>
           </div>
+          <% } %> <% if (isDel) { %>
+          <div class="success-card green" id="successCard">
+            <span class="close-icon" onclick="closeCard()">&times;</span>
+            <p>Successfully Deleted Event!</p>
+          </div>
           <% } %>
         </section>
 

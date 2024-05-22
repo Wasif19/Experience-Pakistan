@@ -18,6 +18,9 @@
       src="https://kit.fontawesome.com/9d779ebc01.js"
       crossorigin="anonymous"
     ></script>
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   </head>
   <body>
     <!-- ----------------- Header ---------------------- -->
@@ -30,7 +33,7 @@
         </section>
 
         <section class="organizer-details flex wrapper gap-large">
-          <div class="organizer-image">
+          <div class="organizer-image" data-aos="flip-up">
             <img src="/<%=Organizer.logo%>" alt="" />
           </div>
 
@@ -46,11 +49,13 @@
             </div>
 
             <div class="organizer-contact flex gap">
-              <h3><%=Organizer.firstname + " " + Organizer.lastname%></h3>
+              <h3 data-aos="zoom-in">
+                <%=Organizer.firstname + " " + Organizer.lastname%>
+              </h3>
               <span class="decor-line"></span>
-              <h3><%=Organizer.number%></h3>
+              <h3 data-aos="zoom-in"><%=Organizer.number%></h3>
               <span class="decor-line"></span>
-              <h3><%=Organizer.email%></h3>
+              <h3 data-aos="zoom-in"><%=Organizer.email%></h3>
             </div>
             <p><%=Organizer.description%></p>
           </div>

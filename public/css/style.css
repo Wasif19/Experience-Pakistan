@@ -676,10 +676,8 @@ footer img {
 }
 
 .faq-item {
-  background-color: rgba(169, 169, 169, 0.43);
+  border: 1px solid var(--primary-color);
   border-radius: 5px;
-}
-
-.faq-item.active .faq-answer {
-  color: #f47725 !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
 }

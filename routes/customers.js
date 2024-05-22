@@ -41,7 +41,7 @@ customerroutes.get(
 customerroutes.get("/checker", homeController.check);
 
 customerroutes.get("/partners", homeController.getPartners);
-
+customerroutes.get("/partners/:organizerId", homeController.getPartnerEvents);
 customerroutes.get("/city", homeController.getCity);
 
 customerroutes.get("/add-event", homeController.addEvent);

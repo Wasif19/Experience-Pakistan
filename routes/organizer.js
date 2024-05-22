@@ -42,6 +42,7 @@ organizerRoutes.post("/add-event", organizerrController.organizerAddEvent);
 organizerRoutes.get("/logout", isOrganizer, organizerrController.postLogout);
 organizerRoutes.get("/ticket-info/:eventId", organizerrController.ticketInfo);
 organizerRoutes.get("/edit-info/:organizerId", organizerrController.editInfo);
+organizerRoutes.post("/edit-info", organizerrController.postEditOrganizer);
 organizerRoutes.get(
   "/password-change",
   isOrganizer,

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Partners</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="/css/headerFooter.css" />
+    <link rel="stylesheet" href="/css/partners.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+
+    <style>
+      .events-container {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        margin: 2rem 0;
+      }
+
+      .events-wrapper {
+        display: flex;
+        transition: transform 0.5s ease;
+      }
+
+      .event-card {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin: 0 1rem;
+        width: 300px;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: box-shadow 0.3s; /* Add transition for smooth effect */
+      }
+
+      .event-card img {
+        width: 100%;
+        height: 150px;
+        object-fit: fill;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+      }
+
+      .event-card-body {
+        padding: 1rem;
+        text-align: center;
+      }
+
+      .event-card-body h2 {
+        font-size: 1.2rem;
+        margin: 0.5rem 0;
+      }
+
+      .event-card-body p {
+        font-size: 0.9rem;
+        color: #666;
+      }
+      .event-card:hover {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add box shadow on hover */
+        border: 1px solid #f47725; /* Add border on hover */
+      }
+      .event-category {
+        font-size: 0.7rem;
+        display: inline-block;
+        color: #fff;
+        margin-top: 0.5rem;
+        padding: 10px 5px;
+        background-color: #7b2cbf;
+        max-width: 140px; /* Set a maximum width */
+        border-radius: 10px;
+        margin-left: 10px;
+        text-align: center;
+      }
+      .view-details-btn {
+        margin-top: 20px;
+        background-color: #f47725;
+        color: #fff;
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.5s;
+        margin-bottom: 1rem;
+        align-self: center;
+      }
+
+      .view-details-btn:hover {
+        background-color: #fff;
+        color: #666;
+        border: 1px solid #f47725;
+      }
+
+      .carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        border: none;
+        padding: 1rem;
+        cursor: pointer;
+        z-index: 10;
+        transition: background-color 0.3s;
+        border-radius: 50%; /* Make it circular */
+      }
+
+      .carousel-btn:hover {
+        background-color: rgba(0, 0, 0, 0.7);
+      }
+
+      .prev-btn {
+        left: 20px; /* Adjust positioning */
+      }
+
+      .next-btn {
+        right: 20px; /* Adjust positioning */
+      }
+    </style>
+
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  </head>
+  <body>
+    <!-- ----------------- Header ---------------------- -->
+    <%- include('../includes/header.ejs') %>
+    <!-- ----------------- Our Partners Section ---------------------- -->
+
+    <main class="container">
+      <section class="partners">
+        <h1>Events by <%=organizerName%></h1>
+      </section>
+      <div class="events-container">
+        <div class="events-wrapper">
+          <% if (Events.length > 0) { %> <% Events.forEach(event => { %>
+          <div class="event-card">
+            <img src="/<%= event.imageUrl %>" alt="Event" />
+            <div class="event-category"><%= event.eventType %></div>
+            <div class="event-card-body">
+              <h2><%= event.name %></h2>
+              <p><%= event.description.slice(0, 70) %>...</p>
+              <button class="view-details-btn">View Details</button>
+            </div>
+          </div>
+          <% }) %> <% } else { %>
+          <h1>NO EVENTS FOUND</h1>
+          <% } %>
+        </div>
+        <% if (Events.length > 0) { %>
+        <button class="carousel-btn prev-btn" id="prev-btn">
+          <i class="fa fa-chevron-left"></i>
+        </button>
+        <button class="carousel-btn next-btn" id="next-btn">
+          <i class="fa fa-chevron-right"></i>
+        </button>
+        <% } %>
+      </div>
+      <script src="/scripts/carousel.js"></script>
+    </main>
+
+    <!-- ----------------- Call to Action Section ---------------------- -->
+
+    <%- include('../includes/newsletter.ejs') %>
+
+    <!-- ----------------- Footer Section ---------------------- -->
+
+    <%- include('../includes/footer.ejs') %>
+  </body>
+</html>

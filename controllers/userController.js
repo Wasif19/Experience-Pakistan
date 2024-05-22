@@ -166,7 +166,7 @@ exports.postresetPassword = (req, res, next) => {
           return user.save().then((result) => {
             res.redirect("/");
             const name = req.body.email.split("@")[0];
-            const resetLink = `http://localhost:3001/user/newPassword/${token}`;
+            const resetLink = `http://experience-pakistan.onrender.com/user/newPassword/${token}`;
             const dynamicTemplateData = { name, resetLink };
             const msg = {
               to: req.body.email, // recipient email
@@ -180,7 +180,7 @@ exports.postresetPassword = (req, res, next) => {
               // html: `
               // <p>
               // You Requested a password reset</p>
-              // <p>Click this <a href="http://localhost:3001/user/newPassword/${token}">link</a> to set a new Password!</p>`, // sender email
+              // <p>Click this <a href="http://experience-pakistan.onrender.com/user/newPassword/${token}">link</a> to set a new Password!</p>`, // sender email
             };
 
             // Send the email

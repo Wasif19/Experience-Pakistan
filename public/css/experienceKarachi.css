@@ -171,7 +171,7 @@ button {
   font-size: 2.188rem;
 }
 .events h3 {
-  font-size: 1.5rem;
+  font-size: 1.125rem;
 }
 
 .events section {
@@ -223,13 +223,14 @@ button {
 }
 .eventType-body > div {
   width: 30%;
+  align-self: flex-start;
 }
 
 .event-left {
   text-align: center;
   width: 25%;
   padding-right: 1rem;
-  border-right: 1px solid #646464;
+
   /* margin-left: 1rem; */
 }
 
@@ -237,6 +238,8 @@ button {
   width: 75%;
   text-align: center;
   /* margin-right: 2rem; */
+  padding: 0 0.85em;
+  border-left: 1px solid #646464;
 }
 
 .date {
@@ -254,6 +257,10 @@ button {
 
 .event-right span {
   color: #646464;
+  font-size: 0.875rem;
+}
+.event-right > span {
+  text-align: justify;
 }
 
 .event-right a,

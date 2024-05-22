@@ -72,10 +72,7 @@
               </div>
 
               <div class="flex flex-centers status gap-small">
-                <% if (event.isApproved && new Date(event.startDate) >
-                Date.now()) { %>
-                <button>Edit Detail</button>
-                <% } %> <% if (event.isApproved) { %>
+                <% if (event.isApproved) { %>
                 <button
                   class="ticket-btn"
                   onclick="window.location.href='/organizer/ticket-info/<%=event._id%>'"

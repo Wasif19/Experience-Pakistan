@@ -18,6 +18,8 @@
       src="https://kit.fontawesome.com/9d779ebc01.js"
       crossorigin="anonymous"
     ></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   </head>
   <body>
     <!-- ----------------- Header ---------------------- -->
@@ -65,80 +67,11 @@
 
     <!-- ----------------- Call to Action Section ---------------------- -->
 
-    <section class="CTA">
-      <div class="news">
-        <h2>NEWSLETTER SIGN UP</h2>
-        <p>Get latest updates on things to do in Pakistan</p>
-        <input type="text" placeholder="Your E-Mail Address" />
-        <button>Subscribe</button>
-      </div>
-    </section>
+    <%- include('../includes/newsletter.ejs') %>
 
     <!-- ----------------- Footer Section ---------------------- -->
 
-    <footer>
-      <div class="container">
-        <div class="footer-main flex container gap">
-          <div class="about-us">
-            <ul>
-              <h2>About US</h2>
-              <li>
-                Experience Pakistan is a Platform for all type of events and
-                entertainment
-              </li>
-              <li>
-                <a href="">
-                  <img class="google" src="/images/google.png" alt="" />
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="helpful-links">
-            <ul>
-              <h2>Helpful Links</h2>
-              <li><a href="">Experience Pakistan</a></li>
-              <li><a href="">Search By City</a></li>
-              <li><a href="">About Us</a></li>
-              <li><a href="">Contact Us</a></li>
-              <li><a href="">Articles</a></li>
-              <li><a href="">Frequently Asked Questions</a></li>
-            </ul>
-          </div>
-
-          <div class="eventsByCity">
-            <ul>
-              <h2>Events By City</h2>
-              <li><a href="">Lahore</a></li>
-              <li><a href="">Karachi</a></li>
-              <li><a href="">Islamabad</a></li>
-            </ul>
-          </div>
-
-          <div class="useful-links">
-            <ul>
-              <h2>Useful Links</h2>
-              <li><a href="">Submit a Complaint</a></li>
-              <li><a href="">Give a Suggestion</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="container footer-secondary flex gap">
-          <div class="copyright">
-            <p class="">
-              <img src="/images/Copyright.png" alt="" />2023 Experience
-              Pakistan. All Rights Reserved
-            </p>
-          </div>
-
-          <div class="external-link flex wrapper">
-            <a href="">Terms & Conditions</a>
-            <a href="">Privacy Policy</a>
-            <a href="">Cookie Policy</a>
-          </div>
-        </div>
-      </div>
-    </footer>
+    <%- include('../includes/footer.ejs') %>
 
     <!-- ----------------- Scripts ---------------------- -->
     <script

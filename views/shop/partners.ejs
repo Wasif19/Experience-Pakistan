@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="css/artists.css" />
     <link rel="stylesheet" href="/css/navbar.css" />
 
+    <style></style>
+
     <script
       src="https://kit.fontawesome.com/9d779ebc01.js"
       crossorigin="anonymous"
@@ -57,6 +59,15 @@
           <span>
             <img class="flex flex-centers" src="<%=partner.logo %>" alt=""
           /></span>
+
+          <div class="overlay">
+            <button
+              class="view-events"
+              onclick="window.location.href='/partners/<%=partner._id%>'"
+            >
+              View Events
+            </button>
+          </div>
 
           <div class="partner-box-body">
             <h2><%=partner.organizationName %></h2>

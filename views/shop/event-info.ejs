@@ -36,6 +36,57 @@
     <link rel="stylesheet" href="/css/eventinfo.css" />
     <link rel="stylesheet" href="/css/selectedRestaurant.css" />
 
+    <style>
+      .popup-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 100; /* Ensure the popup appears above other elements */
+      }
+
+      .popup {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Add box shadow */
+      }
+
+      .popup h2 {
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+
+      .popup p {
+        color: #666;
+        font-size: 18px;
+        margin-bottom: 20px;
+      }
+
+      .popup button {
+        background-color: #f47725;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .popup button:hover {
+        background-color: #fff;
+        border: 1px solid #f47725;
+        color: #666;
+      }
+    </style>
+
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   </head>
@@ -95,14 +146,14 @@
         <div class="wrapper flex event-info">
           <div class="ticket flex flex-centers">
             <% if(Event.ticketed) {%>
-            <a href="/ticket-detail/<%=Event._id%>" class="ticket-wrap">
+            <div class="ticket-wrap" id="bookTicketBtn">
               <span>
                 <h2>Book Your Spot Now</h2>
               </span>
               <p>Price Starting From</p>
               <h3><%=Event?.tickets[0].price%></h3>
               <p>Per Person</p>
-            </a>
+            </div>
             <%}else {%>
             <div class="ticket-wrap">
               <span>
@@ -136,6 +187,17 @@
       </section>
     </main>
 
+    <div class="popup-container" id="popupContainer">
+      <div class="popup">
+        <h2>You are not logged in</h2>
+        <p>Please log in to access this feature.</p>
+        <button id="loginBtn" onclick="window.location.href='/user/login'">
+          Login
+        </button>
+        <button id="closePopupBtn">Close</button>
+      </div>
+    </div>
+
     <!-- ----------------- Call to Action Section ---------------------- -->
 
     <%- include('../includes/newsletter.ejs') %>
@@ -143,6 +205,32 @@
     <!-- ----------------- Footer Section ---------------------- -->
 
     <%- include('../includes/footer.ejs') %>
+    <script>
+      console.log("<%=isUserAuthenticated%>");
+      const openPopupBtn = document.getElementById("bookTicketBtn");
+      const closePopupBtn = document.getElementById("closePopupBtn");
+      const popupContainer = document.getElementById("popupContainer");
+      const background = document.querySelector(".background");
+
+      openPopupBtn.addEventListener("click", (event) => {
+        event.preventDefault(); // Prevent the default behavior of the link
+        const isLoggedIn = "<%=isUserAuthenticated%>"; // Set this value from your server-side logic
+
+        if (isLoggedIn === "false") {
+          popupContainer.style.display = "flex";
+          background.classList.add("blur");
+        } else {
+          // If the user is logged in, proceed to book the ticket
+          window.location.href = event.target.href =
+            "/ticket-detail/<%=Event._id%>";
+        }
+      });
+
+      closePopupBtn.addEventListener("click", () => {
+        popupContainer.style.display = "none";
+        background.classList.remove("blur");
+      });
+    </script>
     <script>
       // Embedding the restaurant address
       var restaurantAddress = "<%= Event.address %>";

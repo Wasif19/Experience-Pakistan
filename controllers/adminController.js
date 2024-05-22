@@ -620,11 +620,18 @@ exports.getAdminEvents = (req, res, next) => {
         helper: helper,
         isArt: isArtist,
         isEdited: isEdited,
+        isDel: isDeleted,
       });
     })
     .then(() => {
       if (isArtist === "true" || isArtist === "false") {
         isArtist = "null";
+      }
+      if (isEdited) {
+        isEdited = false;
+      }
+      if (isDeleted) {
+        isDeleted = false;
       }
     })
     .catch((err) => {
@@ -981,6 +988,8 @@ exports.getAdminExperiences = (req, res, next) => {
         path: "experience",
         admin: req.session.Admin,
         isArt: isArtist,
+        isEdited: isEdited,
+        isDel: isDeleted,
       });
     })
     .then(() => {
@@ -1293,7 +1302,6 @@ exports.getApproveEvents = async (req, res, next) => {
 };
 
 exports.postEditBlog = (req, res, next) => {
-  console.log(req.body);
   const imageData = req.files;
   const title = req.body.title;
   const Author = req.body.author;
@@ -1307,8 +1315,8 @@ exports.postEditBlog = (req, res, next) => {
     .then((artist) => {
       artist.title = title;
       artist.briefDescription = description;
-      artist.imageUrl = imageData[0].path;
-      if (imageData) {
+      artist.Author = Author;
+      if (imageData.length > 0) {
         if (imageData[0].path === artist.imageUrl) {
           artist.imageUrl = imageData[0].path;
         } else {
@@ -1347,7 +1355,7 @@ exports.postEditOrganizer = async (req, res, next) => {
   });
 
   // console.log(req.body.artistId);
-  res.redirect("/admin/admin-dashboard");
+  res.redirect("/admin/admin-organizers");
 
   // Blogs.findById(blogId)
   //   .then((artist) => {
@@ -1535,7 +1543,9 @@ exports.deleteExperience = (req, res, next) => {
     .then((result) => {
       console.log("Experience Deleted!");
       for (images of result.imageUrl) {
-        fileHelper.deleteFile(images);
+        if (!images.includes("tripadvisor")) {
+          fileHelper.deleteFile(images);
+        }
       }
       isDeleted = true;
       res.redirect("/admin/admin-experiences");

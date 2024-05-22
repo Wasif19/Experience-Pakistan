@@ -64,13 +64,13 @@ function generateResponse(question) {
     case "how can we signup?":
       return {
         text: "Click on: ",
-        lin: "http://localhost:3001/user/signup",
+        lin: "http://experience-pakistan.onrender.com/user/signup",
       };
 
     case "host an event?":
       return {
         text: "In order to host an event, please sign up as an Organizer. Organizer Sign up: ",
-        lin: "http://localhost:3001/organizer-signup",
+        lin: "http://experience-pakistan.onrender.com/organizer/signup",
       };
 
     default:

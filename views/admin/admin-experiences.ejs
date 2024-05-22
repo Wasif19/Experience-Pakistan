@@ -75,7 +75,17 @@
             <span class="close-icon" onclick="closeCard()">&times;</span>
             <p>There was an Error!</p>
           </div>
-          <% } %> <% } %>
+          <% } %> <% } %> <% if (isEdited) { %>
+          <div class="success-card green" id="successCard">
+            <span class="close-icon" onclick="closeCard()">&times;</span>
+            <p>Successfully Edited Experiences!</p>
+          </div>
+          <% } %> <% if (isDel) { %>
+          <div class="success-card green" id="successCard">
+            <span class="close-icon" onclick="closeCard()">&times;</span>
+            <p>Successfully Deleted Experience!</p>
+          </div>
+          <% } %>
         </section>
         <% if (Events.length == 0) { %>
         <div class="noRecord record-center">

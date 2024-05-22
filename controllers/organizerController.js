@@ -7,6 +7,9 @@ const Tickets = require("../models/Tickets");
 const crypto = require("crypto");
 const sgMail = require("@sendgrid/mail");
 const Newsletters = require("../models/Newsletters");
+const Organizers = require("../models/Organizers");
+let isEdited = false;
+let isAdded = false;
 sgMail.setApiKey(process.env.SENDGRID_KEY);
 
 function convertTo12HourFormat(time24) {
@@ -128,16 +131,19 @@ exports.organizeEvent = (req, res, next) => {
     pageTitle: "Organizer Event List",
     Organizer: req.session.Organizer,
     path: "organizeevent",
+    isAdded: isAdded,
   });
 };
 
 exports.postLogout = (req, res, next) => {
   delete req.session.Organizer;
   req.session.OrganizerisLoggedin = false;
+  req.session.destroy();
   res.redirect("/organizer/login");
 };
 
 exports.organizerAddEvent = (req, res, next) => {
+  console.log(req.body);
   const startDate = new Date(req.body.sdate);
   const endDate = new Date(req.body.edate);
   let time = req.body.sTime;
@@ -183,7 +189,12 @@ exports.organizerAddEvent = (req, res, next) => {
       return Event.save();
     })
     .then((response) => {
-      res.redirect("/organizer/events");
+      res.render("organizer/sentForApproval", {
+        isOrganizerAuthenticated: req.session.OrganizerisLoggedin,
+        pageTitle: "Organizer Event List",
+        Organizer: req.session.Organizer,
+        path: "organizeevent",
+      });
     })
 
     .catch((err) => {
@@ -204,13 +215,16 @@ exports.ticketInfo = async (req, res, next) => {
 };
 
 exports.editInfo = async (req, res, next) => {
-  console.log(req.params);
   const Organizer = await organizer.findById(req.params.organizerId);
 
   res.render("organizer/organizer-edit", {
     path: "/ticket",
     Organizer: Organizer,
+    isEdited: isEdited,
   });
+  if (isEdited) {
+    isEdited = false;
+  }
 };
 
 exports.passwordChange = async (req, res, next) => {
@@ -294,7 +308,7 @@ exports.postresetPassword = (req, res, next) => {
           return user.save().then((result) => {
             res.redirect("/");
             const name = req.body.email.split("@")[0];
-            const resetLink = `http://localhost:3001/organizer/newPassword/${token}`;
+            const resetLink = `http://experience-pakistan.onrender.com/organizer/newPassword/${token}`;
             const dynamicTemplateData = { name, resetLink };
             const msg = {
               to: req.body.email, // recipient email
@@ -308,7 +322,7 @@ exports.postresetPassword = (req, res, next) => {
               // html: `
               // <p>
               // You Requested a password reset</p>
-              // <p>Click this <a href="http://localhost:3001/user/newPassword/${token}">link</a> to set a new Password!</p>`, // sender email
+              // <p>Click this <a href="http://experience-pakistan.onrender.com/user/newPassword/${token}">link</a> to set a new Password!</p>`, // sender email
             };
 
             // Send the email
@@ -375,4 +389,39 @@ exports.postupdatePassword = (req, res, next) => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+exports.postEditOrganizer = async (req, res, next) => {
+  const firstName = req.body.fname;
+  const lastName = req.body.lname;
+  const description = req.body.description;
+  const organizationName = req.body.organization;
+  const imageData = req.files;
+
+  const organizer = await Organizers.findById(req.body.organizerId);
+
+  if (imageData) {
+    if (imageData[0].path === organizer.logo || !organizer.logo) {
+      organizer.logo = imageData[0].path;
+    } else {
+      fileHelper.deleteFile(organizer.logo);
+      organizer.logo = imageData[0].path;
+    }
+  }
+
+  organizer.firstname = firstName;
+  organizer.lastname = lastName;
+  organizer.description = description;
+  organizer.organizationName = organizationName;
+
+  await organizer.save();
+  req.session.Organizer = organizer;
+  await req.session.save();
+  isEdited = true;
+
+  res.render("organizer/organizer-edit", {
+    path: "/ticket",
+    Organizer: organizer,
+    isEdited: isEdited,
+  });
 };

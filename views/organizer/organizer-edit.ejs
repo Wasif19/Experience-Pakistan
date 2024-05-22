@@ -13,8 +13,10 @@
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
 
-    <link rel="stylesheet" href="/css/organizersDashboard.css" />
     <link rel="stylesheet" href="/css/signup.css" />
+    <link rel="stylesheet" href="/css/organizersDashboard.css" />
+    <link rel="stylesheet" href="/css/organizerhead-foot.css" />
+    <link rel="stylesheet" href="/css/fix.css" />
 
     <script
       src="https://kit.fontawesome.com/9d779ebc01.js"
@@ -31,13 +33,21 @@
           <h1>Edit Detail</h1>
         </section>
 
+        <section class="org-message">
+          <% if (isEdited) { %>
+          <div class="success-card green" id="successCard">
+            <span class="close-icon" onclick="closeCard()">&times;</span>
+            <p>Edited Successfully!</p>
+          </div>
+          <% } %>
+        </section>
         <p class="container wrapper info-note">
           <strong>Note: </strong> To Change Profile Password
           <a href="/organizer/password-change">Click Here</a>
         </p>
 
         <section class="container wrapper">
-          <form action="" method="post">
+          <form action="/organizer/edit-info" method="post">
             <div class="main-form">
               <span class="width-small">
                 <label for="fname">First Name</label><br />
@@ -103,7 +113,7 @@
                   class="width-small"
                   name="logo"
                   accept="image/*"
-                  required
+                  multiple
                 />
               </span>
 
@@ -117,6 +127,7 @@
                   id=""
                   placeholder="Phone Number"
                   value="<%=Organizer.number%>"
+                  disabled
                   required
                 />
               </span>
@@ -138,13 +149,14 @@
 
             <br />
 
+            <input
+              type="hidden"
+              value="<%=Organizer._id%>"
+              name="organizerId"
+            />
+
             <div class="main-form form-btn">
-              <input
-                class="submit-btn"
-                type="submit
-                "
-                placeholder="Submit"
-              />
+              <input class="submit-btn" type="submit" placeholder="Submit" />
             </div>
           </form>
         </section>
