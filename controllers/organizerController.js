@@ -52,8 +52,6 @@ exports.OrganizerPostSignin = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  console.log("yes");
-
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).render("organizer/login", {
@@ -189,7 +187,7 @@ exports.organizerAddEvent = (req, res, next) => {
       return Event.save();
     })
     .then((response) => {
-      res.render("organizer/sentForApproval", {
+      res.render("organizer/SentForApproval", {
         isOrganizerAuthenticated: req.session.OrganizerisLoggedin,
         pageTitle: "Organizer Event List",
         Organizer: req.session.Organizer,
@@ -203,10 +201,7 @@ exports.organizerAddEvent = (req, res, next) => {
 };
 
 exports.ticketInfo = async (req, res, next) => {
-  console.log(req.params);
   const tickets = await Tickets.find({ eventId: req.params.eventId });
-
-  console.log(tickets);
 
   res.render("organizer/ticket-info", {
     path: "/ticket",
@@ -228,8 +223,6 @@ exports.editInfo = async (req, res, next) => {
 };
 
 exports.passwordChange = async (req, res, next) => {
-  console.log(req.session.Organizer);
-
   res.render("organizer/password-change", {
     path: "/ticket",
     errorMessage: "",
@@ -374,7 +367,6 @@ exports.postupdatePassword = (req, res, next) => {
       if (!user) {
         return res.redirect("/organizer/login");
       } else if (password === cpassword) {
-        console.log("yes");
         bcrypt
           .hash(password, 12)
           .then((hashedpass) => {

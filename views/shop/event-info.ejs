@@ -207,6 +207,11 @@
     <%- include('../includes/footer.ejs') %>
     <script>
       var isUserAuthenticated = "<%=isUserAuthenticated%>";
+      console.log(
+        "The answer: ",
+        isUserAuthenticated,
+        typeof isUserAuthenticated
+      );
     </script>
     <script>
       const openPopupBtn = document.getElementById("bookTicketBtn");

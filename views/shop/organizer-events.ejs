@@ -40,7 +40,7 @@
         flex-shrink: 0;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: flex-start;
         transition: box-shadow 0.3s; /* Add transition for smooth effect */
       }
 
@@ -153,7 +153,14 @@
             <div class="event-card-body">
               <h2><%= event.name %></h2>
               <p><%= event.description.slice(0, 70) %>...</p>
-              <button class="view-details-btn">View Details</button>
+              <% if (new Date(event.startDate) > Date.now()) { %>
+              <button
+                class="view-details-btn"
+                onclick="window.location.href='/event-info/<%=event._id%>'"
+              >
+                View Details
+              </button>
+              <% } %>
             </div>
           </div>
           <% }) %> <% } else { %>

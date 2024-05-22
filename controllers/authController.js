@@ -95,9 +95,9 @@ exports.postSignup = async (req, res, next) => {
         fname: req.body.fname,
         organization: req.body.organization,
         description: req.body.description,
-        phone: "sajdsjakdjk",
-        isUserAuthenticated: false,
+        phone: req.body.phone,
       },
+      isUserAuthenticated: req.session.UserisLoggedin,
       validationErrors: "Enter a Valid Number!",
     });
   }
@@ -119,8 +119,6 @@ exports.postSignup = async (req, res, next) => {
   req.session.otpOrganizer = organizer;
   await req.session.save();
   // cart: { Event: [] }
-
-  console.log("The organizer is: ", organizer);
 
   res.redirect("/organizer/getOTP");
 
@@ -303,7 +301,7 @@ exports.postNewsletter = (req, res, next) => {
 exports.getOTP = async (req, res, next) => {
   const otp = generateOTP();
   const message = `Your one-time-password is ${otp}`;
-
+  console.log(req.session.otpOrganizer);
   const url = `https://api.veevotech.com/v3/sendsms?hash=${smsKey}&receivernum=${encodeURIComponent(
     req.session.otpOrganizer.number
   )}&sendernum=Default&textmessage=${encodeURIComponent(message)}`;

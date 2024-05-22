@@ -525,7 +525,7 @@ exports.getEventInfo = (req, res, next) => {
         path: "/home",
         pageTitle: "EventInfo",
         Event: rests,
-        isUserAuthenticated: req.session.UserisLoggedin,
+        isUserAuthenticated: req?.session?.UserisLoggedin || false,
         helper: helper,
         number: rests.OrganizerId.number || "+923274791154",
         mapboxToken: process.env.MAPBOX_TOKEN,
