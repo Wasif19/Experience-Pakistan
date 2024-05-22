@@ -144,7 +144,7 @@
         </div>
 
         <div class="wrapper flex event-info">
-          <div class="ticket flex flex-centers">
+          <div class="ticket flex flex-centers" style="cursor: pointer">
             <% if(Event.ticketed) {%>
             <div class="ticket-wrap" id="bookTicketBtn">
               <span>
@@ -206,7 +206,9 @@
 
     <%- include('../includes/footer.ejs') %>
     <script>
-      console.log("<%=isUserAuthenticated%>");
+      var isUserAuthenticated = "<%=isUserAuthenticated%>";
+    </script>
+    <script>
       const openPopupBtn = document.getElementById("bookTicketBtn");
       const closePopupBtn = document.getElementById("closePopupBtn");
       const popupContainer = document.getElementById("popupContainer");
@@ -214,7 +216,7 @@
 
       openPopupBtn.addEventListener("click", (event) => {
         event.preventDefault(); // Prevent the default behavior of the link
-        const isLoggedIn = "<%=isUserAuthenticated%>"; // Set this value from your server-side logic
+        const isLoggedIn = isUserAuthenticated; // Set this value from your server-side logic
 
         if (isLoggedIn === "false") {
           popupContainer.style.display = "flex";
