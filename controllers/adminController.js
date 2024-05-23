@@ -15,6 +15,7 @@ const Suggestions = require("../models/Comp&Sugg");
 const Tickets = require("../models/Tickets");
 const Newsletters = require("../models/Newsletters");
 const Users = require("../models/Users");
+const cloudinary = require("../util/cloudinary");
 let isArtist = "null";
 let isDeleted = false;
 let isEdited = false;
@@ -307,7 +308,7 @@ exports.addArtists = (req, res, next) => {
   });
 };
 
-exports.postAddArtists = (req, res, next) => {
+exports.postAddArtists = async (req, res, next) => {
   const name = req.body.name;
   const description = req.body.description;
   const imageURL = req.files;
@@ -315,13 +316,21 @@ exports.postAddArtists = (req, res, next) => {
 
   //console.log(name, description, imageURL, category);
 
-  console.log(req.files);
+  let data = await cloudinary.uploader.upload(
+    imageURL[0].path,
+    function (err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+      }
+    }
+  );
 
   const myArtist = new Artist({
     name: name,
     category: category,
     description: description,
-    imageUrl: imageURL[0].path,
+    imageUrl: data.url,
   });
 
   myArtist
@@ -600,7 +609,6 @@ exports.deleteArtist = (req, res, next) => {
   Artist.findByIdAndDelete(req.params.artistId)
     .then((result) => {
       console.log("Artist Deleted!");
-      fileHelper.deleteFile(result.imageUrl);
       isDeleted = true;
       res.redirect("/admin/admin-artists");
     })

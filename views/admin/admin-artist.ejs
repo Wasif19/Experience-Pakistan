@@ -95,7 +95,11 @@
           <div class="userList-more userList">
             <% for (let artist of Artists) { %>
             <div class="artist flex gap">
-              <img src="/<%= artist.imageUrl %>" alt="" />
+              <% if (artist.imageUrl.includes("cloudinary")) { %>
+              <img src="<%= artist.imageUrl %>" alt="Artist Image" />
+              <% } else { %>
+              <img src="/<%= artist.imageUrl %>" alt="Artist Image" />
+              <% } %>
               <div class="artistDetail">
                 <h2><%=artist.name%></h2>
                 <p class="artistCategory"><%=artist.category%></p>
