@@ -95,7 +95,11 @@
           <div class="userList-more userList">
             <% for (let organizer of Organizers) { %>
             <div class="artist flex gap">
-              <img src="/<%=organizer.logo%>" alt="" />
+              <% if (organizer.logo.includes("cloudinary")) { %>
+              <img src="<%= organizer.logo %>" alt="Organizer Image" />
+              <% } else { %>
+              <img src="/<%= organizer.logo %>" alt="Organizer Image" />
+              <% } %>
               <div class="artistDetail">
                 <h2><%=organizer.organizationName%></h2>
                 <p class="margin-bottom">

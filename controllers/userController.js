@@ -11,6 +11,7 @@ const event = require("../models/Events");
 const helper = require("../public/scripts/scripts");
 const fileHelper = require("../util/file");
 const organizer = require("../models/Organizers");
+const cloudinary = require("../util/cloudinary");
 let isUpdated = false;
 let passwordError = false;
 
@@ -350,8 +351,8 @@ exports.getUserDashboard = async (req, res, next) => {
   }
 
   let reviewedEvents = [];
-  let counter = 0;
   for (let rEvents of events) {
+    let counter = 0;
     if (rEvents.endDate < Date.now()) {
       for (let reviews of User.Reviews) {
         if (reviews.EventId.toString() === rEvents._id.toString()) {
@@ -364,7 +365,7 @@ exports.getUserDashboard = async (req, res, next) => {
     }
   }
 
-  //console.log(admin);
+  // console.log(reviewedEvents);
 
   if (User) {
     return res.render("user/dashboard", {
@@ -539,25 +540,26 @@ exports.postUpdateUserData = async (req, res, next) => {
 
     const User = await Users.findById(req.session.user._id);
 
-    if (imageData) {
-      if (imageData[0].path === User.imageUrl || !User.imageUrl) {
-        User.imageUrl = imageData[0].path;
-      } else {
-        fileHelper.deleteFile(User.imageUrl);
-        User.imageUrl = imageData[0].path;
+    let data = await cloudinary.uploader.upload(
+      imageData[0].path,
+      function (err, result) {
+        if (err) {
+          console.log(err);
+        }
       }
+    );
 
-      User.name = name;
-      User.number = number;
-      User.email = email;
+    User.name = name;
+    User.number = number;
+    User.email = email;
+    User.imageUrl = imageData.length > 0 ? data.url : User.imageUrl;
 
-      await User.save();
+    await User.save();
 
-      req.session.user = User;
-      isUpdated = true;
+    req.session.user = User;
+    isUpdated = true;
 
-      res.redirect("/user/settings");
-    }
+    res.redirect("/user/settings");
   } catch (err) {
     console.log(err);
   }
@@ -629,9 +631,7 @@ exports.postAddReview = async (req, res, next) => {
   }
   user.Reviews.push(review);
   await user.save();
-  res.render("user/reviews", {
-    path: "/review",
-  });
+  res.redirect("/user/reviews");
 };
 
 exports.getTicketDetails = async (req, res, next) => {
@@ -644,12 +644,10 @@ exports.getTicketDetails = async (req, res, next) => {
 };
 
 exports.getWishlist = async (req, res, next) => {
-  console.log(req.session.user);
   const user = await User.findById(req.session.user._id).populate(
     "wishlist.item"
   );
   const wishlists = user.wishlist;
-  console.log(wishlists);
   res.render("user/wishlist", {
     path: "wishlist",
     pageTitle: "Wishlist",

@@ -60,7 +60,6 @@
       <section class="lists">
         <div class="ticketDetail-form">
           <h3>Order Summary</h3>
-
           <table>
             <thead>
               <tr class="table-head">
@@ -70,22 +69,21 @@
               </tr>
             </thead>
             <tbody>
+              <% for (let i = 0; i < Ticket.customerCart.ticketName.length; i++)
+              { %>
               <tr class="table-body">
-                <td>Standard</td>
-                <td>2</td>
-                <td>PKR 1500</td>
+                <td><%= Ticket.customerCart.ticketName[i] %></td>
+                <td><%= Ticket.customerCart.ticketQuantity[i] %></td>
+                <td>
+                  PKR <%= Ticket.eventId.tickets.find(ticket => ticket.Name ===
+                  Ticket.customerCart.ticketName[i]).price %>
+                </td>
               </tr>
-              <tr class="table-body">
-                <td>Standard</td>
-                <td>2</td>
-                <td>PKR 1500</td>
-              </tr>
-
+              <% } %>
               <!-- Total Row -->
               <tr class="table-body table-foot">
                 <td colspan="2">Total</td>
-
-                <td>PKR 3000</td>
+                <td><%=Ticket.customerTotalBill%></td>
               </tr>
             </tbody>
           </table>
@@ -102,7 +100,7 @@
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
     ></script>
 
-    <script src="../scripts/menu.js"></script>
+    <script src="/scripts/menu.js"></script>
 
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"

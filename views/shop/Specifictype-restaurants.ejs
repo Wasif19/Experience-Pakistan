@@ -57,7 +57,7 @@
                   <h3><%= restaurant.name %></h3>
 
                   <div class="review flex gap-small" id="margin-set">
-                    <% if (restaurant.ratingPicture !== null) { %>
+                    <% if ( restaurant?.ratingPicture) { %>
                     <div class="rating flex">
                       <img src="<%= restaurant.ratingPicture %>" />
                     </div>

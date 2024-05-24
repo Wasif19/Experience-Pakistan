@@ -267,7 +267,7 @@ exports.editArtist = (req, res, next) => {
     });
 };
 
-exports.postEditArtist = (req, res, next) => {
+exports.postEditArtist = async (req, res, next) => {
   const imageData = req.files;
   const name = req.body.name;
   const category = req.body.category;
@@ -277,19 +277,22 @@ exports.postEditArtist = (req, res, next) => {
   // console.log(req.body.artistId);
   // res.redirect("/admin/admin-dashboard"
 
+  let data = await cloudinary.uploader.upload(
+    imageData[0].path,
+    function (err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+      }
+    }
+  );
+
   Artist.findById(artistId)
     .then((artist) => {
       artist.name = name;
       artist.description = description;
       artist.category = category;
-      if (imageData) {
-        if (imageData[0].path === artist.imageUrl) {
-          artist.imageUrl = imageData[0].path;
-        } else {
-          fileHelper.deleteFile(artist.imageUrl);
-          artist.imageUrl = imageData[0].path;
-        }
-      }
+      artist.imageUrl = data.url;
       return artist.save().then((result) => {
         isEdited = true;
         res.redirect("/admin/admin-artists");
@@ -379,7 +382,7 @@ exports.getAddRestaurants = (req, res, next) => {
     admin: req.session.Admin,
   });
 };
-exports.PostedRestaurants = (req, res, next) => {
+exports.PostedRestaurants = async (req, res, next) => {
   const name = req.body.name;
   const description = req.body.description;
   const imageURL = req.files;
@@ -390,10 +393,30 @@ exports.PostedRestaurants = (req, res, next) => {
   const cuisine = req.body.CuisineOptions;
   const category = req.body.category;
 
+  // let imageurl = [];
+
+  // for (let images of imageURL) {
+  //   imageurl.push(images.path);
+  // }
+
+  const uploadPromises = imageURL.map((imagePath) => {
+    return new Promise((resolve, reject) => {
+      cloudinary.uploader.upload(imagePath.path, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    });
+  });
+
+  const results = await Promise.all(uploadPromises);
+
   let imageurl = [];
 
-  for (let images of imageURL) {
-    imageurl.push(images.path);
+  for (let result of results) {
+    imageurl.push(result.url);
   }
 
   const Rest = new Restuarant({
@@ -506,7 +529,7 @@ exports.postEditEvent = (req, res, next) => {
     });
 };
 
-exports.postEditRestaurant = (req, res, next) => {
+exports.postEditRestaurant = async (req, res, next) => {
   const name = req.body.name;
   const description = req.body.description;
   const imageURL = req.files;
@@ -517,10 +540,24 @@ exports.postEditRestaurant = (req, res, next) => {
   const cuisine = req.body.CuisineOptions;
   const category = req.body.category;
 
+  const uploadPromises = imageURL.map((imagePath) => {
+    return new Promise((resolve, reject) => {
+      cloudinary.uploader.upload(imagePath.path, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    });
+  });
+
+  const results = await Promise.all(uploadPromises);
+
   let imageurl = [];
 
-  for (let images of imageURL) {
-    imageurl.push(images.path);
+  for (let result of results) {
+    imageurl.push(result.url);
   }
 
   // res.redirect("/admin/admin-dashboard");
@@ -539,15 +576,6 @@ exports.postEditRestaurant = (req, res, next) => {
       artist.PhoneNumber = number;
       artist.address = address;
       artist.cuisine = cuisine;
-      if (imageurl.length > 0) {
-        for (let i = 0; i < imageurl.length; i++) {
-          if (!imageurl.includes(artist.imageUrl[i])) {
-            console.log("Deleted!");
-            fileHelper.deleteFile(artist[i].imageUrl);
-          }
-        }
-        artist.imageUrl = imageurl;
-      }
 
       return artist.save().then((result) => {
         console.log("Restaurant Updated!");
@@ -560,7 +588,7 @@ exports.postEditRestaurant = (req, res, next) => {
     });
 };
 
-exports.postEditExperience = (req, res, next) => {
+exports.postEditExperience = async (req, res, next) => {
   const name = req.body.name;
   const description = req.body.description;
   const imageURL = req.files;
@@ -569,10 +597,24 @@ exports.postEditExperience = (req, res, next) => {
   const city = req.body.city;
   const category = req.body.category;
 
+  const uploadPromises = imageURL.map((imagePath) => {
+    return new Promise((resolve, reject) => {
+      cloudinary.uploader.upload(imagePath.path, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    });
+  });
+
+  const results = await Promise.all(uploadPromises);
+
   let imageurl = [];
 
-  for (let images of imageURL) {
-    imageurl.push(images.path);
+  for (let result of results) {
+    imageurl.push(result.url);
   }
 
   Experiences.findById(req.body.experienceId)
@@ -584,15 +626,6 @@ exports.postEditExperience = (req, res, next) => {
       artist.category = category;
       artist.number = number;
       artist.address = address;
-      if (imageurl.length > 0) {
-        for (let i = 0; i < imageurl.length; i++) {
-          if (!imageurl.includes(artist.imageUrl[i])) {
-            console.log("Deleted!");
-            fileHelper.deleteFile(artist[i].imageUrl);
-          }
-        }
-        artist.imageUrl = imageurl;
-      }
 
       return artist.save().then((result) => {
         console.log("Experience Updated!");
@@ -679,7 +712,7 @@ exports.addEvents = (req, res, next) => {
       console.log(err);
     });
 };
-exports.AdminAddEvents = (req, res, next) => {
+exports.AdminAddEvents = async (req, res, next) => {
   const startDate = new Date(req.body.sdate);
   const endDate = new Date(req.body.edate);
   let time = req.body.sTime;
@@ -781,7 +814,6 @@ exports.getAdminOrganizers = (req, res, next) => {
 };
 
 exports.postAddOrganizer = async (req, res, next) => {
-  console.log(req.body);
   const fname = req.body.fname;
   const lname = req.body.lname;
   const org = req.body.organization;
@@ -815,11 +847,20 @@ exports.postAddOrganizer = async (req, res, next) => {
     });
   }
 
+  let data = await cloudinary.uploader.upload(
+    imageURL[0].path,
+    function (err, result) {
+      if (err) {
+        console.log(err);
+      }
+    }
+  );
+
   const hashedPass = await bcrypt.hash(password, 12);
   const myOrganizer = new Organizer({
     firstname: fname,
     lastname: lname,
-    logo: imageURL[0].path,
+    logo: data.url,
     organizationName: org,
     description: description,
     email: email,
@@ -830,7 +871,6 @@ exports.postAddOrganizer = async (req, res, next) => {
   myOrganizer
     .save()
     .then((result) => {
-      console.log("Created an Organizer!");
       isArtist = "true";
     })
     .then(() => {
@@ -961,8 +1001,6 @@ exports.updateSettings = (req, res, next) => {
 exports.deleteOrganizer = (req, res, next) => {
   Organizer.findByIdAndDelete(req.params.organizerId)
     .then((result) => {
-      console.log("Organizer Deleted!");
-      fileHelper.deleteFile(result.logo);
       isDeleted = true;
       res.redirect("/admin/admin-organizers");
     })
@@ -974,12 +1012,6 @@ exports.deleteOrganizer = (req, res, next) => {
 exports.deleteRestaurant = (req, res, next) => {
   Restuarant.findByIdAndDelete(req.params.restaurantId)
     .then((result) => {
-      console.log("Restaurant Deleted!");
-      for (images of result.imageUrl) {
-        if (!images.includes("tripadvisor")) {
-          fileHelper.deleteFile(images);
-        }
-      }
       isDeleted = true;
       res.redirect("/admin/admin-restaurants");
     })
@@ -1115,7 +1147,7 @@ exports.getAddExperiences = (req, res, next) => {
   });
 };
 
-exports.postAddExperience = (req, res, next) => {
+exports.postAddExperience = async (req, res, next) => {
   const name = req.body.name;
   const description = req.body.description;
   const imageURL = req.files;
@@ -1124,10 +1156,24 @@ exports.postAddExperience = (req, res, next) => {
   const city = req.body.city;
   const category = req.body.category;
 
+  const uploadPromises = imageURL.map((imagePath) => {
+    return new Promise((resolve, reject) => {
+      cloudinary.uploader.upload(imagePath.path, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    });
+  });
+
+  const results = await Promise.all(uploadPromises);
+
   let imageurl = [];
 
-  for (let images of imageURL) {
-    imageurl.push(images.path);
+  for (let result of results) {
+    imageurl.push(result.url);
   }
 
   const Experience = new Experiences({
@@ -1241,16 +1287,23 @@ exports.getAddBlogs = (req, res, next) => {
 
 exports.postAddBlogs = async (req, res, next) => {
   try {
-    console.log(req.body);
-
     let { title, author, description, briefDescription } = req.body;
 
     const imageUrl = req.files;
 
+    let data = await cloudinary.uploader.upload(
+      imageUrl[0].path,
+      function (err, result) {
+        if (err) {
+          console.log(err);
+        }
+      }
+    );
+
     const Blog = new Blogs({
       Author: author,
       title: title,
-      imageUrl: imageUrl[0].path,
+      imageUrl: data.url,
       briefDescription: briefDescription,
       description: description,
     });
@@ -1271,7 +1324,6 @@ exports.deleteBlog = (req, res, next) => {
   Blogs.findByIdAndDelete(blogId)
     .then((deletedBlog) => {
       console.log("Blog Deleted!");
-      fileHelper.deleteFile(deletedBlog.imageUrl);
       isDeleted = true;
       res.redirect("/admin/blogs");
     })
@@ -1309,7 +1361,7 @@ exports.getApproveEvents = async (req, res, next) => {
   }
 };
 
-exports.postEditBlog = (req, res, next) => {
+exports.postEditBlog = async (req, res, next) => {
   const imageData = req.files;
   const title = req.body.title;
   const Author = req.body.author;
@@ -1319,19 +1371,22 @@ exports.postEditBlog = (req, res, next) => {
   // console.log(req.body.artistId);
   // res.redirect("/admin/admin-dashboard"
 
+  let data = await cloudinary.uploader.upload(
+    imageData[0].path,
+    function (err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+      }
+    }
+  );
+
   Blogs.findById(blogId)
     .then((artist) => {
       artist.title = title;
       artist.briefDescription = description;
       artist.Author = Author;
-      if (imageData.length > 0) {
-        if (imageData[0].path === artist.imageUrl) {
-          artist.imageUrl = imageData[0].path;
-        } else {
-          fileHelper.deleteFile(artist.imageUrl);
-          artist.imageUrl = imageData[0].path;
-        }
-      }
+      artist.imageUrl = data.url;
       return artist.save().then((result) => {
         isEdited = true;
         res.redirect("/admin/blogs");
@@ -1343,7 +1398,6 @@ exports.postEditBlog = (req, res, next) => {
 };
 
 exports.postEditOrganizer = async (req, res, next) => {
-  console.log(req.body);
   const fname = req.body.fname;
   const lname = req.body.lname;
   const org = req.body.organization;
@@ -1352,10 +1406,20 @@ exports.postEditOrganizer = async (req, res, next) => {
   const email = req.body.email;
   const phone = req.body.phone;
 
+  let data = await cloudinary.uploader.upload(
+    imageURL[0].path,
+    function (err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+      }
+    }
+  );
+
   const organizer = await Organizer.findByIdAndUpdate(req.body.organizerId, {
     firstname: fname,
     lastname: lname,
-    logo: imageURL[0].path,
+    logo: data.url,
     organizationName: org,
     description: description,
     email: email,
@@ -1549,12 +1613,6 @@ exports.postAddAdmin = async (req, res, next) => {
 exports.deleteExperience = (req, res, next) => {
   Experience.findByIdAndDelete(req.params.experienceId)
     .then((result) => {
-      console.log("Experience Deleted!");
-      for (images of result.imageUrl) {
-        if (!images.includes("tripadvisor")) {
-          fileHelper.deleteFile(images);
-        }
-      }
       isDeleted = true;
       res.redirect("/admin/admin-experiences");
     })

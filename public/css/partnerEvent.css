@@ -1,0 +1,107 @@
+.events-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin: 2rem 0;
+}
+
+.events-wrapper {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.event-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 0 1rem;
+  width: 300px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  transition: box-shadow 0.3s; /* Add transition for smooth effect */
+}
+
+.event-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: fill;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.event-card-body {
+  padding: 1rem;
+  text-align: center;
+}
+
+.event-card-body h2 {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+.event-card-body p {
+  font-size: 0.9rem;
+  color: #666;
+}
+.event-card:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add box shadow on hover */
+  border: 1px solid #f47725; /* Add border on hover */
+}
+.event-category {
+  font-size: 0.7rem;
+  display: inline-block;
+  color: #fff;
+  margin-top: 0.5rem;
+  padding: 10px 5px;
+  background-color: #7b2cbf;
+  max-width: 140px; /* Set a maximum width */
+  border-radius: 10px;
+  margin-left: 10px;
+  text-align: center;
+}
+.view-details-btn {
+  margin-top: 20px;
+  background-color: #f47725;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.5s;
+  margin-bottom: 1rem;
+  align-self: center;
+}
+
+.view-details-btn:hover {
+  background-color: #fff;
+  color: #666;
+  border: 1px solid #f47725;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  padding: 1rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.3s;
+  border-radius: 50%; /* Make it circular */
+}
+
+.carousel-btn:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.prev-btn {
+  left: 20px; /* Adjust positioning */
+}
+
+.next-btn {
+  right: 20px; /* Adjust positioning */
+}

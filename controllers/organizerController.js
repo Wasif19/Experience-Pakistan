@@ -10,6 +10,7 @@ const Newsletters = require("../models/Newsletters");
 const Organizers = require("../models/Organizers");
 let isEdited = false;
 let isAdded = false;
+const cloudinary = require("../util/cloudinary");
 sgMail.setApiKey(process.env.SENDGRID_KEY);
 
 function convertTo12HourFormat(time24) {
@@ -192,6 +193,7 @@ exports.organizerAddEvent = (req, res, next) => {
         pageTitle: "Organizer Event List",
         Organizer: req.session.Organizer,
         path: "organizeevent",
+        isUserAuthenticated: req.session.Organizer,
       });
     })
 
@@ -392,19 +394,20 @@ exports.postEditOrganizer = async (req, res, next) => {
 
   const organizer = await Organizers.findById(req.body.organizerId);
 
-  if (imageData) {
-    if (imageData[0].path === organizer.logo || !organizer.logo) {
-      organizer.logo = imageData[0].path;
-    } else {
-      fileHelper.deleteFile(organizer.logo);
-      organizer.logo = imageData[0].path;
+  let data = await cloudinary.uploader.upload(
+    imageData[0].path,
+    function (err, result) {
+      if (err) {
+        console.log(err);
+      }
     }
-  }
+  );
 
   organizer.firstname = firstName;
   organizer.lastname = lastName;
   organizer.description = description;
   organizer.organizationName = organizationName;
+  organizer.logo = imageData.length > 0 ? data.url : organizer.logo;
 
   await organizer.save();
   req.session.Organizer = organizer;

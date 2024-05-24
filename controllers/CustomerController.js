@@ -254,19 +254,29 @@ exports.specificRestaurant = (req, res, next) => {
     });
 };
 
-exports.getRestaurants = (req, res, next) => {
-  Restaurant.find()
-    .then((rests) => {
-      res.render("shop/restaurants", {
-        path: "/things-to-do-retaurant",
-        pageTitle: "HomePage",
-        Restaurants: rests,
-        isUserAuthenticated: req.session.UserisLoggedin,
-      });
-    })
-    .catch((err) => {
-      console.log(err);
+exports.getRestaurants = async (req, res, next) => {
+  const user = await User.findById(req.session?.user?._id);
+  if (user) {
+    const userWishlist = user?.wishlist.filter((result) => {
+      if (result.type === "Restaurant") {
+        return result.item;
+      }
     });
+
+    Restaurant.find()
+      .then((rests) => {
+        res.render("shop/restaurants", {
+          path: "/things-to-do-retaurant",
+          pageTitle: "HomePage",
+          Restaurants: rests,
+          isUserAuthenticated: req.session.UserisLoggedin,
+          userWishlist: userWishlist.length > 0 ? userWishlist : null,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 };
 
 exports.check = (req, res, next) => {
@@ -1134,27 +1144,10 @@ exports.searchedExperiences = async (req, res) => {
 };
 
 exports.addToWishlist = async (req, res) => {
-  console.log(req.body);
   if (!req.session.UserisLoggedin) {
     return res.json({ message: "failed", status: 500 });
   } else {
     const User = await Users.findById(req.session.user);
-    const filter = User.wishlist.filter((item) => {
-      if (item.item.toString() === req.body.eventId) {
-        return item;
-      }
-    });
-
-    if (filter.length > 0) {
-      const uniqueArray = User.wishlist.filter(
-        (item, index, self) =>
-          index ===
-          self.findIndex((t) => t.item.toString() === item.item.toString())
-      );
-      User.wishlist = uniqueArray;
-      await User.save();
-      return res.json({ message: "delete", status: 200 });
-    }
     const result = { type: req.body.type, item: req.body.eventId };
     User.wishlist.push(result);
     await User.save();

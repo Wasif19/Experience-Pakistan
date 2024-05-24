@@ -212,7 +212,13 @@
                   />
 
                   <span class="heart">
-                    <i class="fa-solid fa-heart"></i>
+                    <% const isWishlisted = userWishlist?.some(wish => wish.type
+                    === 'Restaurant' && wish.item.toString() ===
+                    Restaurant._id.toString() ); %>
+                    <i
+                      class="fa-solid fa-heart"
+                      style="<%= isWishlisted ? 'color:red' : '' %>"
+                    ></i>
                   </span>
 
                   <input
@@ -272,7 +278,13 @@
                   />
 
                   <span class="heart">
-                    <i class="fa-solid fa-heart"></i>
+                    <% const isWishlisted = userWishlist?.some(wish => wish.type
+                    === 'Restaurant' && wish.item.toString() ===
+                    Restaurant._id.toString() ); %>
+                    <i
+                      class="fa-solid fa-heart"
+                      style="<%= isWishlisted ? 'color:red' : '' %>"
+                    ></i>
                   </span>
 
                   <input
@@ -332,7 +344,13 @@
                   />
 
                   <span class="heart">
-                    <i class="fa-solid fa-heart"></i>
+                    <% const isWishlisted = userWishlist?.some(wish => wish.type
+                    === 'Restaurant' && wish.item.toString() ===
+                    Restaurant._id.toString() ); %>
+                    <i
+                      class="fa-solid fa-heart"
+                      style="<%= isWishlisted ? 'color:red' : '' %>"
+                    ></i>
                   </span>
 
                   <input
@@ -392,7 +410,13 @@
                     alt="<%= Restaurant.name %>"
                   />
                   <span class="heart">
-                    <i class="fa-solid fa-heart"></i>
+                    <% const isWishlisted = userWishlist?.some(wish => wish.type
+                    === 'Restaurant' && wish.item.toString() ===
+                    Restaurant._id.toString() ); %>
+                    <i
+                      class="fa-solid fa-heart"
+                      style="<%= isWishlisted ? 'color:red' : '' %>"
+                    ></i>
                   </span>
                   <input
                     type="hidden"

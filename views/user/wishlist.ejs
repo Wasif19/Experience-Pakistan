@@ -52,6 +52,10 @@
                 alt=" <%= rest.item.name %>"
               />
 
+              <span class="remove">
+                <i class="fa-solid fa-trash"></i>
+              </span>
+
               <input
                 type="hidden"
                 name="restaurantId"
@@ -106,6 +110,10 @@
           <a href="/experiences/see-more/<%=rest.item._id%>" class="food-link">
             <div class="food-browses-box">
               <img src="/<%= rest.item.imageUrl[0] %>" alt="" />
+
+              <span class="remove">
+                <i class="fa-solid fa-trash"></i>
+              </span>
               <div class="browses-box-detail">
                 <span><%= rest.item.city %></span>
                 <h3><%= rest.item.name %></h3>
@@ -115,9 +123,25 @@
                   value="<%=rest.item._id%>"
                 />
 
+                <div class="review flex gap-small" id="margin-set">
+                  <% if (rest?.ratingPicture) { %>
+                  <div class="rating flex" id="margin-set">
+                    <img src="<%= rest.ratingPicture %>" />
+                  </div>
+
+                  <% } else { %>
+                  <div class="review flex gap-small" id="margin-set">
+                    <img
+                      src="https://www.tripadvisor.com/img/cdsi/img2/ratings/traveler/4.0-66827-5.svg"
+                    />
+                  </div>
+                  <% } %>
+                  <p class="light"><%=rest.rating%></p>
+                </div>
+
                 <div class="tags flex browses-box-more">
                   <p>See More</p>
-                  <button onclick="remove">Remove</button>
+                  <button><i class="fa-solid fa-chevron-right"></i></button>
                 </div>
               </div>
             </div>
@@ -145,9 +169,15 @@
 
     <script src="../scripts/menu.js"></script>
     <script>
-      function remove(e) {
-        e.preventDefault();
-      }
+      document.addEventListener("DOMContentLoaded", function () {
+        const removed = document.querySelectorAll(".remove");
+
+        removed.forEach(function (remove) {
+          remove.addEventListener("click", function (event) {
+            event.preventDefault();
+          });
+        });
+      });
     </script>
   </body>
 </html>
