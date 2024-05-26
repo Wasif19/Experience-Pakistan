@@ -33,14 +33,12 @@
       <div class="container">
         <section class="organizer-details flex wrapper gap-large">
           <div class="organizer-image profile-image">
-            <% if(User.imageUrl) { %>
-
-            <img
-              id="user-image"
-              src="<%=User.imageUrl%>"
-              alt="User Profile Image"
-            />
-            <% } else {%>
+            <% if(User.imageUrl) { %> <% if
+            (User.imageUrl.includes("cloudinary")) { %>
+            <img src="<%= User.imageUrl %>" alt="User Image" />
+            <% } else { %>
+            <img src="/<%= User.imageUrl %>" alt="User Image" />
+            <% } %>"User Profile Image" /> <% } else {%>
             <img
               id="user-image"
               src="https://i.pinimg.com/736x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg"

@@ -65,7 +65,8 @@
             class="food-link"
           >
             <div class="food-browse-box">
-              <% if (rest.item.imageUrl[0].includes("cloudinary")) { %>
+              <% if (rest.item.imageUrl[0].includes("cloudinary") ||
+              rest.item.imageUrl[0].includes("tripadvisor")) { %>
               <img src="<%= rest.item.imageUrl[0] %>" alt="Artist Image" />
               <% } else { %>
               <img src="/<%= rest.item.imageUrl[0] %>" alt="Artist Image" />
@@ -136,7 +137,8 @@
           %>
           <a href="/experiences/see-more/<%=rest.item._id%>" class="food-link">
             <div class="food-browses-box">
-              <% if (rest.item.imageUrl[0].includes("cloudinary")) { %>
+              <% if (rest.item.imageUrl[0].includes("cloudinary") ||
+              rest.item.imageUrl[0].includes("tripadvisor")) { %>
               <img src="<%= rest.item.imageUrl[0] %>" alt="Artist Image" />
               <% } else { %>
               <img src="/<%= rest.item.imageUrl[0] %>" alt="Artist Image" />
