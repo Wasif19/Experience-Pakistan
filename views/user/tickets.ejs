@@ -48,7 +48,11 @@
         <div class="ticket-list flex gap">
           <div class="ticket-info flex gap">
             <div class="event-image">
-              <img src="/<%=ticket.eventId.imageUrl%>" alt="" />
+              <% if (ticket.eventId.imageUrl.includes("cloudinary")) { %>
+              <img src="<%= ticket.eventId.imageUrl %>" alt="Artist Image" />
+              <% } else { %>
+              <img src="/<%= ticket.eventId.imageUrl %>" alt="Artist Image" />
+              <% } %>
             </div>
 
             <div class="event-detail">

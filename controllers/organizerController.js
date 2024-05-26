@@ -141,7 +141,7 @@ exports.postLogout = (req, res, next) => {
   res.redirect("/organizer/login");
 };
 
-exports.organizerAddEvent = (req, res, next) => {
+exports.organizerAddEvent = async (req, res, next) => {
   console.log(req.body);
   const startDate = new Date(req.body.sdate);
   const endDate = new Date(req.body.edate);
@@ -166,6 +166,15 @@ exports.organizerAddEvent = (req, res, next) => {
     }
   }
 
+  let data = await cloudinary.uploader.upload(
+    imageData[0].path,
+    function (err, result) {
+      if (err) {
+        console.log(err);
+      }
+    }
+  );
+
   organizer
     .findById(req.session.Organizer._id)
     .then((organizer) => {
@@ -173,7 +182,7 @@ exports.organizerAddEvent = (req, res, next) => {
         name: name,
         description: description,
         eventType: category,
-        imageUrl: imageData[0].path,
+        imageUrl: data.url,
         address: address,
         city: city,
         startDate: startDate,
@@ -394,20 +403,22 @@ exports.postEditOrganizer = async (req, res, next) => {
 
   const organizer = await Organizers.findById(req.body.organizerId);
 
-  let data = await cloudinary.uploader.upload(
-    imageData[0].path,
-    function (err, result) {
-      if (err) {
-        console.log(err);
+  if (imageData) {
+    let data = await cloudinary.uploader.upload(
+      imageData[0].path,
+      function (err, result) {
+        if (err) {
+          console.log(err);
+        }
       }
-    }
-  );
+    );
+  }
 
   organizer.firstname = firstName;
   organizer.lastname = lastName;
   organizer.description = description;
   organizer.organizationName = organizationName;
-  organizer.logo = imageData.length > 0 ? data.url : organizer.logo;
+  organizer.logo = imageData?.length > 0 ? data.url : organizer.logo;
 
   await organizer.save();
   req.session.Organizer = organizer;
@@ -419,4 +430,8 @@ exports.postEditOrganizer = async (req, res, next) => {
     Organizer: organizer,
     isEdited: isEdited,
   });
+
+  if (isEdited) {
+    isEdited = false;
+  }
 };

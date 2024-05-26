@@ -99,11 +99,11 @@
                 <% for (let Blog of Blogs) { %>
                 <tr>
                   <td>
-                    <img
-                      class="organizer-img"
-                      src="/<%=Blog.imageUrl%>"
-                      alt="coke studio"
-                    />
+                    <% if (Blog.imageUrl.includes("cloudinary")) { %>
+                    <img src="<%= Blog.imageUrl %>" alt="Organizer Image" />
+                    <% } else { %>
+                    <img src="/<%= Blog.imageUrl %>" alt="Organizer Image" />
+                    <% } %>
                   </td>
                   <td><%=Blog.title%></td>
                   <td><%=Blog.Author%></td>

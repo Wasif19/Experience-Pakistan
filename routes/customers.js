@@ -72,6 +72,10 @@ customerroutes.post(
 customerroutes.get("/checkout/success", homeController.getCheckOutSuccess);
 
 customerroutes.post("/question", homeController.launchChatbot);
+customerroutes.post(
+  "/restaurant-question",
+  homeController.launchRestaurantChatbot
+);
 
 customerroutes.get("/suggestion", homeController.Suggestions);
 customerroutes.post("/suggestion", homeController.postSuggestions);
@@ -96,6 +100,8 @@ customerroutes.get(
   "/experiences/see-more/:experienceId",
   homeController.viewSingleExperience
 );
+
+customerroutes.get("/reviews/:eventId", homeController.geteventReviews);
 
 // customerroutes.get("/apiadder", homeController.addRestaurantsViaApi);
 // customerroutes.get("/expadder", homeController.addExperiencesViaApi);

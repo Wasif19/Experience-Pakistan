@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="/css/headerFooter.css" />
     <link rel="stylesheet" href="css/experienceKarachi.css" />
     <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/carousel.css" />
     <script
       src="https://kit.fontawesome.com/9d779ebc01.js"
       crossorigin="anonymous"
@@ -202,6 +203,41 @@
         <div class="events-body">
           <!-- *************************************************************** -->
           <!-- Featured Events -->
+          <section>
+            <h2>Featured Events</h2>
+            <div class="slider">
+              <% for (let event of featuredEvents) { %>
+              <a href="/event-info/<%=event._id%>" class="slide">
+                <div class="image-container">
+                  <img src="<%=event.imageUrl%>" alt="Event Image" />
+                </div>
+                <div class="content-container">
+                  <h2><%=event.name%></h2>
+                  <p><%=event.address%></p>
+                  <p>
+                    <span>Date:</span>
+                    <%=helper.getMonthAbbreviation(event.startDate.getMonth()+1)%>
+                    <%=event.startDate.getDate() %>, <%=
+                    event.endDate.getFullYear() %>
+                  </p>
+                  <p><span>Time:</span> <%=event.eventTime%></p>
+                  <button>View Details</button>
+                </div>
+              </a>
+              <% } %>
+            </div>
+            <% if (featuredEvents.length == 0){%>
+            <div class="noRecord record-center">
+              <h2>No Featured Events Avaiable !</h2>
+              <img
+                style="width: 250px"
+                src="/images/he_sitting_with_notebook.png"
+                alt=""
+              />
+            </div>
+            <%} %>
+          </section>
+          <!-- Latest Events -->
           <div class="eventType-1">
             <div class="eventType-head flex">
               <h2>Latest Events</h2>
@@ -285,5 +321,25 @@
     <!-- ----------------- Footer Section ---------------------- -->
 
     <%- include('../includes/footer.ejs') %>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        let slides = document.querySelectorAll(".slide");
+        let currentSlide = 0;
+
+        function showSlide(index) {
+          let newTransformValue = `translateX(-${index * 100}%)`;
+          slides.forEach((slide) => {
+            slide.style.transform = newTransformValue;
+          });
+        }
+
+        // Automatic slide transition
+        setInterval(() => {
+          currentSlide = (currentSlide + 1) % slides.length;
+          showSlide(currentSlide);
+        }, 3000); // Change slide every 3 seconds
+      });
+    </script>
   </body>
 </html>

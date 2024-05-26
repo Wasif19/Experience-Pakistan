@@ -251,5 +251,17 @@ adminRoutes.get(
 );
 adminRoutes.post("/edit-organizer", isAuth, adminController.postEditOrganizer);
 
+adminRoutes.get(
+  "/event/add-to-featured/:eventId",
+  isAuth,
+  adminController.addEventToFeatured
+);
+
+adminRoutes.get(
+  "/event/remove-from-featured/:eventId",
+  isAuth,
+  adminController.removeEventToFeatured
+);
+
 ///admin/delete-organizer
 module.exports = adminRoutes;

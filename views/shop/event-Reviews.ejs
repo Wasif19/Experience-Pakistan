@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reviews</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="/css/headerFooter.css" />
+    <link rel="stylesheet" href="/css/partners.css" />
+    <link rel="stylesheet" href="css/artists.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/eventReviews.css" />
+
+    <script
+      src="https://kit.fontawesome.com/9d779ebc01.js"
+      crossorigin="anonymous"
+    ></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  </head>
+  <body>
+    <!-- ----------------- Header ---------------------- -->
+    <%- include('../includes/header.ejs') %>
+    <!-- ----------------- Our Partners Section ---------------------- -->
+
+    <main class="container">
+      <section class="partners">
+        <h1>Reviews</h1>
+      </section>
+      <% if(reviews.length == 0) {%>
+      <div class="noRecord record-center">
+        <h2>No Reviews Found</h2>
+        <img
+          style="width: 250px"
+          src="/images/he_sitting_with_notebook.png"
+          alt=""
+        />
+      </div>
+      <%}%>
+
+      <section class="reviews wrapper flex">
+        <% for (let review of reviews) { %>
+        <div class="review-object">
+          <div class="flex review-head">
+            <% if (review?.imageUrl.includes("cloudinary")) { %>
+            <img src="<%= review.imageUrl %>" alt="Artist Image" />
+            <% } else { %>
+            <img src="/<%= review.imageUrl %>" alt="Artist Image" />
+            <% } %>
+            <div class="review-head-title">
+              <h2><%=review.name%></h2>
+              <% if (review.rating == 1) { %>
+              <p class="stars">⭐</p>
+              <% } else if (review.rating == 2) { %>
+              <p class="stars">⭐⭐</p>
+              <% } else if (review.rating == 3) { %>
+              <p class="stars">⭐⭐⭐</p>
+              <% } else if (review.rating == 4) { %>
+              <p class="stars">⭐⭐⭐⭐</p>
+              <% } else if (review.rating == 5) { %>
+              <p class="stars">⭐⭐⭐⭐⭐</p>
+              <% } %>
+            </div>
+          </div>
+          <div class="review-body">
+            <p><%=review.description%></p>
+          </div>
+        </div>
+        <% } %>
+      </section>
+    </main>
+
+    <!-- ----------------- Call to Action Section ---------------------- -->
+
+    <%- include('../includes/newsletter.ejs') %>
+
+    <!-- ----------------- Footer Section ---------------------- -->
+
+    <%- include('../includes/footer.ejs') %>
+  </body>
+</html>

@@ -16,6 +16,10 @@ const Tickets = require("../models/Tickets");
 const Newsletters = require("../models/Newsletters");
 const Users = require("../models/Users");
 const cloudinary = require("../util/cloudinary");
+if (process.env.NODE_ENV !== "production") require("dotenv").config();
+const sgMail = require("@sendgrid/mail");
+const { name } = require("ejs");
+sgMail.setApiKey(process.env.SENDGRID_KEY);
 let isArtist = "null";
 let isDeleted = false;
 let isEdited = false;
@@ -491,7 +495,7 @@ exports.getEditOrganizer = (req, res, next) => {
         Organizer: organizer,
         path: "/organizer",
         admin: req.session.Admin,
-        errorMessage: "",
+        errorMessage: null,
       });
     })
     .catch((err) => {
@@ -726,6 +730,7 @@ exports.AdminAddEvents = async (req, res, next) => {
   const imageData = req.files;
   const tickited = req.body.ticketedEvent === "no" ? false : true;
   let Tickets = [];
+  let data;
   if (tickited) {
     let numofTickets = Number(req.body.numOfTickets);
     for (let i = 1; i <= numofTickets; i++) {
@@ -735,14 +740,24 @@ exports.AdminAddEvents = async (req, res, next) => {
       });
     }
   }
-
+  if (imageData.length > 0) {
+    data = await cloudinary.uploader.upload(
+      imageData[0].path,
+      function (err, result) {
+        if (err) {
+          console.log(err);
+        } else {
+        }
+      }
+    );
+  }
   Organizer.findOne({ organizationName: req.body.organizer })
     .then((organizer) => {
       const event = new Event({
         name: name,
         description: description,
         eventType: category,
-        imageUrl: imageData[0].path,
+        imageUrl: data.url,
         address: address,
         city: city,
         startDate: startDate,
@@ -866,6 +881,7 @@ exports.postAddOrganizer = async (req, res, next) => {
     email: email,
     number: phone,
     password: hashedPass,
+    isVerified: true,
   });
 
   myOrganizer
@@ -875,7 +891,45 @@ exports.postAddOrganizer = async (req, res, next) => {
     })
     .then(() => {
       res.redirect("/admin/admin-organizers");
+      const msg = {
+        to: req.body.email, // Change to your recipient
+        from: {
+          email: "wasif.shahid8@gmail.com",
+          name: "Experience Pakistan",
+        },
+        subject: "Welcome to Experience Pakistan!",
+        text: `Hey ${req.body.fname}, Welcome to our application!`,
+        html: `
+      <div style="font-family: Arial, sans-serif; line-height: 1.5;">
+        <h1>🎉 Hurray! 🎉</h1>
+        <p>Hey ${req.body.fname},</p>
+        <p>Welcome to our application! You have successfully registered as an event organizer on our website.</p>
+        <p>Here are your credentials:</p>
+        <ul>
+          <li><strong>Email:</strong> ${req.body.email}</li>
+          <li><strong>Password:</strong> ${password}</li>
+        </ul>
+        <p>We are excited to have you on board and look forward to seeing the amazing events you will organize!</p>
+        <p>Best regards,</p>
+        <p><strong>Experience Pakistan Team</strong></p>
+      </div>
+    `,
+      };
+      sgMail
+        .send(msg)
+        .then(() => {
+          console.log("Email sent");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     });
+  //     res.redirect("/organizer-login");
+  //
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
 };
 
 //console.log(name, description, imageURL, category);
@@ -1367,26 +1421,29 @@ exports.postEditBlog = async (req, res, next) => {
   const Author = req.body.author;
   const description = req.body.briefDescription;
   const blogId = req.body.blogId;
+  let data;
 
   // console.log(req.body.artistId);
   // res.redirect("/admin/admin-dashboard"
 
-  let data = await cloudinary.uploader.upload(
-    imageData[0].path,
-    function (err, result) {
-      if (err) {
-        console.log(err);
-      } else {
+  if (imageData.length > 0) {
+    data = await cloudinary.uploader.upload(
+      imageData[0].path,
+      function (err, result) {
+        if (err) {
+          console.log(err);
+        } else {
+        }
       }
-    }
-  );
+    );
+  }
 
   Blogs.findById(blogId)
     .then((artist) => {
       artist.title = title;
       artist.briefDescription = description;
       artist.Author = Author;
-      artist.imageUrl = data.url;
+      artist.imageUrl = data?.url || artist.imageUrl;
       return artist.save().then((result) => {
         isEdited = true;
         res.redirect("/admin/blogs");
@@ -1427,29 +1484,8 @@ exports.postEditOrganizer = async (req, res, next) => {
   });
 
   // console.log(req.body.artistId);
+  isEdited = true;
   res.redirect("/admin/admin-organizers");
-
-  // Blogs.findById(blogId)
-  //   .then((artist) => {
-  //     artist.title = title;
-  //     artist.briefDescription = description;
-  //     artist.imageUrl = imageData[0].path;
-  //     if (imageData) {
-  //       if (imageData[0].path === artist.imageUrl) {
-  //         artist.imageUrl = imageData[0].path;
-  //       } else {
-  //         fileHelper.deleteFile(artist.imageUrl);
-  //         artist.imageUrl = imageData[0].path;
-  //       }
-  //     }
-  //     return artist.save().then((result) => {
-  //       isEdited = true;
-  //       res.redirect("/admin/blogs");
-  //     });
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
 };
 
 exports.editBlog = (req, res, next) => {
@@ -1467,23 +1503,44 @@ exports.editBlog = (req, res, next) => {
 };
 
 exports.approveEvent = async (req, res, next) => {
-  const event = await Event.findById(req.params.eventId);
+  const event = await Event.findById(req.params.eventId).populate(
+    "OrganizerId"
+  );
   event.isApproved = true;
-  // const totalCount = await Event.find({ isApproved: false }).countDocuments();
   await event.save();
   isApproved = true;
   res.redirect("/admin/approve-event");
-  // Blogs.findById(req.params.blogId)
-  //   .then((artist) => {
-  //     res.render("admin/edit-blogs", {
-  //       Blogs: artist,
-  //       path: "blog",
-  //       admin: req.session.Admin,
-  //     });
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
+  const msg = {
+    to: event.OrganizerId.email, // Change to your recipient
+    from: {
+      email: "wasif.shahid8@gmail.com",
+      name: "Experience Pakistan",
+    },
+    subject: "Congratulations! Your event is Approved!",
+    text: `Hey ${event.OrganizerId.firstname}, Welcome to our application!`,
+    html: `
+            <div style="font-family: Arial, sans-serif; line-height: 1.5;">
+        <h1>🎉 Congratulations! 🎉</h1>
+        <p>Dear ${event.OrganizerId.organizationName},</p>
+        <p>We are thrilled to inform you that your event, <strong>${event.name}</strong>, has been approved and is now live on our website!</p>
+        <div style="text-align: center;">
+          <img src="${event.imageUrl}" alt="${event.name}" style="max-width: 100%; height: auto;" />
+        </div>
+        <p>We hope your event is a great success and reaches a wide audience. We are excited to see the amazing experiences you'll bring to our community.</p>
+        <p>Thank you for being a part of Experience Pakistan.</p>
+        <p>Best regards,</p>
+        <p><strong>The Experience Pakistan Team</strong></p>
+      </div>
+    `,
+  };
+  sgMail
+    .send(msg)
+    .then(() => {
+      console.log("Email sent");
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 };
 
 exports.rejectEvent = async (req, res, next) => {
@@ -1530,7 +1587,6 @@ exports.deleteEvent = (req, res, next) => {
   Event.findByIdAndDelete(req.params.eventId)
     .then((result) => {
       console.log("Event Deleted!");
-      fileHelper.deleteFile(result.imageUrl);
       isDeleted = true;
       res.redirect("/admin/admin-events");
     })
@@ -1622,18 +1678,20 @@ exports.deleteExperience = (req, res, next) => {
 };
 
 exports.postEditEvent = async (req, res, next) => {
-  const startDate = new Date(req.body.sdate);
-  const endDate = new Date(req.body.edate);
-  let time = req.body.sTime;
-  time = convertTo12HourFormat(time);
+  const startDate = req.body.sdate.length < 2 ? null : new Date(req.body.sdate);
+  const endDate = req.body.edate.length < 2 ? null : new Date(req.body.edate);
+  let time =
+    req.body.sTime.length < 1 ? null : convertTo12HourFormat(req.body.sTime);
+
   //const imageurl = req.body.imageURL;
   const city = req.body.city;
   const description = req.body.description;
   const category = req.body.category;
   const name = req.body.name;
   const address = req.body.address;
-  const imageData = req.files;
+  const imageData = req?.files;
   const tickited = req.body.ticketedEvent === "no" ? false : true;
+  let data;
   let Tickets = [];
   if (tickited) {
     let numofTickets = Number(req.body.numOfTickets);
@@ -1650,26 +1708,27 @@ exports.postEditEvent = async (req, res, next) => {
   });
 
   Event.findById(req.body.eventId)
-    .then((event) => {
-      if (imageData) {
-        if (imageData[0].path === event.imageUrl) {
-          event.imageUrl = imageData[0].path;
-        } else {
-          if (!event.imageUrl.includes("https")) {
-            fileHelper.deleteFile(event.imageUrl);
+    .then(async (event) => {
+      if (imageData.length > 0) {
+        data = await cloudinary.uploader.upload(
+          imageData[0].path,
+          function (err, result) {
+            if (err) {
+              console.log(err);
+            } else {
+            }
           }
-          event.imageUrl = imageData[0].path;
-        }
+        );
       }
       event.name = name;
       event.description = description;
       event.eventType = category;
-      event.imageUrl = imageData[0].path;
+      event.imageUrl = imageData?.length > 0 ? data.url : event.imageUrl;
       event.address = address;
       event.city = city;
-      event.startDate = startDate;
-      event.endDate = endDate;
-      event.eventTime = time;
+      event.startDate = startDate ? startDate : event.startDate;
+      event.endDate = endDate ? endDate : event.endDate;
+      event.eventTime = time ? time : event.eventTime;
       event.featured = false;
       event.ticketed = tickited;
       event.tickets = Tickets;
@@ -1702,6 +1761,7 @@ exports.viewBlog = async (req, res, next) => {
 exports.approveOrganizer = async (req, res, next) => {
   const organizer = await Organizer.find({ isVerified: false });
   const total = await Organizer.find({ isVerified: false }).countDocuments();
+
   // const text = convertHtmlToPlainText(blog.description);
   // console.log(text);
   res.render("admin/approve-organizers", {
@@ -1733,6 +1793,33 @@ exports.checkOrganizer = async (req, res, next) => {
     });
     isApproved = true;
     res.redirect("/admin/approve-organizer");
+    const msg = {
+      to: organizer.email, // Change to your recipient
+      from: {
+        email: "wasif.shahid8@gmail.com",
+        name: "Experience Pakistan",
+      },
+      subject: "Welcome to Experience Pakistan!",
+      text: `Hey ${organizer.firstname}, Welcome to our application!`,
+      html: `
+      <div style="font-family: Arial, sans-serif; line-height: 1.5;">
+        <h1>🎉 Hurray! 🎉</h1>
+        <p>Hey ${req.body.fname},</p>
+        <p>Welcome to our application! You have been successfully approved as an event organizer on our website.</p>
+        <p>We are excited to have you on board and look forward to seeing the amazing events you will organize!</p>
+        <p>Best regards,</p>
+        <p><strong>Experience Pakistan Team</strong></p>
+      </div>
+    `,
+    };
+    sgMail
+      .send(msg)
+      .then(() => {
+        console.log("Email sent");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
   // const organizer = await Organizer.find({ isVerified: false });
   // const total = await Organizer.find({ isVerified: false }).countDocuments();
@@ -1764,4 +1851,25 @@ exports.cancelTicket = async (req, res, next) => {
   await user[0].save();
 
   res.redirect("/admin/admin-dashboard");
+};
+
+exports.addEventToFeatured = async (req, res, next) => {
+  const event = await Event.findByIdAndUpdate(req.params.eventId, {
+    featured: true,
+  });
+
+  res.redirect("/admin/admin-events");
+
+  // const text = convertHtmlToPlainText(blog.description);
+  // console.log(text);
+};
+
+exports.removeEventToFeatured = async (req, res, next) => {
+  const event = await Event.findByIdAndUpdate(req.params.eventId, {
+    featured: false,
+  });
+  res.redirect("/admin/admin-events");
+
+  // const text = convertHtmlToPlainText(blog.description);
+  // console.log(text);
 };

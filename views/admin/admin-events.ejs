@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/css/adminNavbar.css" />
     <link rel="stylesheet" href="/css/adminPanel.css" />
     <link rel="stylesheet" href="/css/adminEvent.css" />
+
     <script
       src="https://kit.fontawesome.com/9d779ebc01.js"
       crossorigin="anonymous"
@@ -144,6 +145,24 @@
                   >
                     Tickets Details
                   </button>
+                  <% if (Event.featured) { %>
+
+                  <button
+                    class="reFeatureBtn"
+                    onclick="window.location.href='/admin/event/remove-from-featured/<%=Event._id%>'"
+                  >
+                    Remove from Featured
+                  </button>
+
+                  <% } %> <% if (new Date(Event.endDate) > new Date() &&
+                  !Event.featured) { %>
+                  <button
+                    class="featureBtn"
+                    onclick="window.location.href='/admin/event/add-to-featured/<%=Event._id%>'"
+                  >
+                    Add to Featured
+                  </button>
+                  <% } %>
                 </div>
               </div>
             </div>

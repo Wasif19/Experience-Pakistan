@@ -34,7 +34,11 @@
 
         <section class="organizer-details flex wrapper gap-large">
           <div class="organizer-image" data-aos="flip-up">
-            <img src="/<%=Organizer.logo%>" alt="" />
+            <% if (Organizer.logo.includes("cloudinary")) { %>
+            <img src="<%= Organizer.logo%>" alt="Artist Image" />
+            <% } else { %>
+            <img src="/<%= Organizer.logo %>" alt="Artist Image" />
+            <% } %>
           </div>
 
           <div class="organizer-info flex">

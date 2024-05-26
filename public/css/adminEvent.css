@@ -94,6 +94,28 @@ a {
   background-color: #fca336;
 }
 
+.featureBtn {
+  margin-top: 1.25rem;
+  background-color: #ff6320;
+  border: 1px solid var(--primary-color) !important;
+  color: #fff !important;
+}
+
+.featureBtn:hover {
+  border: 1px solid var(--primary-color) !important;
+  color: var(--primary-color) !important;
+  background-color: #fff;
+}
+
+.reFeatureBtn {
+  margin-top: 1.25rem;
+  background-color: rgb(255, 30, 30);
+  color: whitesmoke;
+}
+.reFeatureBtn:hover {
+  background-color: red;
+}
+
 .dashboards {
   padding: 0em 3em;
   text-align: center;

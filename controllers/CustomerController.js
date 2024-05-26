@@ -2,6 +2,7 @@ const Artist = require("../models/Artists");
 const Restaurant = require("../models/Restaurants");
 const organizer = require("../models/Organizers");
 const fetch = require("node-fetch");
+const mongoose = require("mongoose");
 
 const Event = require("../models/Events");
 const User = require("../models/Users");
@@ -40,6 +41,18 @@ function convertTo12HourFormat(time24) {
 
   return time12;
 }
+async function findSimilarRestaurants(restaurantDetails, city) {
+  const rests = await Restaurant.find({
+    cuisine: restaurantDetails.cuisine,
+    city: city ? city : "Islamabad",
+  });
+
+  return rests;
+}
+async function getRestaurantDetails(restaurantId) {
+  return Restaurant.findById(restaurantId).exec();
+}
+
 function generateTicketID() {
   const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -49,6 +62,48 @@ function generateTicketID() {
     ticketID += characters[randomIndex];
   }
   return ticketID;
+}
+async function recommendSimilarRestaurants(user) {
+  if (!user?.wishlist) {
+    return [];
+  }
+
+  let recommendedRestaurants = [];
+
+  for (const wish of user.wishlist) {
+    if (wish.type === "Restaurant") {
+      const details = await getRestaurantDetails(wish.item);
+      const similarRestaurants = await findSimilarRestaurants(
+        details,
+        user?.city
+      );
+      recommendedRestaurants.push(...similarRestaurants);
+    }
+  }
+
+  // Remove duplicates by converting to a set and back to an array
+  const uniqueRecommendedRestaurants = Array.from(
+    new Set(recommendedRestaurants.map((r) => r._id.toString()))
+  );
+
+  const objectIds = uniqueRecommendedRestaurants.map(
+    (id) => new mongoose.Types.ObjectId(id)
+  );
+
+  // Fetch the complete details for the unique recommended restaurants
+
+  const detailedRecommendations = await Restaurant.aggregate([
+    { $match: { _id: { $in: objectIds } } },
+    { $sample: { size: 5 } },
+  ]);
+
+  const filtered = [];
+
+  for (let rest of detailedRecommendations) {
+    filtered.push(rest.name);
+  }
+
+  return filtered;
 }
 exports.HomePage = (req, res, next) => {
   res.render("shop/home", {
@@ -137,7 +192,7 @@ exports.getSpecificArtist = (req, res, next) => {
     });
 };
 
-exports.filterRestaurants = (req, res, next) => {
+exports.filterRestaurants = async (req, res, next) => {
   //console.log(req.body.foodType, req.body.cuisine, req.body.rating);
   const filters = {};
   if (req.body.foodType) {
@@ -156,6 +211,13 @@ exports.filterRestaurants = (req, res, next) => {
     filters.city = { $in: req.body.City };
   }
   //console.log(filters);
+
+  const user = await User.findById(req?.session?.user?._id);
+  const userWishlist = user?.wishlist.filter((result) => {
+    if (result.type === "Restaurant") {
+      return result.item;
+    }
+  });
   Restaurant.find(filters)
     .then((restaurants) => {
       res.render("shop/Specifictype-restaurants", {
@@ -163,6 +225,7 @@ exports.filterRestaurants = (req, res, next) => {
         pageTitle: "Restaurants",
         Rests: restaurants,
         isUserAuthenticated: req.session.UserisLoggedin,
+        userWishlist: userWishlist?.length > 0 ? userWishlist : null,
       });
     })
     .catch((err) => {
@@ -170,7 +233,13 @@ exports.filterRestaurants = (req, res, next) => {
     });
 };
 
-exports.specificTypeRestaurants = (req, res, next) => {
+exports.specificTypeRestaurants = async (req, res, next) => {
+  const user = await User.findById(req?.session?.user?._id);
+  const userWishlist = user?.wishlist.filter((result) => {
+    if (result.type === "Restaurant") {
+      return result.item;
+    }
+  });
   if (req.query.type === "Desi" || req.query.type === "Dessert") {
     return Restaurant.find({ cuisine: req.query.type })
       .then((rests) => {
@@ -179,6 +248,7 @@ exports.specificTypeRestaurants = (req, res, next) => {
           Rests: rests,
           pageTitle: req.query.type + " Restaurants",
           isUserAuthenticated: req.session.UserisLoggedin,
+          userWishlist: userWishlist?.length > 0 ? userWishlist : null,
         });
       })
       .catch((err) => {
@@ -192,6 +262,7 @@ exports.specificTypeRestaurants = (req, res, next) => {
         Rests: rests,
         pageTitle: req.query.type + " Restaurants",
         isUserAuthenticated: req.session.UserisLoggedin,
+        userWishlist: userWishlist?.length > 0 ? userWishlist : null,
       });
     })
     .catch((err) => {
@@ -255,28 +326,26 @@ exports.specificRestaurant = (req, res, next) => {
 };
 
 exports.getRestaurants = async (req, res, next) => {
-  const user = await User.findById(req.session?.user?._id);
-  if (user) {
-    const userWishlist = user?.wishlist.filter((result) => {
-      if (result.type === "Restaurant") {
-        return result.item;
-      }
-    });
+  const user = await User.findById(req?.session?.user?._id);
+  const userWishlist = user?.wishlist.filter((result) => {
+    if (result.type === "Restaurant") {
+      return result.item;
+    }
+  });
 
-    Restaurant.find()
-      .then((rests) => {
-        res.render("shop/restaurants", {
-          path: "/things-to-do-retaurant",
-          pageTitle: "HomePage",
-          Restaurants: rests,
-          isUserAuthenticated: req.session.UserisLoggedin,
-          userWishlist: userWishlist.length > 0 ? userWishlist : null,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
+  Restaurant.find()
+    .then((rests) => {
+      res.render("shop/restaurants", {
+        path: "/things-to-do-restaurant",
+        pageTitle: "HomePage",
+        Restaurants: rests,
+        isUserAuthenticated: req.session.UserisLoggedin,
+        userWishlist: userWishlist?.length > 0 ? userWishlist : null,
       });
-  }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 exports.check = (req, res, next) => {
@@ -342,10 +411,11 @@ exports.getPartnerEvents = async (req, res, next) => {
   });
 };
 
-exports.getCity = (req, res, next) => {
+exports.getCity = async (req, res, next) => {
   const city = req.query.city;
+  const featuredEvents = await Event.find({ featured: true, city: city });
   const today = Date.now();
-  Event.find({ city: city, startDate: { $gt: today }, isApproved: true })
+  Event.find({ city: city, endDate: { $gt: today }, isApproved: true })
     .limit(9)
     .sort({ startDate: -1 })
     .then((events) => {
@@ -356,6 +426,7 @@ exports.getCity = (req, res, next) => {
         Events: events,
         helper: helper,
         isUserAuthenticated: req.session.UserisLoggedin,
+        featuredEvents: featuredEvents,
       });
     })
     .catch((err) => {
@@ -432,9 +503,9 @@ exports.postaddEvent = (req, res, next) => {
   // price = Number(price.length === 0 ? "0" : price);
 };
 
-exports.getEvents = (req, res, next) => {
+exports.getEvents = async (req, res, next) => {
   const city = req.query.city;
-  Event.find({ city: city })
+  Event.find({ city: city, endDate: { $gt: new Date() } })
     .sort({ startDate: -1 })
     .then((rests) => {
       res.render("shop/view-events", {
@@ -505,7 +576,7 @@ exports.filterEvents = (req, res, next) => {
   if (req.body.Date) {
     Event.find(filters).then((result) => {
       res.render("shop/view-events", {
-        path: "/home",
+        path: "/view-events",
         pageTitle: "HomePage",
         Events: result,
         isUserAuthenticated: req.session.UserisLoggedin,
@@ -515,7 +586,7 @@ exports.filterEvents = (req, res, next) => {
   } else {
     Event.find(filters).then((result) => {
       res.render("shop/view-events", {
-        path: "/home",
+        path: "/view-events",
         pageTitle: "HomePage",
         Events: result,
         isUserAuthenticated: req.session.UserisLoggedin,
@@ -532,7 +603,7 @@ exports.getEventInfo = (req, res, next) => {
     .populate("OrganizerId")
     .then((rests) => {
       res.render("shop/event-info", {
-        path: "/home",
+        path: "/event-info",
         pageTitle: "EventInfo",
         Event: rests,
         isUserAuthenticated: req?.session?.UserisLoggedin || false,
@@ -546,7 +617,13 @@ exports.getEventInfo = (req, res, next) => {
     });
 };
 
-exports.searchRestaurant = (req, res, next) => {
+exports.searchRestaurant = async (req, res, next) => {
+  const user = await User.findById(req?.session?.user?._id);
+  const userWishlist = user?.wishlist.filter((result) => {
+    if (result.type === "Restaurant") {
+      return result.item;
+    }
+  });
   const value = req.body.result;
   const city = req.body.where === "all" ? null : req.body.where;
   if (city) {
@@ -557,6 +634,7 @@ exports.searchRestaurant = (req, res, next) => {
           Rests: result,
           path: "/Specifictype-restaurants",
           pageTitle: "Restaurants",
+          userWishlist: userWishlist?.length > 0 ? userWishlist : null,
         });
       })
       .catch((err) => {
@@ -571,6 +649,7 @@ exports.searchRestaurant = (req, res, next) => {
           Rests: result,
           path: "/Specifictype-restaurants",
           pageTitle: "Restaurants",
+          userWishlist: userWishlist?.length > 0 ? userWishlist : null,
         });
       })
       .catch((err) => {
@@ -581,7 +660,13 @@ exports.searchRestaurant = (req, res, next) => {
   // res.redirect("/");
 };
 
-exports.getExperiences = (req, res, next) => {
+exports.getExperiences = async (req, res, next) => {
+  const user = await User.findById(req?.session?.user?._id);
+  const userWishlist = user?.wishlist.filter((result) => {
+    if (result.type === "Experience") {
+      return result.item;
+    }
+  });
   let heritageAndCulture = [];
   let shopping = [];
   let sports = [];
@@ -665,6 +750,7 @@ exports.getExperiences = (req, res, next) => {
         heritageAndCulture: heritageAndCulture,
         sports: sports,
         recreation: recreation,
+        userWishlist: userWishlist?.length > 0 ? userWishlist : null,
       });
     })
     .catch((error) => {
@@ -882,14 +968,42 @@ exports.getCheckOutSuccess = async (req, res, next) => {
     });
 };
 
-exports.launchChatbot = (req, res, next) => {
+exports.launchChatbot = async (req, res, next) => {
   let question = req.body.question;
   question = question.toLowerCase(); // Assuming the question is sent in the request body
-  const response = helper.generateResponse(question);
+  const response = await helper.generateResponse(question);
+  console.log(response);
   if (response.lin) {
     let website = response.lin;
     let text = response.text;
     res.json({ text, website });
+  } else {
+    res.json({ response });
+  }
+};
+
+exports.launchRestaurantChatbot = async (req, res, next) => {
+  let question = req.body.question;
+  question = question.toLowerCase();
+  const user = req?.session?.user;
+  if (user && question.includes("recommend")) {
+    const response = await recommendSimilarRestaurants(user);
+    if (response.length > 0) {
+      let message = "Recommendations:\n";
+      response.forEach((name, index) => {
+        message += `${index + 1}. ${name}\n`;
+      });
+      return res.json({ response: message });
+    } else return res.json({ response: "No recommendations!" });
+  } else if (!user && question.includes("recommend")) {
+    return res.json({ response: "Please Sign in to Continue! " });
+  }
+
+  const response = await helper.generateResponseForRestaurants(question, user);
+  console.log(response);
+  if (response.text) {
+    let text = response.text;
+    res.json({ response: text });
   } else {
     res.json({ response });
   }
@@ -1076,6 +1190,12 @@ exports.termcondition = (req, res) => {
 };
 
 exports.viewAllCategoryExperiences = async (req, res) => {
+  const user = await User.findById(req?.session?.user?._id);
+  const userWishlist = user?.wishlist.filter((result) => {
+    if (result.type === "Experience") {
+      return result.item;
+    }
+  });
   try {
     req.query.type =
       req.query.type === "Heritage " ? "Heritage & Culture" : req.query.type;
@@ -1085,6 +1205,7 @@ exports.viewAllCategoryExperiences = async (req, res) => {
       path: "/things-to-to-experience",
       isUserAuthenticated: req.session.user,
       experiences: experiences,
+      userWishlist: userWishlist?.length > 0 ? userWishlist : null,
     });
   } catch (err) {
     console.log(err);
@@ -1105,6 +1226,12 @@ exports.viewSingleExperience = async (req, res) => {
 };
 
 exports.searchedExperiences = async (req, res) => {
+  const user = await User.findById(req?.session?.user?._id);
+  const userWishlist = user?.wishlist.filter((result) => {
+    if (result.type === "Experience") {
+      return result.item;
+    }
+  });
   const city = req.body.where[0];
   const category = req.body.where[1];
   console.log(req.body);
@@ -1115,6 +1242,7 @@ exports.searchedExperiences = async (req, res) => {
       path: "/things-to-to-experience",
       isUserAuthenticated: req.session.user,
       experiences: experience,
+      userWishlist: userWishlist?.length > 0 ? userWishlist : null,
     });
   } else if (city === "all") {
     const experience = await Experiences.find({ category: category });
@@ -1122,6 +1250,7 @@ exports.searchedExperiences = async (req, res) => {
       path: "/things-to-to-experience",
       isUserAuthenticated: req.session.user,
       experiences: experience,
+      userWishlist: userWishlist?.length > 0 ? userWishlist : null,
     });
   } else if (category === "all") {
     const experience = await Experiences.find({ city: city });
@@ -1129,6 +1258,7 @@ exports.searchedExperiences = async (req, res) => {
       path: "/things-to-to-experience",
       isUserAuthenticated: req.session.user,
       experiences: experience,
+      userWishlist: userWishlist?.length > 0 ? userWishlist : null,
     });
   } else {
     const experience = await Experiences.find({
@@ -1139,6 +1269,7 @@ exports.searchedExperiences = async (req, res) => {
       path: "/things-to-to-experience",
       isUserAuthenticated: req.session.user,
       experiences: experience,
+      userWishlist: userWishlist?.length > 0 ? userWishlist : null,
     });
   }
 };
@@ -1153,6 +1284,29 @@ exports.addToWishlist = async (req, res) => {
     await User.save();
     return res.json({ message: "ok", status: 200 });
   }
+};
+
+exports.geteventReviews = async (req, res) => {
+  const reviews = [];
+  const users = await Users.find();
+  for (let user of users) {
+    for (let review of user.Reviews) {
+      if (review.EventId.toString() === req.params.eventId) {
+        reviews.push({
+          name: user.name,
+          imageUrl: user?.imageUrl,
+          description: review.description,
+          rating: review.rating,
+        });
+      }
+    }
+  }
+
+  res.render("shop/event-Reviews", {
+    path: "/reviews",
+    isUserAuthenticated: req.session.user,
+    reviews: reviews,
+  });
 };
 
 exports.addRestaurantsViaApi = async (req, res, next) => {

@@ -57,10 +57,19 @@
   line-height: 1.3;
 }
 
-.explore-box-end p {
+.explore-box-end {
   line-height: 25px;
   text-align: justify;
   padding: 0.5em 1.2em 3em 1.2em;
+}
+
+.explore-box-end > div {
+  margin-bottom: 1rem;
+}
+
+.explore-box-end h1 {
+  margin-bottom: 2rem;
+  margin-top: 4rem;
 }
 
 .blog-box {

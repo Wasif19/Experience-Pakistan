@@ -620,3 +620,15 @@ footer img {
 .food-link {
   position: relative;
 }
+
+.heart {
+  position: absolute;
+  top: 6px;
+  right: 15px;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.red {
+  color: red;
+}

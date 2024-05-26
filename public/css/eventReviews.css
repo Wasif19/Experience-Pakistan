@@ -1,0 +1,51 @@
+.review-head {
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.review-head-title h2 {
+  margin-bottom: 0.65rem;
+}
+
+.review-head > img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.review-body {
+  margin-top: 1rem;
+}
+
+.reviews > * {
+  margin-top: 2rem;
+}
+
+.review-object {
+  border: 1px solid var(--primary-color);
+  padding: 1% 2%;
+  border-radius: 20px;
+  width: 48%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.reviews {
+  flex-wrap: wrap;
+}
+
+.review-body p {
+  text-align: justify;
+  line-height: 1.4;
+}
+.review-object:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+@media screen and (max-width: 768px) {
+  .review-object {
+    width: 100%;
+    padding: 3% 4%;
+  }
+}

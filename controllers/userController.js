@@ -14,6 +14,7 @@ const organizer = require("../models/Organizers");
 const cloudinary = require("../util/cloudinary");
 let isUpdated = false;
 let passwordError = false;
+let isRemoved = false;
 
 if (process.env.NODE_ENV !== "production") require("dotenv").config();
 const sgMail = require("@sendgrid/mail");
@@ -652,7 +653,26 @@ exports.getWishlist = async (req, res, next) => {
     path: "wishlist",
     pageTitle: "Wishlist",
     Wishlist: wishlists,
+    isRemoved: isRemoved,
   });
+
+  if (isRemoved) {
+    isRemoved = false;
+  }
+};
+
+exports.removeFromWishlist = async (req, res, next) => {
+  console.log(req.params);
+  const user = await User.findById(req.session.user._id);
+  let newWishlist = user.wishlist.filter((result) => {
+    if (result.item.toString() !== req.params.restId) {
+      return result;
+    }
+  });
+  user.wishlist = newWishlist;
+  isRemoved = true;
+  await user.save();
+  res.redirect("/user/wishlist");
 };
 
 getRecommendations = async (user) => {

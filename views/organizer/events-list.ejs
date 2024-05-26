@@ -44,7 +44,11 @@
           <% for (let event of Events) { %>
           <div class="card" data-aos="zoom-in-down">
             <div class="card-img">
-              <img src="/<%=event.imageUrl%>" alt="" />
+              <% if (event.imageUrl.includes("cloudinary")) { %>
+              <img src="<%= event.imageUrl%>" alt="Event Image" />
+              <% } else { %>
+              <img src="/<%= event.imageUrl %>" alt="Event Image" />
+              <% } %>
             </div>
 
             <div class="card-body">

@@ -33,7 +33,11 @@
     <main class="explore-body wrapper container">
       <div class="explore-box blog-box">
         <div class="explore-box-image">
-          <img src="/<%=Blog.imageUrl%>" alt="" />
+          <% if (Blog.imageUrl.includes("cloudinary")) { %>
+          <img src="<%= Blog.imageUrl %>" alt="Organizer Image" />
+          <% } else { %>
+          <img src="/<%= Blog.imageUrl %>" alt="Organizer Image" />
+          <% } %>
         </div>
         <div class="explore-box-desc">
           <h3><%=Blog.title%></h3>
@@ -43,9 +47,7 @@
             <%=Blog.createdAt.getDate() %>, <%=Blog.createdAt.getFullYear() %>
           </p>
         </div>
-        <div class="explore-box-end">
-          <p><%- Blog.description%></p>
-        </div>
+        <div class="explore-box-end"><%- Blog.description%></div>
       </div>
     </main>
 

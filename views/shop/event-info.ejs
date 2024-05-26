@@ -140,7 +140,11 @@
 
       <section class="selected event">
         <div class="event-img">
-          <img src="/<%= Event.imageUrl %>" alt="" />
+          <% if (Event?.imageUrl.includes("cloudinary")) { %>
+          <img src="<%= Event.imageUrl %>" alt="Artist Image" />
+          <% } else { %>
+          <img src="/<%= Event.imageUrl %>" alt="Artist Image" />
+          <% } %>
         </div>
 
         <div class="wrapper flex event-info">

@@ -1,3 +1,17 @@
+const Restaurants = require("../../models/Restaurants");
+
+const keywords = [
+  "suggest",
+  "recommend",
+  "good places",
+  "place",
+  "places",
+  "mention",
+  "nice restaurants",
+  "nice cafes",
+  "cafes",
+];
+
 function getMonthAbbreviation(monthNumber) {
   const months = [
     "Jan",
@@ -78,8 +92,84 @@ function generateResponse(question) {
   }
 }
 
+async function generateResponseForRestaurants(question) {
+  if (keywords.some((keyword) => question.toLowerCase().includes(keyword))) {
+    if (question.includes("lahore")) {
+      const Restaurant = await Restaurants.aggregate([
+        { $match: { city: "Lahore" } },
+        { $sample: { size: 5 } },
+      ]);
+
+      let filteredNames = [];
+      for (let rest of Restaurant) {
+        filteredNames.push(rest.name);
+      }
+      return filteredNames;
+    } else if (question.includes("islamabad")) {
+      const Restaurant = await Restaurants.aggregate([
+        { $match: { city: "Islamabad" } },
+        { $sample: { size: 5 } },
+      ]);
+
+      let filteredNames = [];
+      for (let rest of Restaurant) {
+        filteredNames.push(rest.name);
+      }
+      return filteredNames;
+    } else if (question.includes("karachi")) {
+      const Restaurant = await Restaurants.aggregate([
+        { $match: { city: "Karachi" } },
+        { $sample: { size: 5 } },
+      ]);
+
+      let filteredNames = [];
+      for (let rest of Restaurant) {
+        filteredNames.push(rest.name);
+      }
+      return filteredNames;
+    } else {
+      return {
+        text: "Please mention the city as well. ",
+      };
+    }
+  } else if (question === "hello" || question === "hey" || question === "hi") {
+    return "Hello, how can I help you?";
+  } else if (question.includes("cancel") || question.includes("refund")) {
+    return `For cancellation/refund of tickets, please call us at: +923081877779 or email us at: info@experiencepakistan.com. Thank you!`;
+  } else if (question.includes("aoa") || question.includes("assalam alaikum")) {
+    return `Walikum Asalam, how can I help you?`;
+  } else if (question === "best restaurants in islamabad") {
+    const isloo = await Restaurants.aggregate([
+      { $match: { rating: { $gte: 50 }, city: "Islamabad" } },
+      { $sample: { size: 5 } },
+    ]);
+
+    let filteredNames = [];
+    for (let rest of isloo) {
+      filteredNames.push(rest.name);
+    }
+    return filteredNames;
+  }
+  for (city of cities) {
+    if (question.includes(city)) {
+      return `We are coming to ${city} soon!`;
+    }
+  }
+  switch (question) {
+    case "how are you?":
+      return "I am fine, thank you!";
+    case "book a reservation":
+      return {
+        text: "Sorry, we don't provide this service right now.",
+      };
+    default:
+      return "Sorry, I couldn't understand.";
+  }
+}
+
 module.exports = {
   getMonthAbbreviation: getMonthAbbreviation,
   getMonthAbbreviation: getMonthAbbreviation,
   generateResponse: generateResponse,
+  generateResponseForRestaurants: generateResponseForRestaurants,
 };

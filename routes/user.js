@@ -164,5 +164,10 @@ userRoutes.get("/add-review/:eventId", userController.getAddReview);
 userRoutes.post("/add-review", userController.postAddReview);
 userRoutes.get("/ticket-details/:eventId", userController.getTicketDetails);
 userRoutes.get("/wishlist", isUserAuth, userController.getWishlist);
+userRoutes.get(
+  "/wishlist/remove-from-wishlist/:restId",
+  isUserAuth,
+  userController.removeFromWishlist
+);
 // userRoutes.get("/event-info/:eventId", userController.getEventInfo);
 // userRoutes.get("/r", isUserAuth, userController.getRecommendations);

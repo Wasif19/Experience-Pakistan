@@ -90,7 +90,11 @@
       <div class="slider-1 slider">
         <% for (let event of reviewedEvents) { %>
         <div>
-          <img src="/<%=event.imageUrl%>" alt="" />
+          <% if (event.imageUrl.includes("cloudinary")) { %>
+          <img src="<%= event.imageUrl %>" alt="Artist Image" />
+          <% } else { %>
+          <img src="/<%= event.imageUrl %>" alt="Artist Image" />
+          <% } %>
           <h3><%=event.name%></h3>
           <p><%=event.city%></p>
           <p>
@@ -127,7 +131,11 @@
       <div class="slider-1 slider">
         <% recommendations.forEach(function(recommendation) { %>
         <div>
+          <% if (recommendation.imageUrl.includes("cloudinary")) { %>
+          <img src="<%= recommendation.imageUrl %>" alt="" />
+          <% } else { %>
           <img src="/<%= recommendation.imageUrl %>" alt="" />
+          <% } %>
           <h3><%= recommendation.name %></h3>
           <p><%= recommendation.address %></p>
           <p>

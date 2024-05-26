@@ -185,7 +185,12 @@
                   <img src="<%= shopping.imageUrl[0] %>" alt="" />
                   <% } %>
                   <span class="heart">
-                    <i class="fa-solid fa-heart"></i>
+                    <% const isWishlisted = userWishlist?.some(wish => wish.type
+                    === 'Experience' && wish.item.toString() ===
+                    shopping._id.toString() ); %>
+                    <i
+                      class="fa-solid fa-heart <%= isWishlisted ? 'red' : '' %>"
+                    ></i>
                   </span>
                   <input
                     type="hidden"
@@ -248,7 +253,12 @@
                   <img src="<%= rec.imageUrl[0] %>" alt="" />
                   <% } %>
                   <span class="heart">
-                    <i class="fa-solid fa-heart"></i>
+                    <% const isWishlisted = userWishlist?.some(wish => wish.type
+                    === 'Experience' && wish.item.toString() ===
+                    rec._id.toString() ); %>
+                    <i
+                      class="fa-solid fa-heart <%= isWishlisted ? 'red' : '' %>"
+                    ></i>
                   </span>
                   <input
                     type="hidden"
@@ -313,7 +323,12 @@
                   <img src="<%= her.imageUrl[0] %>" alt="" />
                   <% } %>
                   <span class="heart">
-                    <i class="fa-solid fa-heart"></i>
+                    <% const isWishlisted = userWishlist?.some(wish => wish.type
+                    === 'Experience' && wish.item.toString() ===
+                    her._id.toString() ); %>
+                    <i
+                      class="fa-solid fa-heart <%= isWishlisted ? 'red' : '' %>"
+                    ></i>
                   </span>
                   <input
                     type="hidden"
@@ -375,7 +390,12 @@
                   <img src="<%= spo.imageUrl[0] %>" alt="" />
                   <% } %>
                   <span class="heart">
-                    <i class="fa-solid fa-heart"></i>
+                    <% const isWishlisted = userWishlist?.some(wish => wish.type
+                    === 'Experience' && wish.item.toString() ===
+                    spo._id.toString() ); %>
+                    <i
+                      class="fa-solid fa-heart <%= isWishlisted ? 'red' : '' %>"
+                    ></i>
                   </span>
                   <input
                     type="hidden"

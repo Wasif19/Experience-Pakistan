@@ -33,12 +33,30 @@
     <main class="title">
       <h2>Wishlist</h2>
 
+      <% if (isRemoved) { %>
+
+      <div
+        class="success-card green"
+        id="successCard"
+        style="margin-left: auto"
+      >
+        <span class="close-icon" onclick="closeCard()">&times;</span>
+        <p>Successfully Removed!</p>
+      </div>
+      <% } %>
+
       <section class="lists">
         <div class="lists-head flex-start">
           <i class="fa-solid fa-arrows-to-dot"></i>
           <h2>Food & Drinks</h2>
         </div>
-        <%if (Wishlist.length !== 0) { %>
+
+        <% let hasRestaurant = false; Wishlist.forEach(item => { if (item.type
+        === 'Restaurant') { hasRestaurant = true; } }); %>
+        <!--  -->
+
+        <!--  -->
+        <%if (hasRestaurant) { %>
         <div class="food-browses flex gap flex-wrap">
           <% Wishlist.forEach(rest => { %> <% if (rest.type === 'Restaurant') {
           %>
@@ -47,13 +65,19 @@
             class="food-link"
           >
             <div class="food-browse-box">
-              <img
-                src="/<%= rest.item.imageUrl[0] %>"
-                alt=" <%= rest.item.name %>"
-              />
+              <% if (rest.item.imageUrl[0].includes("cloudinary")) { %>
+              <img src="<%= rest.item.imageUrl[0] %>" alt="Artist Image" />
+              <% } else { %>
+              <img src="/<%= rest.item.imageUrl[0] %>" alt="Artist Image" />
+              <% } %>
 
               <span class="remove">
-                <i class="fa-solid fa-trash"></i>
+                <button
+                  class="delete-btns"
+                  onclick="window.location.href='/user/wishlist/remove-from-wishlist/<%=rest.item._id%>'"
+                >
+                  Remove from list
+                </button>
               </span>
 
               <input
@@ -90,7 +114,7 @@
           <% } }) %>
         </div>
 
-        <%}else {%>
+        <%} else {%>
         <div class="noRecord record-center">
           <h3>No Restaurant in Wishlist</h3>
           <img src="/images/NoRecord.png" alt="" />
@@ -98,21 +122,33 @@
         <%}%>
       </section>
 
+      <% let hasExperience = false; Wishlist.forEach(item => { if (item.type ===
+      'Experience') { hasExperience = true; } }); %>
+
       <section class="lists">
         <div class="lists-head flex-start">
           <i class="fa-solid fa-arrows-to-dot"></i>
           <h2>Experiences</h2>
         </div>
-        <%if (Wishlist.length !== 0) { %>
+        <%if (hasExperience) { %>
         <div class="food-browses flex gap flex-wrap">
           <% Wishlist.forEach(rest => { %> <% if (rest.type === 'Experience') {
           %>
           <a href="/experiences/see-more/<%=rest.item._id%>" class="food-link">
             <div class="food-browses-box">
-              <img src="/<%= rest.item.imageUrl[0] %>" alt="" />
+              <% if (rest.item.imageUrl[0].includes("cloudinary")) { %>
+              <img src="<%= rest.item.imageUrl[0] %>" alt="Artist Image" />
+              <% } else { %>
+              <img src="/<%= rest.item.imageUrl[0] %>" alt="Artist Image" />
+              <% } %>
 
               <span class="remove">
-                <i class="fa-solid fa-trash"></i>
+                <button
+                  class="delete-btns"
+                  onclick="window.location.href='/user/wishlist/remove-from-wishlist/<%=rest.item._id%>'"
+                >
+                  Remove from list
+                </button>
               </span>
               <div class="browses-box-detail">
                 <span><%= rest.item.city %></span>
@@ -178,6 +214,13 @@
           });
         });
       });
+    </script>
+
+    <script>
+      function closeCard() {
+        var successCard = document.getElementById("successCard");
+        successCard.style.display = "none";
+      }
     </script>
   </body>
 </html>

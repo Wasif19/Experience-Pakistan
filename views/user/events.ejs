@@ -74,7 +74,11 @@
         <%} %> <% for (let event of events) { %>
         <div class="event-list flex gap">
           <div class="event-image">
-            <img src="/<%=event.imageUrl%>" alt="" />
+            <% if (event.imageUrl.includes("cloudinary")) { %>
+            <img src="<%= event.imageUrl %>" alt="Artist Image" />
+            <% } else { %>
+            <img src="/<%= event.imageUrl %>" alt="Artist Image" />
+            <% } %>
           </div>
 
           <div class="event-detail">

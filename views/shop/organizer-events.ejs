@@ -40,7 +40,11 @@
         <div class="events-wrapper">
           <% if (Events.length > 0) { %> <% Events.forEach(event => { %>
           <div class="event-card">
-            <img src="/<%= event.imageUrl %>" alt="Event" />
+            <% if (event?.imageUrl.includes("cloudinary")) { %>
+            <img src="<%= event.imageUrl %>" alt="Artist Image" />
+            <% } else { %>
+            <img src="/<%= event.imageUrl %>" alt="Artist Image" />
+            <% } %>
             <div class="event-category"><%= event.eventType %></div>
             <div class="event-card-body">
               <h2><%= event.name %></h2>
@@ -51,6 +55,13 @@
                 onclick="window.location.href='/event-info/<%=event._id%>'"
               >
                 View Details
+              </button>
+              <% } %> <% if (new Date(event.startDate) < Date.now()) { %>
+              <button
+                class="review-btn"
+                onclick="window.location.href='/reviews/<%=event._id%>'"
+              >
+                View Reviews
               </button>
               <% } %>
             </div>

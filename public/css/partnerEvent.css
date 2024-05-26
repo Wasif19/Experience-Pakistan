@@ -105,3 +105,20 @@
 .next-btn {
   right: 20px; /* Adjust positioning */
 }
+
+.review-btn {
+  margin-top: 20px;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.5s;
+  margin-bottom: 1rem;
+  align-self: center;
+}
+
+.review-btn:hover {
+  background-color: var(--secondary-color);
+  color: black;
+}

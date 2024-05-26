@@ -65,7 +65,11 @@
         <section class="explore-body wrapper container">
           <div class="explore-box blog-box">
             <div class="explore-box-image">
-              <img src="/<%=Blog.imageUrl %>" alt="" />
+               <% if (Blog.imageUrl.includes("cloudinary")) { %>
+                    <img src="<%= Blog.imageUrl %>" alt="Organizer Image" />
+                    <% } else { %>
+                    <img src="/<%= Blog.imageUrl %>" alt="Organizer Image" />
+                    <% } %>
             </div>
             <div class="explore-box-desc">
               <h3><%= Blog.title %></h3>

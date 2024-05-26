@@ -47,6 +47,7 @@
               />
             </div>
             <%} %>
+
             <div class="food-browses flex gap flex-wrap">
               <% for (let experience of experiences) { %>
               <a
@@ -59,6 +60,16 @@
                   <% } else { %>
                   <img src="<%= experience.imageUrl[0] %>" alt="" />
                   <% } %>
+
+                  <span class="heart">
+                    <i class="fa-solid fa-heart"></i>
+                  </span>
+                  <input
+                    type="hidden"
+                    name="restaurantId"
+                    value="<%=experience._id%>"
+                  />
+
                   <div class="browses-box-detail">
                     <span><%=experience.city%></span>
                     <h3><%=experience.name%></h3>
@@ -101,5 +112,48 @@
     <!-- ----------------- Footer Section ---------------------- -->
 
     <%- include('../includes/footer.ejs') %>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const hearts = document.querySelectorAll(".heart");
+
+        hearts.forEach(function (heart) {
+          heart.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            const restaurantId = heart.parentElement.querySelector(
+              "input[name='restaurantId']"
+            ).value;
+
+            // Make AJAX request to backend API
+            fetch("/wishlist", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                eventId: restaurantId,
+                type: "Experience",
+              }),
+            })
+              .then(async (response) => {
+                const result = await response.json();
+                if (result.message === "failed") {
+                  window.location.href = "/user/login";
+                } else if (result.message === "delete") {
+                  heart.classList.remove("red");
+                } else if (response.ok) {
+                  heart.classList.add("red");
+                } else {
+                  console.error("Failed to add restaurant to wishlist");
+                }
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+          });
+        });
+      });
+    </script>
   </body>
 </html>

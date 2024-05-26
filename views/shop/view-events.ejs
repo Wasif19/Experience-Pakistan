@@ -74,13 +74,22 @@
                 Onwards
               </p>
 
-              <% if (new Date(Event.startDate) > Date.now()) { %>
+              <% if (new Date(Event.endDate) > Date.now()) { %>
               <a href="/event-info/<%=Event._id%>">View Details</a>
               <% } %>
             </div>
           </div>
         </div>
-        <% } %>
+        <% } %> <% if (Events.length == 0){%>
+        <div class="noRecord record-center" style="margin: auto">
+          <h2>No Events Avaiable !</h2>
+          <img
+            style="width: 250px"
+            src="/images/he_sitting_with_notebook.png"
+            alt=""
+          />
+        </div>
+        <%} %>
       </section>
     </main>
 
