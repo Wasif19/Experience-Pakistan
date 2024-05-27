@@ -9,10 +9,12 @@ const authRoutes = require("./routes/auth");
 const adminRoutes = require("./routes/admin");
 const userRoutes = require("./routes/user");
 const errorController = require("./controllers/errors");
+const cronController = require("./controllers/cronController");
 const organizerRoutes = require("./routes/organizer");
 const MongoDBstore = require("connect-mongodb-session")(session);
 const passport = require("passport");
 const compression = require("compression");
+const cron = require("node-cron");
 require("dotenv").config();
 
 const flash = require("connect-flash");
@@ -78,6 +80,13 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 //app.use(flash());
+
+// app.use(cronController.sendReminderEmails);
+
+app.use("/send-reminders", cronController.sendReminderEmails);
+cron.schedule("35 10 * * *", () => {
+  cronController.sendReminderEmails({}, {}, () => {});
+});
 
 app.use(customerRoutes);
 app.use(authRoutes);

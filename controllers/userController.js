@@ -337,6 +337,8 @@ exports.userVerified = (req, res, next) => {
 };
 
 exports.getUserDashboard = async (req, res, next) => {
+  const serverTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  console.log(`The server's timezone is: ${serverTimezone}`);
   const User = await Users.findById(req.session.user).populate("Tickets.Event");
   const recommendations = await getRecommendations(User);
   let eventTickets = [];
