@@ -322,11 +322,6 @@ exports.postresetPassword = (req, res, next) => {
               },
               templateId: process.env.TEMPLATE_ID,
               dynamicTemplateData: dynamicTemplateData,
-              // subject: "Password Reset",
-              // html: `
-              // <p>
-              // You Requested a password reset</p>
-              // <p>Click this <a href="http://experience-pakistan.onrender.com/user/newPassword/${token}">link</a> to set a new Password!</p>`, // sender email
             };
 
             // Send the email

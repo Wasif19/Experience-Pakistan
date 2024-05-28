@@ -1103,97 +1103,6 @@ exports.getAdminExperiences = (req, res, next) => {
 };
 
 exports.getAddExperiences = (req, res, next) => {
-  // const getLatestEvents = () => {
-  //   return Experience.aggregate([
-  //     // Sort events by date in descending order
-  //     { $group: { _id: "$category", category: { $push: "$$ROOT" } } }, // Group events by category
-  //     { $project: { experiences: { $slice: ["$category", 4] } } }, // Limit each category to 4 events
-  //     { $unwind: "$experiences" }, // Unwind the array to get individual events
-  //     { $replaceRoot: { newRoot: "$experiences" } }, // Replace the root with the events
-  //     { $limit: 16 }, // Limit the total number of events to 16
-  //   ]).exec(); // Use exec() to return a promise
-  // };
-
-  // let heritageAndCulture = [];
-  // let shopping = [];
-  // let sports = [];
-  // let recreation = [];
-  // const getLatestEvents = () => {
-  //   return Experience.aggregate([
-  //     // Group events by category
-  //     {
-  //       $group: {
-  //         _id: "$category",
-  //         category: { $push: "$$ROOT" },
-  //       },
-  //     },
-  //     // Add your own categories
-  //     {
-  //       $facet: {
-  //         heritageAndCulture: [
-  //           { $match: { _id: "Heritage & Culture" } },
-  //           { $project: { experiences: { $slice: ["$category", 4] } } },
-  //           { $unwind: "$experiences" },
-  //           { $replaceRoot: { newRoot: "$experiences" } },
-  //         ],
-  //         shopping: [
-  //           { $match: { _id: "Shopping" } },
-  //           { $project: { experiences: { $slice: ["$category", 4] } } },
-  //           { $unwind: "$experiences" },
-  //           { $replaceRoot: { newRoot: "$experiences" } },
-  //         ],
-  //         sports: [
-  //           { $match: { _id: "Sports" } },
-  //           { $project: { experiences: { $slice: ["$category", 4] } } },
-  //           { $unwind: "$experiences" },
-  //           { $replaceRoot: { newRoot: "$experiences" } },
-  //         ],
-  //         recreation: [
-  //           { $match: { _id: "Recreation" } },
-  //           { $project: { experiences: { $slice: ["$category", 4] } } },
-  //           { $unwind: "$experiences" },
-  //           { $replaceRoot: { newRoot: "$experiences" } },
-  //         ],
-  //       },
-  //     },
-  //     // Combine results from all categories
-  //     {
-  //       $project: {
-  //         experiences: {
-  //           $concatArrays: [
-  //             "$heritageAndCulture",
-  //             "$shopping",
-  //             "$sports",
-  //             "$recreation",
-  //           ],
-  //         },
-  //       },
-  //     },
-  //     { $unwind: "$experiences" }, // Unwind the array to get individual events
-  //     { $replaceRoot: { newRoot: "$experiences" } }, // Replace the root with the events
-  //     { $limit: 16 }, // Limit the total number of events to 16
-  //   ]).exec(); // Use exec() to return a promise
-  // };
-
-  // getLatestEvents()
-  //   .then((results) => {
-  //     for (let result of results) {
-  //       if (result.category === "Sports") {
-  //         sports.push(result);
-  //       } else if (result.category === "Recreation") {
-  //         recreation.push(result);
-  //       } else if (result.category === "Shopping") {
-  //         shopping.push(result);
-  //       } else {
-  //         heritageAndCulture.push(result);
-  //       }
-  //     }
-
-  //     res.redirect("/admin/admin-dashboard");
-  //   })
-  //   .catch((error) => {
-  //     console.error(error);
-  //   });
   res.render("admin/add-experience", {
     path: "/home",
     pageTitle: "Add an Experience",
@@ -1637,15 +1546,6 @@ exports.getAddAdmin = async (req, res, next) => {
 };
 
 exports.postAddAdmin = async (req, res, next) => {
-  // const suggestions = await Suggestions.find({ type: "Complaint" });
-
-  // res.render("admin/feedback-hub", {
-  //   path: "feedback",
-  //   admin: req.session.Admin,
-  //   Query: suggestions,
-  //   type: "Complaints",
-  // });
-
   if (req.body.password === req.body.cpassword) {
     const hashedPass = await bcrypt.hash(req.body.password, 12);
     const admin = new Admin({
@@ -1821,18 +1721,6 @@ exports.checkOrganizer = async (req, res, next) => {
         console.error(error);
       });
   }
-  // const organizer = await Organizer.find({ isVerified: false });
-  // const total = await Organizer.find({ isVerified: false }).countDocuments();
-  // // const text = convertHtmlToPlainText(blog.description);
-  // // console.log(text);
-  // res.render("admin/approve-organizers", {
-  //   admin: req.session.Admin,
-  //   Organizers: organizer,
-  //   path: "organizer",
-  //   total: total,
-  //   isApproved: isApproved,
-  //   isRejected: isRejected,
-  // });
 };
 
 exports.cancelTicket = async (req, res, next) => {
@@ -1859,9 +1747,6 @@ exports.addEventToFeatured = async (req, res, next) => {
   });
 
   res.redirect("/admin/admin-events");
-
-  // const text = convertHtmlToPlainText(blog.description);
-  // console.log(text);
 };
 
 exports.removeEventToFeatured = async (req, res, next) => {

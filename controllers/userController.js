@@ -40,13 +40,10 @@ exports.emailChecker = (req, res, next) => {
   const email = req.query.email;
   const verificationCode = String(Math.floor(10000 + Math.random() * 90000));
 
-  // Construct the dynamic template data
   const dynamicTemplateData = {
     verification_code_digits: verificationCode.split(""),
     name: name,
   };
-
-  // Construct the email
   const msg = {
     to: email, // recipient email
     from: {
@@ -753,22 +750,4 @@ getRecommendations = async (user) => {
   }
 };
 
-// exports.getEventInfo = async (req, res, next) => {
-//   const event = req.params.eventId;
 
-//   const events = await Tickets.findById(event).populate("eventId");
-//   const Organizer = await organizer.findById(events.eventId.OrganizerId);
-
-//   console.log(events);
-
-//   res.render("user/event-info", {
-//     path: "/home",
-//     pageTitle: "EventInfo",
-//     Event: events,
-//     Organizer: Organizer,
-//     isUserAuthenticated: req.session.UserisLoggedin,
-//     helper: helper,
-//     number: Organizer.number || "+923274791154",
-//     eventId: events.eventId._id,
-//   });
-// };

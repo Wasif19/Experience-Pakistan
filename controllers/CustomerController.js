@@ -489,18 +489,6 @@ exports.postaddEvent = (req, res, next) => {
       console.log(err);
     });
 
-  // Event.updateMany({}, { $unset: { Price: 1 } })
-  //   .then((response) => {
-  //     console.log(req.body);
-  //     res.redirect("/");
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-  // res.redirect("/");
-
-  // let price = req.body.standard;
-  // price = Number(price.length === 0 ? "0" : price);
 };
 
 exports.getEvents = async (req, res, next) => {
@@ -823,20 +811,7 @@ exports.getTicketContact = (req, res, next) => {
       });
     });
 
-  // Event.findById(req.params.eventId)
-  //   .populate("OrganizerId")
-  //   .then((event) => {
-  //     res.render("shop/ticket-detail", {
-  //       path: "/ticket-info",
-  //       pageTitle: "HomePage",
-  //       Event: event,
-  //       helper: helper,
-  //       number: event.OrganizerId.number || "+923274791154",
-  //     });
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
+  
 };
 
 exports.getTicketPayment = async (req, res, next) => {
@@ -1069,11 +1044,7 @@ exports.postSuggestions = async (req, res, next) => {
     console.log(err);
   }
 
-  // res.render("shop/suggestions", {
-  //   isUserAuthenticated: req.session.UserisLoggedin,
-  //   pageTitle: "Suggestions",
-  //   path: "/suggestions",
-  // });
+  
 };
 
 exports.complaints = (req, res, next) => {
@@ -1105,11 +1076,7 @@ exports.postComplaint = async (req, res, next) => {
     console.log(err);
   }
 
-  // res.render("shop/suggestions", {
-  //   isUserAuthenticated: req.session.UserisLoggedin,
-  //   pageTitle: "Suggestions",
-  //   path: "/suggestions",
-  // });
+
 };
 
 exports.postContact = async (req, res, next) => {
@@ -1134,11 +1101,7 @@ exports.postContact = async (req, res, next) => {
     console.log(err);
   }
 
-  // res.render("shop/suggestions", {
-  //   isUserAuthenticated: req.session.UserisLoggedin,
-  //   pageTitle: "Suggestions",
-  //   path: "/suggestions",
-  // });
+  
 };
 
 exports.faqs = (req, res) => {
@@ -1309,292 +1272,3 @@ exports.geteventReviews = async (req, res) => {
   });
 };
 
-exports.addRestaurantsViaApi = async (req, res, next) => {
-  const searchQueries = [
-    "Kolachi Restaurant, karachi",
-    " BBQ Tonight, karachi",
-    "Chef's Table, karachi",
-    "The Pakistani at Movenpick Hotel",
-    "Sakura karachi",
-    "okra karachi",
-    "Suzie Wong Restaurant",
-    "La Mamma Restaurant",
-    "Cote Rotie karachi",
-    "Kabab-Ji karachi",
-    "Café Flo karachi",
-    "Cafe Aylanto karachi",
-    "dynasty karachi",
-    "Ginsoy - Extreme Chinese",
-    "Chandni Restaurant karachi",
-    "Marco Polo karachi",
-    "Lotus Court karachi",
-    "Shaikh Abdul Ghaffar Kebab House",
-    "Nadia Cafe karachi",
-    "LalQila karachi",
-    "Pompei Italian Restaurant Karachi",
-    "East End karachi",
-    "Xander's karachi",
-    "Al Bustan karachi",
-    "Jason's Steak House karachi",
-    "Beach Luxury Hotel karachi",
-    "Boat Basin Restaurants",
-    "N'eco's Natural Store & Cafe",
-    "Tao karachi",
-    "Ammos karachi",
-    "Kababjees karachi",
-    "Arizona Grill karachi",
-    "Chatterbox karachi",
-    "Rajdhani Delights",
-    "Fuchsia karachi",
-    "Mirchili karachi",
-    "Chop Chop Wok karachi",
-    "Chai Wala karachi",
-    "Evergreen karachi",
-    "Nando's karachi",
-    "Mandi al khaleej",
-    "Avari Towers, Fujiyama Restaurant",
-    "Zamir Ansari Kabab",
-    "SteaK_CFU",
-    "Pantry karachi",
-    "Cocochan karachi",
-    "Cafe Zouk karachi",
-    "Bella Vita karachi",
-    "The Patio karachi",
-    "loco karachi",
-    "Mandi House karachi",
-    "Koel Cafe karachi",
-    "Jardin karachi",
-    "Ginsoy LIVE",
-    "Rowtisserie karachi",
-    "Ridan House of Mandi",
-    "Shaheen Shinwari karachi",
-    "Sizzlerz Café & Grill",
-    "Xian Oriental Chinese",
-    "P.F Chang’s karachi",
-    "Paramount Fine Foods karachi",
-    "Waagmaa The Doner Kebab",
-    "Zeytin karachi",
-    "Cafe Zee karachi",
-    "Biryani of the Seas karachi",
-    "Alvigha Food",
-    "Sultan The Royal Eatery",
-    "Cosmopolitan karachi",
-    "Tai Pan karachi",
-    "Karachi Broast",
-    "The Deli karachi",
-    "Sobremesa",
-    "Silver Spoon karachi",
-    "Kanteen karachi",
-    "Marcel’s karachi",
-    "Cafe Sino karachi",
-    "Lale-i Rumi karachi",
-    "POMO Neapolitan Pizzeria",
-    "D'alma",
-    "The Kababist karachi",
-    "Famous O's Pizza karachi",
-    "Ghousia Nalli Biryan",
-    "Makotoya - The Organic Japanese Cafe",
-    "Bella Vita",
-    "La Tou'hoe karachi",
-    "Coffee Wagera - Clifton",
-    "Caffe Praha",
-    "Desi Gali Express karachi",
-    "Momos Junction By Mahnoor",
-  ];
-  const category = "restaurants";
-  for (let search of searchQueries) {
-    let locationId = [];
-
-    const url = `https://api.content.tripadvisor.com/api/v1/location/search?key=574C843212364CE1BA1268353F823768&searchQuery=${search}&category=${category}&language=en`;
-    const options = { method: "GET", headers: { accept: "application/json" } };
-
-    await fetch(url, options)
-      .then((res) => res.json())
-      .then((json) => {
-        // for (let data of json.data) {
-        //   locationId.push(data.location_id);
-        // }
-        locationId.push(json.data[0].location_id);
-      })
-      .catch((err) => console.error("error:" + err));
-
-    console.log(locationId.length);
-
-    for (let id = 0; id < locationId.length; id++) {
-      console.log("yes");
-      const url = `https://api.content.tripadvisor.com/api/v1/location/${locationId[id]}/details?language=en&currency=USD&key=574C843212364CE1BA1268353F823768`;
-      const options = {
-        method: "GET",
-        headers: { accept: "application/json" },
-      };
-
-      const response = await fetch(url, options);
-      const json = await response.json();
-
-      const imageUrlData = `https://api.content.tripadvisor.com/api/v1/location/${locationId[id]}/photos?language=en&key=574C843212364CE1BA1268353F823768`;
-      const imageOptions = {
-        method: "GET",
-        headers: { accept: "application/json" },
-      };
-
-      const imageResponse = await fetch(imageUrlData, imageOptions);
-      const imageJson = await imageResponse.json();
-      const imageData = imageJson.data;
-      let imageArray = [];
-      for (let i = 0; i < imageData.length; i++) {
-        if (i === 3) {
-          break;
-        }
-        imageArray.push(
-          imageData[i].images?.original?.url || imageData[i].images.large.url
-        );
-      }
-
-      console.log(imageArray, "The image array");
-
-      const Rest = new Restaurant({
-        name: json.name,
-        description: json?.description || "A very nice restaurant",
-        rating: json.num_reviews,
-        restaurantType: "Fine Dining",
-        city: json.address_obj.city,
-        PhoneNumber: json.phone || "0517822131",
-        address: json.address_obj.address_string,
-        cuisine: ["Continental", "Italian"],
-        ratingPicture: json.rating_image_url,
-        imageUrl: imageArray,
-      });
-      await Rest.save();
-      console.log("rest saved!");
-    }
-  }
-
-  res.redirect("/");
-};
-
-exports.addExperiencesViaApi = async (req, res, next) => {
-  const searchQueries = [
-    "Sindbad Amusement Park",
-    "Hill Park, Karachi",
-    "Chunky Monkey, Karachi",
-    "Super Space, Karachi",
-    "Bahria Adventure Land Theme Park",
-    "Dream World, Karachi",
-    "The great fiesta family water park, karachi",
-    "Wild venture water park and resort, karachi",
-    "Dolmen Mall Clifton",
-    "Port Grand Pakistan, karachi",
-    "Lucky one mall, karachi",
-    "Park towers, karachi",
-    "Atrium Mall And Cinema, karachi",
-    "Emerald Tower, Karachi",
-    "Millenium Mall, karachi",
-    "Artciti, Karachi",
-    "VM art gallery, karachi",
-    "Chawkandi Gallery, karachi",
-    "Frere Hall, karachi",
-    "Clifton Beach, karachi",
-    "Devils Point karachi",
-    "Mohatta Palace Museum, karachi",
-    "PAF Museum karachi",
-    "Mazar e Quaid karachi",
-    "TDF Ghar karachi",
-    "Empress Market, karachi",
-    "TDF MagnifiScience Centre",
-    "Churna Island Karachi",
-    "Pakistan Maritime Museum",
-    "Tooba Mosque Karachi",
-    "Bin Qasim Park Clifton",
-    "Three Swords Monument karachi",
-    "Seaview Park karachi",
-    "Koel Gallery karachi",
-    "National Academy of Performing Arts",
-    "Chaukhandi Tombs karachi",
-    "Danzoo Day And Night Zoo",
-    "Nueplex Cinemas",
-    "The Place karachi",
-    "Kidz Dunya karachi",
-    "Jehangir's Tomb & Kamran's Baradari Pavilion",
-    "Walled City of Lahore Authority",
-    "Fort and Shalamar Gardens",
-    "Food Street Fort Road",
-    "Delhi Gate Lahore",
-    "Gulshan-e-Iqbal Park Lahore",
-    "Amanah Mall",
-    "Joyland Lahore",
-    "The Mall of Lahore",
-    "Alamgiri Gate",
-    "Jallo Park, Lahore",
-    "Fun Factory Park by Nishat Group",
-    "Lahore Garrison Shooting Gallery",
-    "Sports360 lahore",
-  ];
-  const category = "attractions";
-  for (let search of searchQueries) {
-    let locationId = [];
-
-    const url = `https://api.content.tripadvisor.com/api/v1/location/search?key=574C843212364CE1BA1268353F823768&searchQuery=${search}&category=${category}&language=en`;
-    const options = { method: "GET", headers: { accept: "application/json" } };
-
-    await fetch(url, options)
-      .then((res) => res.json())
-      .then((json) => {
-        // for (let data of json.data) {
-        //   locationId.push(data.location_id);
-        // }
-        locationId.push(json.data[0].location_id);
-      })
-      .catch((err) => console.error("error:" + err));
-
-    console.log(locationId.length);
-
-    for (let id = 0; id < locationId.length; id++) {
-      console.log("yes");
-      const url = `https://api.content.tripadvisor.com/api/v1/location/${locationId[id]}/details?language=en&currency=USD&key=574C843212364CE1BA1268353F823768`;
-      const options = {
-        method: "GET",
-        headers: { accept: "application/json" },
-      };
-
-      const response = await fetch(url, options);
-      const json = await response.json();
-
-      const imageUrlData = `https://api.content.tripadvisor.com/api/v1/location/${locationId[id]}/photos?language=en&key=574C843212364CE1BA1268353F823768`;
-      const imageOptions = {
-        method: "GET",
-        headers: { accept: "application/json" },
-      };
-
-      const imageResponse = await fetch(imageUrlData, imageOptions);
-      const imageJson = await imageResponse.json();
-      const imageData = imageJson.data;
-      let imageArray = [];
-      for (let i = 0; i < imageData.length; i++) {
-        if (i === 3) {
-          break;
-        }
-        imageArray.push(
-          imageData[i].images?.original?.url || imageData[i].images.large.url
-        );
-      }
-
-      console.log(imageArray, "The image array");
-
-      const experience = new Experiences({
-        name: json.name,
-        description: json?.description || "A very nice place to visit",
-        rating: json.num_reviews,
-        category: "Shopping",
-        city: json.address_obj.city,
-        number: json.phone || "0517822131",
-        address: json.address_obj.address_string,
-        ratingPicture: json.rating_image_url,
-        imageUrl: imageArray,
-      });
-      await experience.save();
-      console.log("Experience saved!");
-    }
-  }
-
-  res.redirect("/");
-};
