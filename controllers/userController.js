@@ -601,11 +601,9 @@ exports.postUpdateUserPasswordData = (req, res, next) => {
 };
 
 exports.getReviews = async (req, res, next) => {
-  console.log(req.session.user);
   const user = await User.findById(req.session.user._id).populate(
     "Reviews.EventId"
   );
-  console.log("The reviews are", user.Reviews);
   res.render("user/reviews", {
     path: "/review",
     reviews: user.Reviews,
@@ -749,5 +747,3 @@ getRecommendations = async (user) => {
     console.log(err);
   }
 };
-
-

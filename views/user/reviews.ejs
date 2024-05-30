@@ -43,12 +43,11 @@
         <% reviews.forEach(review => { %>
         <div class="ticket-list ticket-info flex gap review-fix">
           <div class="event-image review-img">
-            <% if(review.EventId.imageUrl) { %> <% if
-            review.EventId.imageUrl.includes("cloudinary")) { %>
+            <% if (review.EventId.imageUrl.includes("cloudinary")) { %>
             <img src="<%= review.EventId.imageUrl %>" alt="User Image" />
             <% } else { %>
             <img src="/<%= review.EventId.imageUrl %>" alt="User Image" />
-            <% } }%>
+            <% } %>
           </div>
 
           <div class="event-detail review-detail">
