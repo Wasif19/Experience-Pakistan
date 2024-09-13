@@ -97,7 +97,7 @@ app.use(errorController.get404);
 
 mongoose
   .connect(
-    `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster1.mkw6cpt.mongodb.net/${process.env.MONGO_DATABASE}`
+    `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster1.mkw6cpt.mongodb.net/ExperiencePakistan`
   )
   .then((result) => {
     console.log("Database Connected!");
